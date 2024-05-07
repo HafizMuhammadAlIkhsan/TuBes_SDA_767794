@@ -1,30 +1,55 @@
 #ifndef header
+#define header
 
-#include<stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 
-using namespace std;
+typedef address *address;       // bisa diedit 
+typedef char* infotype;
 
-typedef address *address;
-
-/*untuk barang dan kategori*/
+/* untuk barang dan kategori (struktur data tree) */
+typedef struct barang *addrBar;
 typedef struct barang
 {
-    char name;
+    infotype nama;
     int harga;
     int jumlah;
-    address fs, nb, pr;
-};
+    addrBar fs, nb, pr;
+} barang;
 
-/*transaksi saat barang keluar*/
+/* transaksi saat barang keluar */
 typedef struct transaksi
 {
-    char name;
+    infotype nama;
     int harga;
     int jumlah;
-    address next,prev;
-};
+    address next, prev;
+} transaksi;
 
+/* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
+typedef struct kasir *addrKas;
+typedef struct kasir           
+{
+    infotype nama = "0"; 
+    addrKas next = NULL;
+    addrKas akhir = NULL;  
+} kasir;
+
+/* pembeli yang memesan barang */
+typedef struct pembeli *addrPem;
+typedef struct pembeli           
+{
+    infotype bb;
+    addrPem next;
+} pembeli;
+
+/* barang yang dipesam oleh pembeli */
+typedef struct dibeli *addrBel;
+typedef struct dibeli
+{
+    infotype namBar;
+    addrBel nextBar;
+};
 
 void create_barang();
 void kasir();
@@ -32,6 +57,6 @@ void barang_masuk();
 void mencari_barang();
 void Edit_info();
 void tampilkan_barang();
-void menghitung_Barang();
+void Total_barang();
 
 #endif
