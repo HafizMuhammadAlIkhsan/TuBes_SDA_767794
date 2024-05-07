@@ -38,7 +38,8 @@ typedef struct pembeli
 typedef struct dibeli *addrBel;
 typedef struct dibeli
 {
-    infotype namBar;
+    addrBar namBar;
+    int jumlah;
     addrBel nextBar;
 };
 
