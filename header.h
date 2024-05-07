@@ -16,6 +16,10 @@ typedef struct barang
     addrBar fs, nb, pr;
 } barang;
 
+struct gudang {
+    addrBar root;
+};
+
 /* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
 typedef struct kasir *addrKas;
 typedef struct kasir           
@@ -50,5 +54,9 @@ void mencari_barang();
 void Edit_info();
 void tampilkan_barang();
 void Total_barang();
+
+addrBar insertGudang(addrBar *root, addrBar pr, infotype nilai);
+addrBar searchGudang(addrBar pr, infotype nilai);
+void tampilkanIsiGudang(addrBar node, char* tab);
 
 #endif
