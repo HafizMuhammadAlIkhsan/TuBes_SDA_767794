@@ -43,12 +43,4 @@ typedef struct dibeli
     addrBel nextBar;
 };
 
-void create_barang();
-void kasir();
-void barang_masuk();
-void mencari_barang();
-void Edit_info();
-void tampilkan_barang();
-void Total_barang();
-
 #endif
