@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef address *address;       // bisa diedit 
 typedef char* infotype;
 
 /* untuk barang dan kategori (struktur data tree) */
@@ -16,15 +15,6 @@ typedef struct barang
     int jumlah;
     addrBar fs, nb, pr;
 } barang;
-
-/* transaksi saat barang keluar */
-typedef struct transaksi
-{
-    infotype nama;
-    int harga;
-    int jumlah;
-    address next, prev;
-} transaksi;
 
 /* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
 typedef struct kasir *addrKas;
@@ -40,7 +30,7 @@ typedef struct pembeli *addrPem;
 typedef struct pembeli           
 {
     infotype nama;
-    addrBel bb;
+    addrBel barBel;
     addrPem next;
 } pembeli;
 
