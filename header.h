@@ -39,7 +39,8 @@ typedef struct kasir
 typedef struct pembeli *addrPem;
 typedef struct pembeli           
 {
-    infotype bb;
+    infotype nama;
+    addrBel bb;
     addrPem next;
 } pembeli;
 
