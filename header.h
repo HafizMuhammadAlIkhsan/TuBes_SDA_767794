@@ -16,6 +16,10 @@ typedef struct barang
     addrBar fs, nb, pr;
 } barang;
 
+struct gudang {
+    addrBar root;
+};
+
 /* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
 typedef struct kasir *addrKas;
 typedef struct kasir           
