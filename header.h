@@ -43,4 +43,8 @@ typedef struct dibeli
     addrBel nextBar;
 };
 
+void tampilSubKategori (addrBar nama);
+void beliBarang (addrPem pembeli, addrBel barang);
+addrBar searchGudang (infotype nilai);
+
 #endif
