@@ -4,6 +4,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define nama(P) (P)->nama 
+#define pr(P) (P)->pr
+#define fs(P) (P)->fs
+#define nb(P) (P)->nb
+#define root(P) (P)->root
+
 typedef char* infotype;
 
 /* untuk barang dan kategori (struktur data tree) */
@@ -15,6 +21,10 @@ typedef struct barang
     int jumlah;
     addrBar fs, nb, pr;
 } barang;
+
+struct rootToko {
+	addrBar root;	// Toko
+};
 
 /* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
 typedef struct kasir *addrKas;
@@ -43,8 +53,17 @@ typedef struct dibeli
     addrBel nextBar;
 };
 
+/* Membuat nama dari Toko */
+void createTree(rootToko *x);
+
+/* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilSubKategori (addrBar nama);
+
+/* Modul yang digunakan untuk membuat LL berupa barang yang dibeli oleh pembeli */
 void beliBarang (addrPem pembeli, addrBel barang);
-addrBar searchGudang (infotype nilai);
+
+/* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
+addrBar searchGudang (addrBar root, infotype cariGudang);
+// variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
 
 #endif
