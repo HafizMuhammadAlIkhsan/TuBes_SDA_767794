@@ -22,8 +22,8 @@ typedef struct barang
     addrBar fs, nb, pr;
 } barang;
 
-struct rootToko {
-	addrBar root;	// Toko
+struct gudang {
+    addrBar root;
 };
 
 /* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
@@ -54,7 +54,7 @@ typedef struct dibeli
 };
 
 /* Membuat nama dari Toko */
-void createTree(rootToko *x);
+void createTree(gudang *x);
 
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilSubKategori (addrBar nama);

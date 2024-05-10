@@ -1,6 +1,6 @@
 #include "header.h"
 
-void createTree(rootToko *x)
+void createTree(gudang *x)
 {
     (*x).root = NULL;
 }
