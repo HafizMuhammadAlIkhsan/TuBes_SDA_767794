@@ -30,7 +30,7 @@ struct gudang {
 typedef struct kasir *addrKas;
 typedef struct kasir           
 {
-    infotype nama = "0"; 
+    infotype nama; 
     addrKas next = NULL;
     addrKas akhir = NULL;  
 } kasir;
