@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 typedef char* infotype;
 
@@ -24,19 +25,10 @@ struct gudang {
 typedef struct kasir *addrKas;
 typedef struct kasir           
 {
-    infotype nama = "0"; 
+    infotype nama; 
     addrKas next = NULL;
     addrKas akhir = NULL;  
 } kasir;
-
-/* pembeli yang memesan barang */
-typedef struct pembeli *addrPem;
-typedef struct pembeli           
-{
-    infotype nama;
-    addrBel barBel;
-    addrPem next;
-} pembeli;
 
 /* barang yang dipesam oleh pembeli */
 typedef struct dibeli *addrBel;
@@ -47,16 +39,18 @@ typedef struct dibeli
     addrBel nextBar;
 };
 
-void create_barang();
-void kasir();
-void barang_masuk();
-void mencari_barang();
-void Edit_info();
-void tampilkan_barang();
-void Total_barang();
+/* pembeli yang memesan barang */
+typedef struct pembeli *addrPem;
+typedef struct pembeli           
+{
+    infotype nama;
+    addrBel barBel;
+    addrPem next;
+} pembeli;
 
-addrBar insertGudang(addrBar *root, addrBar pr, infotype nilai);
-addrBar searchGudang(addrBar pr, infotype nilai);
-void tampilkanIsiGudang(addrBar node, char* tab);
+void buatGudang(gudang *root);
+addrBar alokBarang(infotype nama, int harga);
+addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga);
+void tampilkanGudang(addrBar node, int i);
 
 #endif
