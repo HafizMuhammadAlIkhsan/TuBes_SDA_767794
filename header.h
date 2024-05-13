@@ -5,7 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#define nama(P) (P)->nama 
+#define nama(P) (P)->nama
+#define harga(P) (P)->harga
+#define jumlah(P) (P)->jumlah
 #define pr(P) (P)->pr
 #define fs(P) (P)->fs
 #define nb(P) (P)->nb
