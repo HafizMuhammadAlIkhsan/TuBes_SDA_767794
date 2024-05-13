@@ -5,21 +5,101 @@ void createTree(gudang *x)
     (*x).root = NULL;
 }
 
-void tampilSubKategori (addrBar nama)
+addrBar alokBarang(infotype nama, int harga)
 {
+    addrBar p;
+    // Alokasi memori untuk struct barang
+    p = (addrBar)malloc(sizeof(barang));
+    if (p == NULL)
+    {
+        printf("Memori sudah penuh\n");
+    }
+    else
+    {
+        nama(p) = (infotype)malloc(strlen(nama) + 1);
+        if (nama(p) == NULL)
+        {
+            printf("Memori sudah penuh\n");
+        }
 
+        // Salin nama barang
+        strcpy(nama(p), nama);
+
+        harga(p) = harga;
+        jumlah(p) = 0;
+        fs(p) = NULL;
+        nb(p) = NULL;
+        pr(p) = NULL;
+    }
+    return p;
 }
 
-void beliBarang (addrPem pembeli, addrBel barang)
+addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
 {
+    addrBar p, q;
 
+    p = alokBarang(nama, harga);
+    if (p != NULL)
+    {
+        if (pr == NULL)
+        {
+            root(root) = p;
+        }
+        else
+        {
+            if (fs(pr) == NULL)
+            {
+                fs(pr) = p;
+                pr(p) = pr;
+            }
+            else
+            {
+                q = fs(pr);
+                while (nb(q) != NULL)
+                {
+                    q = nb(q);
+                }
+
+                nb(q) = p;
+                pr(p) = pr;
+            }
+        }
+    }
 }
 
-addrBar searchGudang (addrBar root, infotype cariGudang)
+void tampilSubKategori(addrBar root, int level, int i)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    addrBar current = root->fs;
+    while (current != NULL)
+    {
+        if (level == 1)
+        {
+            printf("%d. %s \n", i, nama(current));
+        }
+        else
+        {
+            tampilSubKategori(current, level - 1, i);
+            i++;
+        }
+        current = nb(current);
+        i++;
+    }
+}
+
+void beliBarang(addrPem pembeli, addrBel barang)
+{
+    
+}
+
+addrBar searchGudang(addrBar root, char cariGudang[])
 {
     addrBar p = root;
     bool resmi = true;
-    if (nama(p) == cariGudang)
+    if (strcasecmp(nama(p), cariGudang) == 0)
     {
         return p;
     }
@@ -28,7 +108,7 @@ addrBar searchGudang (addrBar root, infotype cariGudang)
         if (fs(p) != NULL && resmi)
         {
             p = fs(p);
-            if (nama(p) == cariGudang)
+            if (strcasecmp(nama(p), cariGudang) == 0)
             {
                 return p;
             }
@@ -36,7 +116,7 @@ addrBar searchGudang (addrBar root, infotype cariGudang)
         else if (nb(p) != NULL)
         {
             p = nb(p);
-            if (nama(p) == cariGudang)
+            if (strcasecmp(nama(p), cariGudang) == 0)
             {
                 return p;
             }
