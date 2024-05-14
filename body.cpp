@@ -68,14 +68,11 @@ addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
     return p;
 }
 
-
-
 void tampilkanGudang(addrBar node, int i)
 {
     int j = 0;
     j = i;
     j++;
-    //printf("%d\n", i);
     if (node != NULL)
     {
         if (i == 0)
@@ -124,8 +121,6 @@ void tampilkanKategori(addrBar node,int level,int i)
         current = current->nb;
         i++;
     }   
-    
-    
 }
 
 void tampilSubKategori(addrBar node, int level, int i)
@@ -194,12 +189,45 @@ void kurangistock(addrBar root, char carigudang[])
     {
         return;
     }
-
-    
 }
-void beliBarang(addrPem pembeli, addrBel barang)
+
+addrBel alokBarBel(gudang root, infotype nama, int jumlah)
 {
+    addrBel p;
+    p = (addrBel)malloc(sizeof(dibeli));
+    if (p == NULL)
+    {
+        printf("Memori sudah penuh\n");
+    }
+    else
+    {
+        if (namBar(p) == NULL)
+        {
+            printf("Memori sudah penuh\n");
+        }
+        namBar(p) = searchGudang(root.root,nama);
+        jumlah(p) = jumlah;
+        nextBar(p) = NULL;
+    }
+    return p;
+}
+
+addrBel insertBarBel(gudang root, infotype nama, int usia, addrBel *awal, addrBel *akhir, int jumlah)
+{
+    addrBel p;
+    p = alokBarBel(root, nama, jumlah);
+
+    if (*awal == NULL && *akhir == NULL)
+    {
+        *awal = p;
+    }
+    else
+    {
+        nextBar(*akhir) = p;
+    }
+    *akhir = p;
     
+    return p;
 }
 
 addrBar searchGudang(addrBar root, char cariGudang[])
