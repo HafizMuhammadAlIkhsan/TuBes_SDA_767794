@@ -85,17 +85,17 @@ void tampilkanGudang(addrBar node, int i)
         else if (i == 1)
         {
 
-            printf("Kategori: %s\n", node->nama);
+            printf("Kategori: %s [Jumlah: %d]\n", node->nama, node->jumlah);
         }
         else if (i == 2)
         {
 
-            printf(" Sub Kategori: %s (%d)\n", node->nama, node->jumlah);
+            printf(" Sub Kategori: %s [Jumlah: %d]\n", node->nama, node->jumlah);
         }
         else
         {
 
-            printf("  -%s (%d)\n : Rp.%d ", node->nama, node->jumlah, node->harga);
+            printf("  -%s : Rp.%d [Jumlah: %d]\n", node->nama, node->harga, node->jumlah);
         }
         tampilkanGudang(node->fs, j);
         tampilkanGudang(node->nb, i);
