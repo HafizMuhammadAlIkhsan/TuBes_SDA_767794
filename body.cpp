@@ -65,6 +65,7 @@ addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
             }
         }
     }
+    return p;
 }
 
 void tampilkanGudang(addrBar node, int i)
