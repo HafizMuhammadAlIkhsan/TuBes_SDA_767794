@@ -32,4 +32,12 @@ int main()
     system("cls");
     puts("Sub Kategori");
     tampilSubKategori(root.root, level, i);
+    tampilkanGudang(root.root, 0);
+
+    puts("Menu kasir");
+    puts("1. Lihat Kategori");
+    puts("2. Lihat Subkategori");
+    puts("3. Lihat Barang");
+    puts("4. Beli Barang");
+    puts("5. Lihat Barang");
 }

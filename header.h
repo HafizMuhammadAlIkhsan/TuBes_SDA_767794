@@ -63,6 +63,8 @@ addrBar alokBarang(infotype nama, int harga);
 
 addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga);
 
+void tampilkanGudang(addrBar node, int i);
+
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilSubKategori(addrBar nama, int level, int i);
 

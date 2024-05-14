@@ -67,13 +67,45 @@ addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
     }
 }
 
+void tampilkanGudang(addrBar node, int i)
+{
+    int j = 0;
+    j = i;
+    j++;
+    //printf("%d\n", i);
+    if (node != NULL)
+    {
+        if (i == 0)
+        {
+            printf("%s\n", node->nama);
+        }
+        else if (i == 1)
+        {
+
+            printf("Kategori: %s\n", node->nama);
+        }
+        else if (i == 2)
+        {
+
+            printf(" Sub Kategori: %s\n", node->nama);
+        }
+        else
+        {
+
+            printf("  -%s: Rp.%d\n", node->nama, node->harga);
+        }
+        tampilkanGudang(node->fs, j);
+        tampilkanGudang(node->nb, i);
+    }
+}
+
 void tampilSubKategori(addrBar root, int level, int i)
 {
+    addrBar current = fs(root);
     if (root == NULL)
     {
         return;
     }
-    addrBar current = root->fs;
     while (current != NULL)
     {
         if (level == 1)
