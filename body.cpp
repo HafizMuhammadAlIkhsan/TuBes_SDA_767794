@@ -68,15 +68,7 @@ addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
     return p;
 }
 
-void tambahstock()
-{
 
-}
-
-void kurangistock()
-{
-
-}
 
 void tampilkanGudang(addrBar node, int i)
 {
@@ -98,23 +90,23 @@ void tampilkanGudang(addrBar node, int i)
         else if (i == 2)
         {
 
-            printf(" Sub Kategori: %s\n", node->nama);
+            printf(" Sub Kategori: %s (%d)\n", node->nama, node->jumlah);
         }
         else
         {
 
-            printf("  -%s: Rp.%d\n", node->nama, node->harga);
+            printf("  -%s (%d)\n : Rp.%d ", node->nama, node->jumlah, node->harga);
         }
         tampilkanGudang(node->fs, j);
         tampilkanGudang(node->nb, i);
     }
 }
 
-void tampilkanKategori(addrBar root,int level,int i) 
+void tampilkanKategori(addrBar node,int level,int i) 
 {
     addrBar current;
-    current = root->fs;
-    if (root == NULL)
+    current = node->fs;
+    if (node == NULL)
     {
         return;
     }
@@ -136,10 +128,10 @@ void tampilkanKategori(addrBar root,int level,int i)
     
 }
 
-void tampilSubKategori(addrBar root, int level, int i)
+void tampilSubKategori(addrBar node, int level, int i)
 {
-    addrBar current = fs(root);
-    if (root == NULL)
+    addrBar current = fs(node);
+    if (node == NULL)
     {
         return;
     }
@@ -159,6 +151,50 @@ void tampilSubKategori(addrBar root, int level, int i)
     }
 }
 
+/*Membenarkan jumlah barang di kategori dan subkategori*/
+void kalibrasi()
+{
+
+}
+
+void tambahstock(addrBar root, char carigudang[])
+{
+    searchGudang(root, carigudang);
+    addrBar current;
+    int jumlah;
+    current = searchGudang(root, carigudang);
+    if (current != NULL)
+    {
+        printf("Masukan Jumlah Barang = ");
+        scanf(" ", jumlah);
+        current->jumlah = current->jumlah + jumlah;
+        
+        return;
+    }
+    else
+    {
+        printf("Barnag Tidak ada\n");
+        return;
+    }
+}
+
+void kurangistock(addrBar root, char carigudang[])
+{
+    addrBar current;
+    int jumlah;
+    current = searchGudang(root, carigudang);
+    // jumlah = beliBarang()
+    if (current != NULL)
+    {
+
+    }
+    else
+    {
+        return;
+    }
+
+    
+}
 void beliBarang(addrPem pembeli, addrBel barang)
 {
     
@@ -198,4 +234,46 @@ addrBar searchGudang(addrBar root, char cariGudang[])
         }
     } while (pr(p) != NULL);
     return NULL;
+}
+
+int main()
+{
+    gudang root;
+    addrBar hasil;
+    int opsi, level = 2, i = 1;
+    puts("masuk");
+    createTree(&root);
+    insertBarang(&root, NULL, "King Jonats", 0);
+    puts("masuk tampil");
+    hasil = searchGudang(root.root, "King Jonats");
+    puts("selesai cari root");
+    insertBarang(&root, hasil, "Makanan", 0);
+    insertBarang(&root, hasil, "Minuman", 0);
+    insertBarang(&root, hasil, "Kosmetik", 0);
+    puts("cari makanan");
+    hasil = searchGudang(root.root, "Makanan");
+    puts("selesai cari makanan");
+    insertBarang(&root, hasil, "Makanan ringan", 0);
+    insertBarang(&root, hasil, "Makanan berat", 0);
+    puts("cari minuman");
+    hasil = searchGudang(root.root, "Minuman");
+    puts("selesai cari minuman");
+    insertBarang(&root, hasil, "Minuman bersoda", 0);
+    insertBarang(&root, hasil, "Minuman berakohol", 0);
+    puts("cari kosmetik");
+    hasil = searchGudang(root.root, "Kosmetik");
+    puts("selesai cari minuman");
+    insertBarang(&root, hasil, "Pelembap", 0);
+    insertBarang(&root, hasil, "Pemutih (deniggafy)", 0);
+    system("cls");
+    puts("Tampilkan gudang");
+    tampilkanGudang(root.root, 0);
+    tambahstock(root.root, "Pelembap");
+    tampilkanGudang(root.root, 0);
+    puts("Menu kasir");
+    puts("1. Lihat Kategori");
+    puts("2. Lihat Subkategori");
+    puts("3. Lihat Barang");
+    puts("4. Beli Barang");
+    puts("5. Lihat Barang");
 }
