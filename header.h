@@ -12,6 +12,8 @@
 #define fs(P) (P)->fs
 #define nb(P) (P)->nb
 #define root(P) (P)->root
+#define namBar(P) (P)->namBar
+#define nextBar(P) (P)->nextBar
 
 typedef char* infotype;
 
@@ -59,14 +61,23 @@ typedef struct pembeli
 /* Membuat nama dari Toko */
 void createTree(gudang *x);
 
+/* Modul untuk alokasi */
 addrBar alokBarang(infotype nama, int harga);
 
+/* Modul untuk menyisipkan node pada struktur tree */
 addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga);
 
+/* Modul untuk menampilkan keseluruhan list yang ada pada struktur tree */
 void tampilkanGudang(addrBar node, int i);
 
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilSubKategori(addrBar nama, int level, int i);
+
+/* Modul untuk alokasi barang yang dibeli pembeli */
+addrBel alokBarBel(gudang root, infotype nama, int harga);
+
+/* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
+addrBel insertBarBel(gudang root, infotype nama, int usia, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Modul yang digunakan untuk membuat LL berupa barang yang dibeli oleh pembeli */
 void beliBarang(addrPem pembeli, addrBel barang);
