@@ -3,15 +3,18 @@
 int main()
 {
     gudang root;
-    addrBar hasil;
-    int opsi, level = 2, i = 1;
+    addrBar hasil, beliBar;
+    addrBel awal = NULL, akhir = NULL;
+    char* nama;
+    int opsi, opsi2, opsi3, opsi4, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
+    char lanjut, beli[100], barang[100];
     puts("masuk");
     createTree(&root);
     insertBarang(&root, NULL, "King Jonats", 0);
     puts("masuk tampil");
     hasil = searchGudang(root.root, "King Jonats");
     puts("selesai cari root");
-    insertBarang(&root, hasil, "Makanan", 0);
+    insertBarang(&root, hasil, "Makanan", 0); 
     insertBarang(&root, hasil, "Minuman", 0);
     insertBarang(&root, hasil, "Kosmetik", 0);
     puts("cari makanan");
@@ -48,13 +51,11 @@ int main()
     insertBarang(&root, hasil, "Mens Biore", 21000);
     insertBarang(&root, hasil, "Garnier Men", 19000);
     system("cls");
-    puts("Sub Kategori");
-    tampilSubKategori(root.root, level, i);
-    puts("");
-    tampilkanGudang(root.root, 0);
+    // puts("Sub Kategori");
+    // tampilSubKategori(root.root, level, i);
+    // puts("");
+    // tampilkanGudang(root.root, 0);
 
-    int nilai, posisi, opsi, returnValue;
-    char* nama;
     do
     {
         system("cls");
@@ -67,12 +68,71 @@ int main()
         switch (opsi)
         {
         case 1:
-            /* Menu Kasir */
+            do
+            {
+                system("cls");
+                puts("Menu Kasir");
+                puts("1. Lihat Kategori");
+                puts("2. Lihat Sub Kategori");
+                puts("3. Lihat Barang");
+                puts("4. Belanja");
+                puts("0. Pergi");
+
+                printf("Pilih opsi: ");
+                scanf("%d", &opsi2);
+                puts("");
+                switch (opsi2)
+                {
+                case 1:
+                    puts("List kategori");
+                    tampilSubKategori(root.root, 1, 1);
+                    system("pause");
+                    break;
+                case 2:
+                    puts("List Sub Kategori");
+                    tampilSubKategori(root.root, 2, 1);
+                    system("pause");
+                    break;
+                case 3:
+                    puts("List Barang");
+                    tampilSubKategori(root.root, 3, 1);
+                    system("pause");
+                    break;
+                case 4:
+                    do
+                    {
+                        printf("Beli: ");
+                        scanf("%s", &beli);
+                        printf("Jumlah: ");
+                        scanf("%d", &jumBar);
+                        
+                        beliBar = searchGudang(root.root, beli);
+                        if (beliBar != NULL)
+                        {
+                            insertBarBel(root, beli, &awal, &akhir, jumBar);
+                        }
+                        else
+                        {
+                            puts("Barang tidak ada");
+                            break;
+                        }
+                        printf("Ingin beli barang lain? (y/n): ");
+                        scanf(" %c", &lanjut);
+
+                    } while (lanjut == 'y' || lanjut == 'Y');
+                    tampilBarBel(awal, akhir);
+                    system("pause");
+                    break;
+                default:
+                    break;
+                }
+            } while (opsi2 != 0);
             break;
         case 2:
             do
             {
                 system("cls");
+                puts("Menu Gudang");
                 puts("(1) Tambah Kategori");
                 puts("(2) Tambah barang baru");
                 puts("(3) Tambah stok barang");
@@ -80,9 +140,9 @@ int main()
                 puts("(0) Kembali");
 
                 printf("Pilih opsi: ");
-                scanf("%d", &opsi);
+                scanf("%d", &opsi3);
 
-                switch (opsi)
+                switch (opsi3)
                 {
                 case 1:
                     do
@@ -93,8 +153,8 @@ int main()
                         puts("(0) Kembali");
                         
                         printf("Pilih opsi: ");
-                        scanf("%d", &opsi);
-                        switch (opsi)
+                        scanf("%d", &opsi4);
+                        switch (opsi4)
                         {
                         case 1:
                             printf("Nama kategori baru: ");
@@ -109,10 +169,10 @@ int main()
                         default:
                             printf("Inputkan salah satu opsi di atas!\n");
                             puts("===============================================================");
+                            system("pause");
                             break;
                         }
-                    } while (opsi != 0);
-                    opsi = 99;
+                    } while (opsi4 != 0);
                     break;
 
                 case 2:
@@ -123,20 +183,19 @@ int main()
 
                     break;
                 case 4:
-                    puts("Sub Kategori");
-                    tampilSubKategori(root.root, level, i);
                     tampilkanGudang(root.root, 0);
+                    system("pause");
                     break;
                 case 0:
                     puts("Kembali ke menu sebelumnya...");
+                    system("pause");
                     break;
                 default:
                     printf("Inputkan salah satu opsi di atas!\n");
                     puts("===============================================================");
                     break;
                 }
-            } while (opsi != 0);
-            opsi = 99;
+            } while (opsi3 != 0);
             break;
         case 0:
             puts("Keluar ke program...");
