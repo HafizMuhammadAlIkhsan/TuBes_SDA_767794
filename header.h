@@ -14,6 +14,7 @@
 #define root(P) (P)->root
 #define namBar(P) (P)->namBar
 #define nextBar(P) (P)->nextBar
+#define barBel(P) (P)->barBel
 
 typedef char* infotype;
 
@@ -77,13 +78,12 @@ void tampilSubKategori(addrBar nama, int level, int i);
 addrBel alokBarBel(gudang root, infotype nama, int harga);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
-addrBel insertBarBel(gudang root, infotype nama, int usia, addrBel *awal, addrBel *akhir, int jumlah);
-
-/* Modul yang digunakan untuk membuat LL berupa barang yang dibeli oleh pembeli */
-void beliBarang(addrPem pembeli, addrBel barang);
+void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
 addrBar searchGudang(addrBar root, char cariGudang[]);
 // variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
+
+void tampilBarBel(addrBel first, addrBel last);
 
 #endif

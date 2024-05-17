@@ -212,7 +212,7 @@ addrBel alokBarBel(gudang root, infotype nama, int jumlah)
     return p;
 }
 
-addrBel insertBarBel(gudang root, infotype nama, int usia, addrBel *awal, addrBel *akhir, int jumlah)
+void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
     p = alokBarBel(root, nama, jumlah);
@@ -226,8 +226,6 @@ addrBel insertBarBel(gudang root, infotype nama, int usia, addrBel *awal, addrBe
         nextBar(*akhir) = p;
     }
     *akhir = p;
-    
-    return p;
 }
 
 addrBar searchGudang(addrBar root, char cariGudang[])
@@ -264,4 +262,16 @@ addrBar searchGudang(addrBar root, char cariGudang[])
         }
     } while (pr(p) != NULL);
     return NULL;
+}
+
+void tampilBarBel(addrBel first, addrBel last)
+{
+    addrBel p = first;
+    int i = 1;
+    while (p != NULL)
+    {
+        printf("%d. %s jumlah %d\n", i, p->namBar->nama, p->jumlah);
+        p = nextBar(p);
+        i++;
+    }
 }
