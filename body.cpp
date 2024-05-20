@@ -175,7 +175,7 @@ void tambahstock(addrBar root, char carigudang[], int jumlahbarang)
 void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
 {
     addrBar current;
-    addrBel temp;
+    addrBel temp,temp2;
     temp = *awal;
     while (temp != NULL)
     {
@@ -196,7 +196,9 @@ void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
         {
             printf("Tidak ada barang nya");
         }
+        temp2 = temp;
         temp = temp->nextBar;
+        free(temp2);
     }
 }
 
