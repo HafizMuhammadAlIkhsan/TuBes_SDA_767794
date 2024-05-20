@@ -152,17 +152,14 @@ void kalibrasi()
 
 }
 
-void tambahstock(addrBar root, char carigudang[])
+void tambahstock(addrBar root, char carigudang[], int jumlahbarang)
 {
     searchGudang(root, carigudang);
     addrBar current;
-    int jumlah;
+    int jumlah = jumlahbarang;
     current = searchGudang(root, carigudang);
     if (current != NULL)
     {
-        printf("Masukan Jumlah Barang = ");
-        scanf("%d", &jumlah);
-        puts("Masukan input");
         current->jumlah = current->jumlah + jumlah;
         puts("output");
 
@@ -175,19 +172,31 @@ void tambahstock(addrBar root, char carigudang[])
     }
 }
 
-void kurangistock(addrBar root, char carigudang[])
+void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
 {
     addrBar current;
-    int jumlah;
-    current = searchGudang(root, carigudang);
-    // jumlah = beliBarang()
-    if (current != NULL)
+    addrBel temp;
+    temp = *awal;
+    while (temp != NULL)
     {
+        current = searchGudang(root.root, temp->namBar->nama);
 
-    }
-    else
-    {
-        return;
+        if (current != NULL)
+        {
+            if (current->jumlah > jumlahbarang)
+            {
+                current->jumlah = current->jumlah - jumlahbarang;
+            }
+            else
+            {
+                printf("Stok barang tidak mencukupi");
+            }
+        }
+        else
+        {
+            printf("Tidak ada barang nya");
+        }
+        temp = temp->nextBar;
     }
 }
 
@@ -212,7 +221,9 @@ addrBel alokBarBel(gudang root, infotype nama, int jumlah)
     return p;
 }
 
-void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
+
+
+addrBel insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
     p = alokBarBel(root, nama, jumlah);
@@ -226,6 +237,8 @@ void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int
         nextBar(*akhir) = p;
     }
     *akhir = p;
+
+    return p;
 }
 
 addrBar searchGudang(addrBar root, char cariGudang[])

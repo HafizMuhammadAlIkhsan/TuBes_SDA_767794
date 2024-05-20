@@ -78,11 +78,17 @@ void tampilSubKategori(addrBar nama, int level, int i);
 addrBel alokBarBel(gudang root, infotype nama, int harga);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
-void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
+addrBel insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
 addrBar searchGudang(addrBar root, char cariGudang[]);
 // variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
+
+/*Mengurangi stock yang ada di gudang*/
+void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang);
+
+/*Menmabahkan stock yang ada di gudang*/
+void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 
 void tampilBarBel(addrBel first, addrBel last);
 

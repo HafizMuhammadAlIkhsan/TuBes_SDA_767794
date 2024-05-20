@@ -3,50 +3,70 @@
 int main()
 {
     gudang root;
-    addrBar hasil, beliBar;
+    addrBar hasil, beliBar, temp;
     addrBel awal = NULL, akhir = NULL;
     char* nama;
     int opsi, opsi2, opsi3, opsi4, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
     char lanjut, beli[100], barang[100];
+
     puts("masuk");
     createTree(&root);
+    /*Paling atas*/
     insertBarang(&root, NULL, "King Jonats", 0);
     puts("masuk tampil");
     hasil = searchGudang(root.root, "King Jonats");
     puts("selesai cari root");
+
+    /*Kategori*/
     insertBarang(&root, hasil, "Makanan", 0); 
     insertBarang(&root, hasil, "Minuman", 0);
     insertBarang(&root, hasil, "Kosmetik", 0);
     puts("cari makanan");
+
+    /*Sub Kategori*/
     hasil = searchGudang(root.root, "Makanan");
     puts("selesai cari makanan");
     insertBarang(&root, hasil, "Snack", 0);
     insertBarang(&root, hasil, "Makanan beku", 0);
+
+    /*Barang*/
     hasil = searchGudang(root.root, "Snack");
     insertBarang(&root, hasil, "Chitato", 11000);
     insertBarang(&root, hasil, "Taro", 8000);
     insertBarang(&root, hasil, "Lays", 11000);
     insertBarang(&root, hasil, "Pota Bee", 10000);
+
+    /*barang*/
     hasil = searchGudang(root.root, "Makanan Beku");
     insertBarang(&root, hasil, "So Good", 21000);
     insertBarang(&root, hasil, "Fiesta", 19000);
     puts("cari minuman");
+
+    /*Sub kategori*/
     hasil = searchGudang(root.root, "Minuman");
     puts("selesai cari minuman");
     insertBarang(&root, hasil, "Minuman bersoda", 0);
     insertBarang(&root, hasil, "Minuman berakohol", 0);
+
+    /*Barang*/
     hasil = searchGudang(root.root, "Minuman bersoda");
     insertBarang(&root, hasil, "Coca Cola", 7000);
     insertBarang(&root, hasil, "Sprite", 7000);
     insertBarang(&root, hasil, "Fanta", 7000);
     insertBarang(&root, hasil, "Pepsi", 8000);
+
+    /*Barang*/
     hasil = searchGudang(root.root, "Minuman berakohol");
     insertBarang(&root, hasil, "HAARAAMM", 1000000000);
     puts("cari kosmetik");
+
+    /*Sub Kategori*/
     hasil = searchGudang(root.root, "Kosmetik");
     puts("selesai cari minuman");
     insertBarang(&root, hasil, "Sabun Cuci Muka", 0);
     insertBarang(&root, hasil, "Pemutih", 0);
+    
+    /*Barang*/
     hasil = searchGudang(root.root, "Sabun Cuci Muka");
     insertBarang(&root, hasil, "Mens Biore", 21000);
     insertBarang(&root, hasil, "Garnier Men", 19000);
@@ -110,6 +130,7 @@ int main()
                         if (beliBar != NULL)
                         {
                             insertBarBel(root, beli, &awal, &akhir, jumBar);
+                            kurangistock(root, beli, &awal, jumBar);
                         }
                         else
                         {
@@ -180,7 +201,13 @@ int main()
                     break;
 
                 case 3:
-
+                    printf("Tambah Stock\n");
+                    printf("Masukan Nama Barang = ");
+                    scanf("%s", &beli);
+                    printf("Masukan Jumlah Barang = ");
+                    scanf("%d", &jumBar);
+                    puts("Masukan input");
+                    tambahstock(root.root, beli, jumBar);
                     break;
                 case 4:
                     tampilkanGudang(root.root, 0);
