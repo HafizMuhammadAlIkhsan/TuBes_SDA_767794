@@ -4,10 +4,11 @@ int main()
 {
     gudang root;
     addrBar hasil, beliBar, temp;
-    addrBel awal = NULL, akhir = NULL;
+    addrBel awal = NULL, akhir = NULL, hapus, curr;
     char* nama;
     int opsi, opsi2, opsi3, opsi4, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
     char lanjut, beli[100], barang[100];
+    addrBel tampung = NULL, tampungtemp;
 
     puts("masuk");
     createTree(&root);
@@ -71,10 +72,6 @@ int main()
     insertBarang(&root, hasil, "Mens Biore", 21000);
     insertBarang(&root, hasil, "Garnier Men", 19000);
     system("cls");
-    // puts("Sub Kategori");
-    // tampilSubKategori(root.root, level, i);
-    // puts("");
-    // tampilkanGudang(root.root, 0);
 
     do
     {
@@ -90,6 +87,8 @@ int main()
         case 1:
             do
             {
+                                    awal = NULL;
+                    akhir = NULL;
                 system("cls");
                 puts("Menu Kasir");
                 puts("1. Lihat Kategori");
@@ -142,11 +141,18 @@ int main()
 
                     } while (lanjut == 'y' || lanjut == 'Y');
                     tampilBarBel(awal, akhir);
+                    curr = awal;
+                    while (curr->nextBar == NULL)
+                    {
+                        deleteBarBel(awal, akhir);
+                        curr = curr->nextBar;
+                    }
                     system("pause");
                     break;
                 default:
                     break;
                 }
+                
             } while (opsi2 != 0);
             break;
         case 2:
