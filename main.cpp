@@ -4,9 +4,10 @@ int main()
 {
     gudang root;
     addrBar hasil, beliBar, temp;
-    addrBel awal = NULL, akhir = NULL;
+    addrBel awal = NULL, akhir = NULL, hapus, curr;
     int harga, opsi, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
     char lanjut, beli[100], barang[100], nama[100];
+    addrBel tampung = NULL, tampungtemp;
 
     puts("masuk");
     createTree(&root);
@@ -85,6 +86,8 @@ int main()
         case 1:
             do
             {
+                                    awal = NULL;
+                    akhir = NULL;
                 system("cls");
                 puts("Menu Kasir");
                 puts("1. Lihat Kategori");
@@ -137,6 +140,12 @@ int main()
 
                     } while (lanjut == 'y' || lanjut == 'Y');
                     tampilBarBel(awal, akhir);
+                    curr = awal;
+                    while (curr->nextBar == NULL)
+                    {
+                        deleteBarBel(awal, akhir);
+                        curr = curr->nextBar;
+                    }
                     system("pause");
                     break;
                 default:
