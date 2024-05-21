@@ -190,6 +190,7 @@ void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
             else
             {
                 printf("Stok barang tidak mencukupi");
+                break;
             }
         }
         else
@@ -198,7 +199,6 @@ void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
         }
         temp2 = temp;
         temp = temp->nextBar;
-        free(temp2);
     }
 }
 
@@ -223,9 +223,7 @@ addrBel alokBarBel(gudang root, infotype nama, int jumlah)
     return p;
 }
 
-
-
-addrBel insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
+void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
     p = alokBarBel(root, nama, jumlah);
@@ -239,6 +237,29 @@ addrBel insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, 
         nextBar(*akhir) = p;
     }
     *akhir = p;
+}
+
+addrBel deleteBarBel(addrBel awal, addrBel akhir)
+{
+    addrBel p = awal, temp;
+    int nilai;
+
+    if (awal == NULL && akhir == NULL)
+    {
+        printf("Linked list kosong\n");
+    }
+    else if (awal == akhir)
+    {
+        awal = NULL;
+        akhir = NULL;
+    }
+    else
+    {
+        awal = p->nextBar;
+    }
+
+    p->nextBar = NULL;
+    free(p);
 
     return p;
 }
