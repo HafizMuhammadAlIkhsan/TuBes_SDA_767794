@@ -219,7 +219,7 @@ void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
         {
             if (current->jumlah > jumlahbarang)
             {
-                current->jumlah = current->jumlah - jumlahbarang;
+                current->jumlah = current->jumlah - temp->jumlah;
             }
             else
             {
