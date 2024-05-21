@@ -5,9 +5,8 @@ int main()
     gudang root;
     addrBar hasil, beliBar, temp;
     addrBel awal = NULL, akhir = NULL;
-    char* nama;
-    int opsi, opsi2, opsi3, opsi4, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
-    char lanjut, beli[100], barang[100];
+    int harga, opsi, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
+    char lanjut, beli[100], barang[100], nama[100];
 
     puts("masuk");
     createTree(&root);
@@ -71,10 +70,6 @@ int main()
     insertBarang(&root, hasil, "Mens Biore", 21000);
     insertBarang(&root, hasil, "Garnier Men", 19000);
     system("cls");
-    // puts("Sub Kategori");
-    // tampilSubKategori(root.root, level, i);
-    // puts("");
-    // tampilkanGudang(root.root, 0);
 
     do
     {
@@ -99,9 +94,9 @@ int main()
                 puts("0. Pergi");
 
                 printf("Pilih opsi: ");
-                scanf("%d", &opsi2);
+                scanf("%d", &opsi);
                 puts("");
-                switch (opsi2)
+                switch (opsi)
                 {
                 case 1:
                     puts("List kategori");
@@ -125,7 +120,7 @@ int main()
                         scanf("%s", &beli);
                         printf("Jumlah: ");
                         scanf("%d", &jumBar);
-                        
+
                         beliBar = searchGudang(root.root, beli);
                         if (beliBar != NULL)
                         {
@@ -147,7 +142,7 @@ int main()
                 default:
                     break;
                 }
-            } while (opsi2 != 0);
+            } while (opsi != 0);
             break;
         case 2:
             do
@@ -161,9 +156,9 @@ int main()
                 puts("(0) Kembali");
 
                 printf("Pilih opsi: ");
-                scanf("%d", &opsi3);
+                scanf("%d", &opsi);
 
-                switch (opsi3)
+                switch (opsi)
                 {
                 case 1:
                     do
@@ -172,17 +167,69 @@ int main()
                         puts("(1) Tambah Kategori");
                         puts("(2) Tambah Sub Kategori");
                         puts("(0) Kembali");
-                        
+
                         printf("Pilih opsi: ");
-                        scanf("%d", &opsi4);
-                        switch (opsi4)
+                        scanf("%d", &opsi);
+                        switch (opsi)
                         {
                         case 1:
+                            system("cls");
                             printf("Nama kategori baru: ");
-                            scanf(" %s", &nama);
+                            scanf("%s", &nama);
+                            while (cekKategori(root.root, 1, nama))
+                            {
+                                system("cls");
+                                printf("%sKategori %s sudah terdaftar!%s\n", red, nama, normal);
+                                printf("Nama kategori baru: ");
+                                scanf(" %s", &nama);
+                            }
+                            puts("masuk insert");
+                            hasil = insertBarang(&root, root.root, nama, 0);
+                            system("cls");
+                            if (hasil != NULL)
+                            {
+                                printf("%sKategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
+                            }
+                            else
+                            {
+                                puts("Gagal mendaftarkan barang");
+                            }
+                            system("pause");
+                            opsi = 0;
                             break;
                         case 2:
-                            /* code */
+                            system("cls");
+                            printf("Kategori: ");
+                            scanf("%s", &nama);
+                            while (!cekKategori(root.root, 1, nama))
+                            {
+                                system("cls");
+                                printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
+                                printf("Kategori: ");
+                                scanf("%s", &nama);
+                            }
+                            hasil = searchGudang(root.root, nama);
+                            printf("Nama Sub-kategori baru: ");
+                            scanf("%s", &nama);
+
+                            while (cekKategori(root.root, 2, nama))
+                            {
+                                system("cls");
+                                printf("%sSub-kategori %s sudah terdaftar!%s\n", red, nama, normal);
+                                printf("Nama Sub-kategori: ");
+                                scanf("%s", &nama);
+                            }
+                            hasil = insertBarang(&root, hasil, nama, 0);
+                            if (hasil != NULL)
+                            {
+                                printf("%sSub-kategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
+                            }
+                            else
+                            {
+                                puts("Gagal mendaftarkan barang");
+                            }
+                            system("pause");
+                            opsi = 0;
                             break;
                         case 0:
                             puts("Kembali ke menu sebelumnya...");
@@ -193,7 +240,8 @@ int main()
                             system("pause");
                             break;
                         }
-                    } while (opsi4 != 0);
+                    } while (opsi != 0);
+                    opsi = 99;
                     break;
 
                 case 2:
@@ -201,15 +249,26 @@ int main()
                     break;
 
                 case 3:
+                    system("cls");
                     printf("Tambah Stock\n");
                     printf("Masukan Nama Barang = ");
                     scanf("%s", &beli);
+                    while (!cekKategori(root.root, 3, beli))
+                    {
+                        system("cls");
+                        printf("%sBarang %s belum terdaftar!%s\n", red, beli, normal);
+                        printf("Masukan Nama Barang = ");
+                        scanf("%s", &beli);
+                    }
                     printf("Masukan Jumlah Barang = ");
                     scanf("%d", &jumBar);
-                    puts("Masukan input");
                     tambahstock(root.root, beli, jumBar);
+                    system("cls");
+                    printf("%sBerhasil menambahkan stock %s sejumlah %d%s\n", green, beli, jumBar, normal);
+                    system("pause");
                     break;
                 case 4:
+                    system("cls");
                     tampilkanGudang(root.root, 0);
                     system("pause");
                     break;
@@ -222,10 +281,12 @@ int main()
                     puts("===============================================================");
                     break;
                 }
-            } while (opsi3 != 0);
+            } while (opsi != 0);
+            opsi = 99;
             break;
         case 0:
             puts("Keluar ke program...");
+            opsi = 99;
             break;
         default:
             printf("Inputkan salah satu opsi di atas!\n");

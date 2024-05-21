@@ -34,6 +34,40 @@ addrBar alokBarang(infotype nama, int harga)
     return p;
 }
 
+addrBar alokEtalase(infotype nama, int harga)
+{
+    addrBar p;
+    // Alokasi memori untuk struct barang
+    p = (addrBar)malloc(sizeof(barang));
+    if (p == NULL)
+    {
+        printf("Memori sudah penuh\n");
+    }
+    else
+    {
+        nama(p) = (infotype)malloc(strlen(nama) + 1);
+        if (nama(p) == NULL)
+        {
+            printf("Memori sudah penuh\n");
+        }
+
+        // Salin nama barang
+        strcpy(nama(p), nama);
+
+        harga(p) = harga;
+        if (jumlah(p) < MAX_JUMLAH)
+        {
+            jumlah(p) = 0;
+        } else {
+            return NULL;
+        }
+        fs(p) = NULL;
+        nb(p) = NULL;
+        pr(p) = NULL;
+    }
+    return p;
+}
+
 addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
 {
     addrBar p, q;
@@ -156,7 +190,7 @@ void tambahstock(addrBar root, char carigudang[], int jumlahbarang)
 {
     searchGudang(root, carigudang);
     addrBar current;
-    int jumlah = jumlahbarang;
+    int jumlah = jumlahbarang = jumlahbarang;
     current = searchGudang(root, carigudang);
     if (current != NULL)
     {
@@ -202,6 +236,7 @@ void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
     }
 }
 
+
 addrBel alokBarBel(gudang root, infotype nama, int jumlah)
 {
     addrBel p;
@@ -223,8 +258,6 @@ addrBel alokBarBel(gudang root, infotype nama, int jumlah)
     return p;
 }
 
-
-
 addrBel insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
@@ -239,6 +272,7 @@ addrBel insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, 
         nextBar(*akhir) = p;
     }
     *akhir = p;
+
 
     return p;
 }
@@ -277,6 +311,32 @@ addrBar searchGudang(addrBar root, char cariGudang[])
         }
     } while (pr(p) != NULL);
     return NULL;
+}
+
+bool cekKategori(addrBar node,int level, infotype search) 
+{
+    addrBar current;
+    current = node->fs;
+    if (node == NULL)
+    {
+        return false;
+    }
+    while (current != NULL)
+    {
+        if (level == 1)
+        {
+            if (strcmp(current->nama, search) == 0)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return cekKategori(current, level - 1, search);
+        }
+        current = current->nb;
+    }
+    return false;   
 }
 
 void tampilBarBel(addrBel first, addrBel last)
