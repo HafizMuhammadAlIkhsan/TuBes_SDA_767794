@@ -266,7 +266,6 @@ int main()
                     }
                     printf("Masukan Jumlah Barang = ");
                     scanf("%d", &jumBar);
-                    puts("Masukan input");
                     tambahstock(root.root, beli, jumBar);
                     system("cls");
                     printf("%sBerhasil menambahkan stock %s sejumlah %d%s\n", green, beli, jumBar, normal);
