@@ -1,4 +1,4 @@
-#include "header.h"
+#include "header_gudang.h"
 
 void createTree(Gudang *x)
 {
@@ -27,42 +27,6 @@ addrBar alokBarang(infotype nama, int harga)
 
         harga(p) = harga;
         jumlah(p) = 0;
-        fs(p) = NULL;
-        nb(p) = NULL;
-        pr(p) = NULL;
-    }
-    return p;
-}
-
-addrBar alokEtalase(infotype nama, int harga)
-{
-    addrBar p;
-    // Alokasi memori untuk struct barang
-    p = (addrBar)malloc(sizeof(barang));
-    if (p == NULL)
-    {
-        printf("Memori sudah penuh\n");
-    }
-    else
-    {
-        nama(p) = (infotype)malloc(strlen(nama) + 1);
-        if (nama(p) == NULL)
-        {
-            printf("Memori sudah penuh\n");
-        }
-
-        // Salin nama barang
-        strcpy(nama(p), nama);
-
-        harga(p) = harga;
-        if (jumlah(p) < MAX_JUMLAH)
-        {
-            jumlah(p) = 0;
-        }
-        else
-        {
-            return NULL;
-        }
         fs(p) = NULL;
         nb(p) = NULL;
         pr(p) = NULL;
@@ -163,52 +127,6 @@ void Cek_Stock_Etalase(addrBar node, int level, int i)
     }
 }
 
-void tampilkanKategori(addrBar node, int level, int i)
-{
-    addrBar current;
-    current = node->fs;
-    if (node == NULL)
-    {
-        return;
-    }
-    while (current != NULL)
-    {
-        if (level == 1)
-        {
-            printf("%d. %s\n", i, current->nama);
-        }
-        else
-        {
-            tampilkanKategori(current, level - 1, i);
-            i++;
-        }
-        current = current->nb;
-        i++;
-    }
-}
-
-void tampilSubKategori(addrBar node, int level, int i)
-{
-    addrBar current = fs(node);
-    if (node == NULL)
-    {
-        return;
-    }
-    while (current != NULL)
-    {
-        if (level == 1)
-        {
-            printf("%d. %s \n", i, nama(current));
-        }
-        else
-        {
-            tampilSubKategori(current, level - 1, i);
-            i++;
-        }
-        current = nb(current);
-        i++;
-    }
-}
 
 /*Membenarkan jumlah barang di kategori dan subkategori*/
 void kalibrasi()
@@ -259,98 +177,6 @@ void tambahstock(addrBar root, char cariGudang[], int jumlahbarang)
         printf("Barang Tidak ada\n");
         return;
     }
-}
-
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang)
-{
-    addrBar current;
-    addrBel temp, temp2;
-    temp = *awal;
-    while (temp != NULL)
-    {
-        current = searchGudang(root.root, temp->namBar->nama);
-
-        if (current != NULL)
-        {
-            if (current->jumlah > jumlahbarang)
-            {
-                current->jumlah = current->jumlah - temp->jumlah;
-            }
-            else
-            {
-                printf("Stok barang tidak mencukupi");
-                break;
-            }
-        }
-        else
-        {
-            printf("Tidak ada barang nya");
-        }
-        temp2 = temp;
-        temp = temp->nextBar;
-    }
-}
-
-addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
-{
-    addrBel p;
-    p = (addrBel)malloc(sizeof(dibeli));
-    if (p == NULL)
-    {
-        printf("Memori sudah penuh\n");
-    }
-    else
-    {
-        if (namBar(p) == NULL)
-        {
-            printf("Memori sudah penuh\n");
-        }
-        namBar(p) = searchGudang(root.root, nama);
-        jumlah(p) = jumlah;
-        nextBar(p) = NULL;
-    }
-    return p;
-}
-
-void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
-{
-    addrBel p;
-    p = alokBarBel(root, nama, jumlah);
-
-    if (*awal == NULL && *akhir == NULL)
-    {
-        *awal = p;
-    }
-    else
-    {
-        nextBar(*akhir) = p;
-    }
-    *akhir = p;
-}
-
-addrBel deleteBarBel(addrBel awal, addrBel akhir)
-{
-    addrBel p = awal, temp;
-    int nilai;
-
-    if (awal == NULL && akhir == NULL)
-    {
-        printf("Linked list kosong\n");
-    }
-    else if (awal == akhir)
-    {
-        awal = NULL;
-        akhir = NULL;
-    }
-    else
-    {
-        awal = p->nextBar;
-    }
-
-    p->nextBar = NULL;
-    free(p);
-
-    return p;
 }
 
 addrBar searchGudang(addrBar root, char cariGudang[])
@@ -413,16 +239,4 @@ bool cekKategori(addrBar node, int level, infotype search)
         current = current->nb;
     }
     return false;
-}
-
-void tampilBarBel(addrBel first, addrBel last)
-{
-    addrBel p = first;
-    int i = 1;
-    while (p != NULL)
-    {
-        printf("%d. %s jumlah %d\n", i, p->namBar->nama, p->jumlah);
-        p = nextBar(p);
-        i++;
-    }
 }

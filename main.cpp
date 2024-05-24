@@ -1,4 +1,5 @@
-#include "header.h"
+#include "Gudang/header_gudang.h"
+#include "KASIR/header_kasir.h"
 
 int main()
 {

@@ -49,15 +49,6 @@ struct Gudang {
     addrBar root;
 };
 
-/* kasir berupa array yang memiliki pointer menunjuk ke record pembeli */
-typedef struct kasir *addrKas;
-typedef struct kasir           
-{
-    infotype nama; 
-    addrKas next = NULL;
-    addrKas akhir = NULL;  
-} kasir;
-
 /* barang yang dipesan oleh pembeli */
 typedef struct dibeli *addrBel;
 typedef struct dibeli
@@ -66,15 +57,6 @@ typedef struct dibeli
     int jumlah;
     addrBel nextBar;
 } dibeli;
-
-/* pembeli yang memesan barang */
-typedef struct pembeli *addrPem;
-typedef struct pembeli           
-{
-    infotype nama;
-    addrBel barBel;
-    addrPem next;
-} pembeli;
 
 /* Membuat nama dari Toko */
 void createTree(Gudang *x);
@@ -88,40 +70,20 @@ addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga);
 /* Modul untuk menampilkan keseluruhan list yang ada pada struktur tree */
 void tampilkanGudang(addrBar node, int i);
 
-/* Menampilkan list dari subkatergori barang yang ada di gudang toko */
-void tampilSubKategori(addrBar nama, int level, int i);
-
-/* Modul untuk alokasi barang yang dibeli pembeli */
-addrBel alokBarBel(Gudang root, infotype nama, int harga);
-
-/* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
-void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
-
 /* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
 addrBar searchGudang(addrBar root, char cariGudang[]);
 // variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
 
 bool cekKategori(addrBar node,int level, infotype search);
 
+/*Menmabahkan stock yang ada di gudang*/
+void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
+
 /*Mengurangi stock yang ada di gudang*/
 void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
-
-void tampilBarBel(addrBel first, addrBel last);
-
-/*Mengurangi stock yang ada di gudang*/
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
-
-/*Menmabahkan stock yang ada di gudang*/
-void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
-
-void tampilBarBel(addrBel first, addrBel last);
-
-addrBel deleteBarBel(addrBel awal, addrBel akhir);
-
-void Cek_Stock_Etalase(addrBar node, int level, int i);
 
 string standarisasi(infotype nama);
 
