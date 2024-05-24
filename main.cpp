@@ -110,7 +110,7 @@ int main()
                     do
                     {
                         printf("Beli: ");
-                        scanf("%s", &beli);
+                        scanf("%[^\n]s", &beli);
                         printf("Jumlah: ");
                         scanf("%d", &jumBar);
 
@@ -175,13 +175,13 @@ int main()
                         case 1:
                             system("cls");
                             printf("Nama kategori baru: ");
-                            scanf("%s", &nama);
+                            scanf("%[^\n]s", &nama);
                             while (cekKategori(gudang.root, 1, nama))
                             {
                                 system("cls");
                                 printf("%sKategori %s sudah terdaftar!%s\n", red, nama, normal);
                                 printf("Nama kategori baru: ");
-                                scanf(" %s", &nama);
+                                scanf("%[^\n]s", &nama);
                             }
                             puts("masuk insert");
                             hasil = insertBarang(&gudang, gudang.root, nama, 0);
@@ -200,24 +200,24 @@ int main()
                         case 2:
                             system("cls");
                             printf("Kategori: ");
-                            scanf("%s", &nama);
+                            scanf("%[^\n]s", &nama);
                             while (!cekKategori(gudang.root, 1, nama))
                             {
                                 system("cls");
                                 printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
                                 printf("Kategori: ");
-                                scanf("%s", &nama);
+                                scanf("%[^\n]s", &nama);
                             }
                             hasil = searchGudang(gudang.root, nama);
                             printf("Nama Sub-kategori baru: ");
-                            scanf("%s", &nama);
+                            scanf("%[^\n]s", &nama);
 
                             while (cekKategori(gudang.root, 2, nama))
                             {
                                 system("cls");
                                 printf("%sSub-kategori %s sudah terdaftar!%s\n", red, nama, normal);
                                 printf("Nama Sub-kategori baru: ");
-                                scanf("%s", &nama);
+                                scanf("%[^\n]s", &nama);
                             }
                             hasil = insertBarang(&gudang, hasil, nama, 0);
                             if (hasil != NULL)
@@ -247,35 +247,35 @@ int main()
                 case 2:
                     system("cls");
                     printf("Kategori: ");
-                    scanf("%s", &nama);
+                    scanf("%[^\n]s", &nama);
                     while (!cekKategori(gudang.root, 1, nama))
                     {
                         system("cls");
                         printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
                         printf("Kategori: ");
-                        scanf("%s", &nama);
+                        scanf("%[^\n]s", &nama);
                     }
                     hasil = searchGudang(gudang.root, nama);
                     printf("Sub-kategori: ");
-                    scanf("%s", &nama);
+                    scanf("%[^\n]s", &nama);
 
                     while (!cekKategori(gudang.root, 2, nama))
                     {
                         system("cls");
                         printf("%sSub-kategori %s belum terdaftar!%s\n", red, nama, normal);
                         printf("Nama Sub-kategori: ");
-                        scanf("%s", &nama);
+                        scanf("%[^\n]s", &nama);
                     }
                     hasil = searchGudang(gudang.root, nama);
 
                     printf("Nama barang baru: ");
-                    scanf("%s", &nama);
+                    scanf("%[^\n]s", &nama);
                     while (cekKategori(gudang.root, 3, nama))
                     {
                         system("cls");
                         printf("%sBarang %ssudah terdaftar!%s\n", red, nama, normal);
                         printf("Nama barang baru: ");
-                        scanf("%s", &nama);
+                        scanf("%[^\n]s", &nama);
                     }
                     printf("Harga barang: ");
                     scanf("%d", &harga);
@@ -296,13 +296,13 @@ int main()
                     system("cls");
                     printf("Tambah Stock\n");
                     printf("Masukan Nama Barang = ");
-                    scanf("%s", &beli);
+                    scanf("%[^\n]s", &beli);
                     while (!cekKategori(gudang.root, 3, beli))
                     {
                         system("cls");
                         printf("%sBarang %s belum terdaftar!%s\n", red, beli, normal);
                         printf("Masukan Nama Barang = ");
-                        scanf("%s", &beli);
+                        scanf("%[^\n]s", &beli);
                     }
                     printf("Masukan Jumlah Barang = ");
                     scanf("%d", &jumBar);
