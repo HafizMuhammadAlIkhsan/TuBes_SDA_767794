@@ -2,64 +2,64 @@
 
 int main()
 {
-    gudang root;
+    Gudang gudang, etalase;
     addrBar hasil, beliBar;
     addrBel awal = NULL, akhir = NULL, curr;
-    int opsi, i = 1, returnValue, jumBar;
+    int opsi, i = 1, returnValue, jumBar, harga;
     char lanjut, beli[100], nama[100];
 
-    createTree(&root);
+    createTree(&gudang);
     /*Paling atas*/
-    insertBarang(&root, NULL, "King Jonats", 0);
-    hasil = searchGudang(root.root, "King Jonats");
+    insertBarang(&gudang, NULL, "King Jonats", 0);
+    hasil = searchGudang(gudang.root, "King Jonats");
 
     /*Kategori*/
-    insertBarang(&root, hasil, "Makanan", 0); 
-    insertBarang(&root, hasil, "Minuman", 0);
-    insertBarang(&root, hasil, "Kosmetik", 0);
+    insertBarang(&gudang, hasil, "Makanan", 0);
+    insertBarang(&gudang, hasil, "Minuman", 0);
+    insertBarang(&gudang, hasil, "Kosmetik", 0);
 
     /*Sub Kategori*/
-    hasil = searchGudang(root.root, "Makanan");
-    insertBarang(&root, hasil, "Snack", 0);
-    insertBarang(&root, hasil, "Makanan beku", 0);
+    hasil = searchGudang(gudang.root, "Makanan");
+    insertBarang(&gudang, hasil, "Snack", 0);
+    insertBarang(&gudang, hasil, "Makanan beku", 0);
 
     /*Barang*/
-    hasil = searchGudang(root.root, "Snack");
-    insertBarang(&root, hasil, "Chitato", 11000);
-    insertBarang(&root, hasil, "Taro", 8000);
-    insertBarang(&root, hasil, "Lays", 11000);
-    insertBarang(&root, hasil, "Pota Bee", 10000);
+    hasil = searchGudang(gudang.root, "Snack");
+    insertBarang(&gudang, hasil, "Chitato", 11000);
+    insertBarang(&gudang, hasil, "Taro", 8000);
+    insertBarang(&gudang, hasil, "Lays", 11000);
+    insertBarang(&gudang, hasil, "Pota Bee", 10000);
 
     /*barang*/
-    hasil = searchGudang(root.root, "Makanan Beku");
-    insertBarang(&root, hasil, "So Good", 21000);
-    insertBarang(&root, hasil, "Fiesta", 19000);
+    hasil = searchGudang(gudang.root, "Makanan Beku");
+    insertBarang(&gudang, hasil, "So Good", 21000);
+    insertBarang(&gudang, hasil, "Fiesta", 19000);
 
     /*Sub kategori*/
-    hasil = searchGudang(root.root, "Minuman");
-    insertBarang(&root, hasil, "Minuman bersoda", 0);
-    insertBarang(&root, hasil, "Minuman berakohol", 0);
+    hasil = searchGudang(gudang.root, "Minuman");
+    insertBarang(&gudang, hasil, "Minuman bersoda", 0);
+    insertBarang(&gudang, hasil, "Minuman berakohol", 0);
 
     /*Barang*/
-    hasil = searchGudang(root.root, "Minuman bersoda");
-    insertBarang(&root, hasil, "Coca Cola", 7000);
-    insertBarang(&root, hasil, "Sprite", 7000);
-    insertBarang(&root, hasil, "Fanta", 7000);
-    insertBarang(&root, hasil, "Pepsi", 8000);
+    hasil = searchGudang(gudang.root, "Minuman bersoda");
+    insertBarang(&gudang, hasil, "Coca Cola", 7000);
+    insertBarang(&gudang, hasil, "Sprite", 7000);
+    insertBarang(&gudang, hasil, "Fanta", 7000);
+    insertBarang(&gudang, hasil, "Pepsi", 8000);
 
     /*Barang*/
-    hasil = searchGudang(root.root, "Minuman berakohol");
-    insertBarang(&root, hasil, "HAARAAMM", 1000000000);
+    hasil = searchGudang(gudang.root, "Minuman berakohol");
+    insertBarang(&gudang, hasil, "HAARAAMM", 1000000000);
 
     /*Sub Kategori*/
-    hasil = searchGudang(root.root, "Kosmetik");
-    insertBarang(&root, hasil, "Sabun Cuci Muka", 0);
-    insertBarang(&root, hasil, "Pemutih", 0);
-    
+    hasil = searchGudang(gudang.root, "Kosmetik");
+    insertBarang(&gudang, hasil, "Sabun Cuci Muka", 0);
+    insertBarang(&gudang, hasil, "Pemutih", 0);
+
     /*Barang*/
-    hasil = searchGudang(root.root, "Sabun Cuci Muka");
-    insertBarang(&root, hasil, "Mens Biore", 21000);
-    insertBarang(&root, hasil, "Garnier Men", 19000);
+    hasil = searchGudang(gudang.root, "Sabun Cuci Muka");
+    insertBarang(&gudang, hasil, "Mens Biore", 21000);
+    insertBarang(&gudang, hasil, "Garnier Men", 19000);
     system("cls");
 
     do
@@ -93,17 +93,17 @@ int main()
                 {
                 case 1:
                     puts("List kategori");
-                    tampilSubKategori(root.root, 1, 1);
+                    tampilSubKategori(gudang.root, 1, 1);
                     system("pause");
                     break;
                 case 2:
                     puts("List Sub Kategori");
-                    tampilSubKategori(root.root, 2, 1);
+                    tampilSubKategori(gudang.root, 2, 1);
                     system("pause");
                     break;
                 case 3:
                     puts("List Barang");
-                    tampilSubKategori(root.root, 3, 1);
+                    tampilSubKategori(gudang.root, 3, 1);
                     system("pause");
                     break;
                 case 4:
@@ -114,11 +114,11 @@ int main()
                         printf("Jumlah: ");
                         scanf("%d", &jumBar);
 
-                        beliBar = searchGudang(root.root, beli);
+                        beliBar = searchGudang(gudang.root, beli);
                         if (beliBar != NULL)
                         {
-                            insertBarBel(root, beli, &awal, &akhir, jumBar);
-                            kurangistock(root, beli, &awal, jumBar);
+                            insertBarBel(gudang, beli, &awal, &akhir, jumBar);
+                            kurangistock(gudang, beli, &awal, jumBar);
                         }
                         else
                         {
@@ -176,7 +176,7 @@ int main()
                             system("cls");
                             printf("Nama kategori baru: ");
                             scanf("%s", &nama);
-                            while (cekKategori(root.root, 1, nama))
+                            while (cekKategori(gudang.root, 1, nama))
                             {
                                 system("cls");
                                 printf("%sKategori %s sudah terdaftar!%s\n", red, nama, normal);
@@ -184,7 +184,7 @@ int main()
                                 scanf(" %s", &nama);
                             }
                             puts("masuk insert");
-                            hasil = insertBarang(&root, root.root, nama, 0);
+                            hasil = insertBarang(&gudang, gudang.root, nama, 0);
                             system("cls");
                             if (hasil != NULL)
                             {
@@ -192,7 +192,7 @@ int main()
                             }
                             else
                             {
-                                puts("Gagal mendaftarkan barang");
+                                puts("Gagal mendaftarkan kategori");
                             }
                             system("pause");
                             opsi = 0;
@@ -201,32 +201,32 @@ int main()
                             system("cls");
                             printf("Kategori: ");
                             scanf("%s", &nama);
-                            while (!cekKategori(root.root, 1, nama))
+                            while (!cekKategori(gudang.root, 1, nama))
                             {
                                 system("cls");
                                 printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
                                 printf("Kategori: ");
                                 scanf("%s", &nama);
                             }
-                            hasil = searchGudang(root.root, nama);
+                            hasil = searchGudang(gudang.root, nama);
                             printf("Nama Sub-kategori baru: ");
                             scanf("%s", &nama);
 
-                            while (cekKategori(root.root, 2, nama))
+                            while (cekKategori(gudang.root, 2, nama))
                             {
                                 system("cls");
                                 printf("%sSub-kategori %s sudah terdaftar!%s\n", red, nama, normal);
-                                printf("Nama Sub-kategori: ");
+                                printf("Nama Sub-kategori baru: ");
                                 scanf("%s", &nama);
                             }
-                            hasil = insertBarang(&root, hasil, nama, 0);
+                            hasil = insertBarang(&gudang, hasil, nama, 0);
                             if (hasil != NULL)
                             {
                                 printf("%sSub-kategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
                             }
                             else
                             {
-                                puts("Gagal mendaftarkan barang");
+                                puts("Gagal mendaftarkan sub-kategori");
                             }
                             system("pause");
                             opsi = 0;
@@ -245,15 +245,59 @@ int main()
                     break;
 
                 case 2:
+                    system("cls");
+                    printf("Kategori: ");
+                    scanf("%s", &nama);
+                    while (!cekKategori(gudang.root, 1, nama))
+                    {
+                        system("cls");
+                        printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
+                        printf("Kategori: ");
+                        scanf("%s", &nama);
+                    }
+                    hasil = searchGudang(gudang.root, nama);
+                    printf("Sub-kategori: ");
+                    scanf("%s", &nama);
 
+                    while (!cekKategori(gudang.root, 2, nama))
+                    {
+                        system("cls");
+                        printf("%sSub-kategori %s belum terdaftar!%s\n", red, nama, normal);
+                        printf("Nama Sub-kategori: ");
+                        scanf("%s", &nama);
+                    }
+                    hasil = searchGudang(gudang.root, nama);
+
+                    printf("Nama barang baru: ");
+                    scanf("%s", &nama);
+                    while (cekKategori(gudang.root, 3, nama))
+                    {
+                        system("cls");
+                        printf("%sBarang %ssudah terdaftar!%s\n", red, nama, normal);
+                        printf("Nama barang baru: ");
+                        scanf("%s", &nama);
+                    }
+                    printf("Harga barang: ");
+                    scanf("%d", &harga);
+                    hasil = insertBarang(&gudang, hasil, nama, harga);
+
+                    system("cls");
+                    if (hasil != NULL)
+                    {
+                        printf("%sBarang %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
+                    }
+                    else
+                    {
+                        puts("Gagal mendaftarkan barang");
+                    }
+                    system("pause");
                     break;
-
                 case 3:
                     system("cls");
                     printf("Tambah Stock\n");
                     printf("Masukan Nama Barang = ");
                     scanf("%s", &beli);
-                    while (!cekKategori(root.root, 3, beli))
+                    while (!cekKategori(gudang.root, 3, beli))
                     {
                         system("cls");
                         printf("%sBarang %s belum terdaftar!%s\n", red, beli, normal);
@@ -262,14 +306,14 @@ int main()
                     }
                     printf("Masukan Jumlah Barang = ");
                     scanf("%d", &jumBar);
-                    tambahstock(root.root, beli, jumBar);
+                    tambahstock(gudang.root, beli, jumBar);
                     system("cls");
                     printf("%sBerhasil menambahkan stock %s sejumlah %d%s\n", green, beli, jumBar, normal);
                     system("pause");
                     break;
                 case 4:
                     system("cls");
-                    tampilkanGudang(root.root, 0);
+                    tampilkanGudang(gudang.root, 0);
                     system("pause");
                     break;
                 case 0:

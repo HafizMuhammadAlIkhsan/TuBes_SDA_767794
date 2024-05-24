@@ -45,7 +45,7 @@ typedef struct barang
     addrBar fs, nb, pr;
 } barang;
 
-struct gudang {
+struct Gudang {
     addrBar root;
 };
 
@@ -77,13 +77,13 @@ typedef struct pembeli
 } pembeli;
 
 /* Membuat nama dari Toko */
-void createTree(gudang *x);
+void createTree(Gudang *x);
 
 /* Modul untuk alokasi */
 addrBar alokBarang(infotype nama, int harga);
 
 /* Modul untuk menyisipkan node pada struktur tree */
-addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga);
+addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga);
 
 /* Modul untuk menampilkan keseluruhan list yang ada pada struktur tree */
 void tampilkanGudang(addrBar node, int i);
@@ -92,10 +92,10 @@ void tampilkanGudang(addrBar node, int i);
 void tampilSubKategori(addrBar nama, int level, int i);
 
 /* Modul untuk alokasi barang yang dibeli pembeli */
-addrBel alokBarBel(gudang root, infotype nama, int harga);
+addrBel alokBarBel(Gudang root, infotype nama, int harga);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
-void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
+void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
 addrBar searchGudang(addrBar root, char cariGudang[]);
@@ -104,7 +104,7 @@ addrBar searchGudang(addrBar root, char cariGudang[]);
 bool cekKategori(addrBar node,int level, infotype search);
 
 /*Mengurangi stock yang ada di gudang*/
-void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang);
+void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
@@ -112,7 +112,7 @@ void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 void tampilBarBel(addrBel first, addrBel last);
 
 /*Mengurangi stock yang ada di gudang*/
-void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang);
+void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);

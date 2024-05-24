@@ -1,6 +1,6 @@
 #include "header.h"
 
-void createTree(gudang *x)
+void createTree(Gudang *x)
 {
     (*x).root = NULL;
 }
@@ -68,7 +68,7 @@ addrBar alokEtalase(infotype nama, int harga)
     return p;
 }
 
-addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
+addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga)
 {
     addrBar p, q;
     
@@ -206,12 +206,12 @@ string standarisasi(string nama)
     return hasil;
 }
 
-void tambahstock(addrBar root, char carigudang[], int jumlahbarang)
+void tambahstock(addrBar root, char cariGudang[], int jumlahbarang)
 {
-    searchGudang(root, carigudang);
+    searchGudang(root, cariGudang);
     addrBar current;
     int jumlah = jumlahbarang = jumlahbarang;
-    current = searchGudang(root, carigudang);
+    current = searchGudang(root, cariGudang);
     if (current != NULL)
     {
         current->jumlah = current->jumlah + jumlah;
@@ -226,7 +226,7 @@ void tambahstock(addrBar root, char carigudang[], int jumlahbarang)
     }
 }
 
-void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
+void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang)
 {
     addrBar current;
     addrBel temp,temp2;
@@ -257,7 +257,7 @@ void kurangistock(gudang root, infotype nama, addrBel *awal, int jumlahbarang)
 }
 
 
-addrBel alokBarBel(gudang root, infotype nama, int jumlah)
+addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
 {
     addrBel p;
     p = (addrBel)malloc(sizeof(dibeli));
@@ -278,7 +278,7 @@ addrBel alokBarBel(gudang root, infotype nama, int jumlah)
     return p;
 }
 
-void insertBarBel(gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
+void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
     p = alokBarBel(root, nama, jumlah);
