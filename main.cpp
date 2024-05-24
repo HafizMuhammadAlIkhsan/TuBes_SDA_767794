@@ -285,7 +285,6 @@ int main()
             break;
         case 0:
             puts("Keluar ke program...");
-            opsi = 99;
             break;
         default:
             printf("Inputkan salah satu opsi di atas!\n");

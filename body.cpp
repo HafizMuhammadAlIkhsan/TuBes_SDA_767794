@@ -71,6 +71,7 @@ addrBar alokEtalase(infotype nama, int harga)
 addrBar insertBarang(gudang *root, addrBar pr, infotype nama, int harga)
 {
     addrBar p, q;
+    
 
     p = alokBarang(nama, harga);
     if (p != NULL)
@@ -184,6 +185,25 @@ void tampilSubKategori(addrBar node, int level, int i)
 void kalibrasi()
 {
 
+}
+/*Agar tidak ada barang yang sama walau typo*/
+string standarisasi(string nama)
+{
+    string text = nama;
+    string hasil;
+    for (int i = 0; i <= text.length(); i++)
+    {
+        if (i == 0)
+        {
+            hasil += toupper(text[i]);
+        }
+        else
+        {
+            hasil += tolower(text[i]);
+        }
+    }
+
+    return hasil;
 }
 
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang)

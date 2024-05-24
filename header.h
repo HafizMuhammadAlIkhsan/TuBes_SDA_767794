@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
+#include <cstring>
+#include <ctype.h>
+
+using namespace std;
 
 #define nama(P) (P)->nama
 #define harga(P) (P)->harga
@@ -115,5 +120,7 @@ void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 void tampilBarBel(addrBel first, addrBel last);
 
 addrBel deleteBarBel(addrBel awal, addrBel akhir);
+
+string standarisasi(infotype nama);
 
 #endif
