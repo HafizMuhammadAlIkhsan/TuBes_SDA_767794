@@ -3,29 +3,23 @@
 int main()
 {
     gudang root;
-    addrBar hasil, beliBar, temp;
-    addrBel awal = NULL, akhir = NULL, hapus, curr;
-    int harga, opsi, level = 2, i = 1, nilai, posisi, returnValue, jumBar;
-    char lanjut, beli[100], barang[100], nama[100];
-    addrBel tampung = NULL, tampungtemp;
+    addrBar hasil, beliBar;
+    addrBel awal = NULL, akhir = NULL, curr;
+    int opsi, i = 1, returnValue, jumBar;
+    char lanjut, beli[100], nama[100];
 
-    puts("masuk");
     createTree(&root);
     /*Paling atas*/
     insertBarang(&root, NULL, "King Jonats", 0);
-    puts("masuk tampil");
     hasil = searchGudang(root.root, "King Jonats");
-    puts("selesai cari root");
 
     /*Kategori*/
     insertBarang(&root, hasil, "Makanan", 0); 
     insertBarang(&root, hasil, "Minuman", 0);
     insertBarang(&root, hasil, "Kosmetik", 0);
-    puts("cari makanan");
 
     /*Sub Kategori*/
     hasil = searchGudang(root.root, "Makanan");
-    puts("selesai cari makanan");
     insertBarang(&root, hasil, "Snack", 0);
     insertBarang(&root, hasil, "Makanan beku", 0);
 
@@ -40,11 +34,9 @@ int main()
     hasil = searchGudang(root.root, "Makanan Beku");
     insertBarang(&root, hasil, "So Good", 21000);
     insertBarang(&root, hasil, "Fiesta", 19000);
-    puts("cari minuman");
 
     /*Sub kategori*/
     hasil = searchGudang(root.root, "Minuman");
-    puts("selesai cari minuman");
     insertBarang(&root, hasil, "Minuman bersoda", 0);
     insertBarang(&root, hasil, "Minuman berakohol", 0);
 
@@ -58,11 +50,9 @@ int main()
     /*Barang*/
     hasil = searchGudang(root.root, "Minuman berakohol");
     insertBarang(&root, hasil, "HAARAAMM", 1000000000);
-    puts("cari kosmetik");
 
     /*Sub Kategori*/
     hasil = searchGudang(root.root, "Kosmetik");
-    puts("selesai cari minuman");
     insertBarang(&root, hasil, "Sabun Cuci Muka", 0);
     insertBarang(&root, hasil, "Pemutih", 0);
     
@@ -86,8 +76,8 @@ int main()
         case 1:
             do
             {
-                                    awal = NULL;
-                    akhir = NULL;
+                awal = NULL;
+                akhir = NULL;
                 system("cls");
                 puts("Menu Kasir");
                 puts("1. Lihat Kategori");
@@ -135,13 +125,13 @@ int main()
                             puts("Barang tidak ada");
                             break;
                         }
-                        printf("Ingin beli barang lain? (y/n): ");
+                        printf("Ada lagi yang dibeli? (y/n): ");
                         scanf(" %c", &lanjut);
 
                     } while (lanjut == 'y' || lanjut == 'Y');
                     tampilBarBel(awal, akhir);
                     curr = awal;
-                    while (curr->nextBar == NULL)
+                    while (curr->nextBar != NULL)
                     {
                         deleteBarBel(awal, akhir);
                         curr = curr->nextBar;
@@ -152,6 +142,7 @@ int main()
                     break;
                 }
             } while (opsi != 0);
+            opsi = 99;
             break;
         case 2:
             do
@@ -283,7 +274,6 @@ int main()
                     break;
                 case 0:
                     puts("Kembali ke menu sebelumnya...");
-                    system("pause");
                     break;
                 default:
                     printf("Inputkan salah satu opsi di atas!\n");
