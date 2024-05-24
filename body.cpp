@@ -58,7 +58,9 @@ addrBar alokEtalase(infotype nama, int harga)
         if (jumlah(p) < MAX_JUMLAH)
         {
             jumlah(p) = 0;
-        } else {
+        }
+        else
+        {
             return NULL;
         }
         fs(p) = NULL;
@@ -71,7 +73,6 @@ addrBar alokEtalase(infotype nama, int harga)
 addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga)
 {
     addrBar p, q;
-    
 
     p = alokBarang(nama, harga);
     if (p != NULL)
@@ -134,7 +135,35 @@ void tampilkanGudang(addrBar node, int i)
     }
 }
 
-void tampilkanKategori(addrBar node,int level,int i) 
+void Cek_Stock_Etalase(addrBar node, int level, int i)
+{
+    addrBar current;
+    current = node->fs;
+    if (node == NULL)
+    {
+        return;
+    }
+    
+    while (current != NULL)
+    {
+        if (level == 1)
+        {
+            if (current->jumlah == 0)
+            {
+                printf("%d. %s \t| [Jumlah: %d]\n", i, current->nama, current->jumlah);
+            }
+        }
+        else
+        {
+            Cek_Stock_Etalase(current, level - 1, i);
+            i++;
+        }
+        current = current->nb;
+        i++;
+    }
+}
+
+void tampilkanKategori(addrBar node, int level, int i)
 {
     addrBar current;
     current = node->fs;
@@ -146,7 +175,7 @@ void tampilkanKategori(addrBar node,int level,int i)
     {
         if (level == 1)
         {
-            printf("%d. %s\n",i,current->nama);
+            printf("%d. %s\n", i, current->nama);
         }
         else
         {
@@ -155,7 +184,7 @@ void tampilkanKategori(addrBar node,int level,int i)
         }
         current = current->nb;
         i++;
-    }   
+    }
 }
 
 void tampilSubKategori(addrBar node, int level, int i)
@@ -184,7 +213,6 @@ void tampilSubKategori(addrBar node, int level, int i)
 /*Membenarkan jumlah barang di kategori dan subkategori*/
 void kalibrasi()
 {
-
 }
 /*Agar tidak ada barang yang sama walau typo*/
 string standarisasi(string nama)
@@ -199,7 +227,14 @@ string standarisasi(string nama)
         }
         else
         {
-            hasil += tolower(text[i]);
+            if (text[i] == ' ')
+            {
+                text[i] = '_';
+            }
+            else
+            {
+                hasil += tolower(text[i]);
+            }
         }
     }
 
@@ -229,7 +264,7 @@ void tambahstock(addrBar root, char cariGudang[], int jumlahbarang)
 void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang)
 {
     addrBar current;
-    addrBel temp,temp2;
+    addrBel temp, temp2;
     temp = *awal;
     while (temp != NULL)
     {
@@ -256,7 +291,6 @@ void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang)
     }
 }
 
-
 addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
 {
     addrBel p;
@@ -271,7 +305,7 @@ addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
         {
             printf("Memori sudah penuh\n");
         }
-        namBar(p) = searchGudang(root.root,nama);
+        namBar(p) = searchGudang(root.root, nama);
         jumlah(p) = jumlah;
         nextBar(p) = NULL;
     }
@@ -355,7 +389,7 @@ addrBar searchGudang(addrBar root, char cariGudang[])
     return NULL;
 }
 
-bool cekKategori(addrBar node,int level, infotype search) 
+bool cekKategori(addrBar node, int level, infotype search)
 {
     addrBar current;
     current = node->fs;
@@ -378,7 +412,7 @@ bool cekKategori(addrBar node,int level, infotype search)
         }
         current = current->nb;
     }
-    return false;   
+    return false;
 }
 
 void tampilBarBel(addrBel first, addrBel last)

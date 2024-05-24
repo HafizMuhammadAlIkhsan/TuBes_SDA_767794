@@ -118,6 +118,8 @@ int main()
     insertBarang(&etalase, hasil, "Garnier Men", 19000);
     system("cls");
 
+    
+
     do
     {
         system("cls");
@@ -209,6 +211,7 @@ int main()
                 puts("(2) Tambah barang baru");
                 puts("(3) Tambah stok barang");
                 puts("(4) Tampilkan stok barang");
+                puts("(5) Tampilkan etalase");
                 puts("(0) Kembali");
 
                 printf("Pilih opsi: ");
@@ -256,24 +259,24 @@ int main()
                         case 2:
                             system("cls");
                             printf("Kategori: ");
-                            scanf("%[^\n]s", &nama);
+                            scanf(" %[^\n]s", &nama);
                             while (!cekKategori(gudang.root, 1, nama))
                             {
                                 system("cls");
                                 printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
                                 printf("Kategori: ");
-                                scanf("%[^\n]s", &nama);
+                                scanf(" %[^\n]s", &nama);
                             }
                             hasil = searchGudang(gudang.root, nama);
                             printf("Nama Sub-kategori baru: ");
-                            scanf("%[^\n]s", &nama);
+                            scanf(" %[^\n]s", &nama);
 
                             while (cekKategori(gudang.root, 2, nama))
                             {
                                 system("cls");
                                 printf("%sSub-kategori %s sudah terdaftar!%s\n", red, nama, normal);
                                 printf("Nama Sub-kategori baru: ");
-                                scanf("%[^\n]s", &nama);
+                                scanf(" %[^\n]s", &nama);
                             }
                             hasil = insertBarang(&gudang, hasil, nama, 0);
                             if (hasil != NULL)
@@ -352,24 +355,30 @@ int main()
                     system("cls");
                     printf("Tambah Stock\n");
                     printf("Masukan Nama Barang = ");
-                    scanf("%[^\n]s", &beli);
+                    scanf(" %[^\n]s", &beli);
                     while (!cekKategori(gudang.root, 3, beli))
                     {
                         system("cls");
-                        printf("%sBarang %s belum terdaftar!%s\n", red, beli, normal);
+                        printf(" %sBarang %s belum terdaftar! %s\n", red, beli, normal);
                         printf("Masukan Nama Barang = ");
-                        scanf("%[^\n]s", &beli);
+                        scanf(" %[^\n]s", &beli);
                     }
                     printf("Masukan Jumlah Barang = ");
-                    scanf("%d", &jumBar);
+                    scanf(" %d", &jumBar);
                     tambahstock(gudang.root, beli, jumBar);
                     system("cls");
-                    printf("%sBerhasil menambahkan stock %s sejumlah %d%s\n", green, beli, jumBar, normal);
+                    printf(" %sBerhasil menambahkan stock %s sejumlah %d %s\n", green, beli, jumBar, normal);
                     system("pause");
                     break;
                 case 4:
                     system("cls");
                     tampilkanGudang(gudang.root, 0);
+                    system("pause");
+                    break;
+                case 5:
+                    system("cls");
+                    puts("List barang yang stock nya kosong");
+                    Cek_Stock_Etalase(gudang.root, 3, 1);       // KARENA Insert ETALASE BELUM ADA CEK NYA DI GUDANG
                     system("pause");
                     break;
                 case 0:

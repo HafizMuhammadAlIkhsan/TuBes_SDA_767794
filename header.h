@@ -121,6 +121,8 @@ void tampilBarBel(addrBel first, addrBel last);
 
 addrBel deleteBarBel(addrBel awal, addrBel akhir);
 
+void Cek_Stock_Etalase(addrBar node, int level, int i);
+
 string standarisasi(infotype nama);
 
 #endif
