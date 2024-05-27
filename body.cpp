@@ -392,3 +392,79 @@ void tampilBarBel(addrBel first, addrBel last)
         i++;
     }
 }
+
+void Entry_file()
+// Procedure untuk mengentrykan data ke file Mhs_jtk.dat
+{
+    data_barang dt;
+    char lagi;
+    FILE *f_mhs;
+    if ((f_mhs = fopen("Mhs_jtk.dat", "ab+")) == NULL)
+    {
+        printf("File tidak dapat dibuka\n");
+        exit(1);
+    }
+    for (;;)
+    {
+        fflush(stdin);
+        printf("Nama Barang : ");
+        scanf("%s", &dt.nama);
+        fflush(stdin);
+        printf("Harga : ");
+        scanf("%d", &dt.harga);
+        fflush(stdin);
+        printf("Jumlah Barang : ");
+        scanf("%d", &dt.jumlah);
+        printf("FS : ");
+        scanf("%s", &dt.fs);
+        printf("NB : ");
+        scanf("%s", &dt.nb);
+        printf("PR : ");
+        scanf("%s", &dt.pr);
+        // Sebelum nyimpan ke file, Hapus dulu isi penampung keyboard
+        fflush(stdin);
+        // Save to file
+        fprintf(f_mhs, "%s,%d,%d,%s,%s,%s", dt.nama, dt.harga, dt.jumlah, dt.fs, dt.nb, dt.pr);
+        printf("Entry data lagi ? (Y/T) ");
+        lagi = getche();
+        printf("\n");
+        if (lagi == 't' || lagi == 'T')
+            break;
+    }
+    fclose(f_mhs);
+}
+void Tampil_file()
+// Procedure untuk Menampilkan isi file mahasiswa
+{
+    data_barang dt;
+    FILE *f_mhs;
+    if ((f_mhs = fopen("Mhs_jtk.dat", "rb")) == NULL)
+    {
+        printf("File tidak dapat dibuka\n");
+        exit(1);
+    }
+    printf("\nISI FILE MHS_JTK.dat ADALAH : \n\n");
+    printf("Kelas NIM JK IP \n");
+    while (!feof(f_mhs))
+    {
+        fscanf(f_mhs, "%s", &dt.nama);
+        strtok(dt.nama, ",");
+        printf("%s\n", dt.nama);
+        fscanf(f_mhs, "%s", &dt.harga);
+        strtok(dt.harga, ",");
+        printf("%s\n", dt.harga);
+        fscanf(f_mhs, "%s", &dt.jumlah);
+        strtok(dt.jumlah, ",");
+        printf("%s\n", dt.jumlah);
+        fscanf(f_mhs, "%s", &dt.fs);
+        strtok(dt.fs, ",");
+        printf("%s\n", dt.fs);
+        fscanf(f_mhs, "%s", &dt.nb);
+        strtok(dt.nb, ",");
+        printf("%s\n", dt.nb);
+        fscanf(f_mhs, "%s", &dt.pr);
+        strtok(dt.pr, ",");
+        printf("%s\n", dt.pr);
+    }
+    fclose(f_mhs);
+}

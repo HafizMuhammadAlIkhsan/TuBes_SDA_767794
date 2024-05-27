@@ -7,6 +7,7 @@ int main()
     addrBel awal = NULL, akhir = NULL, curr;
     int opsi, i = 1, returnValue, jumBar, harga;
     char lanjut, beli[100], nama[100];
+    int pil = 0;
 
     createTree(&gudang);
     createTree(&etalase);
@@ -166,7 +167,7 @@ int main()
                     do
                     {
                         printf("Beli: ");
-                        scanf("%[^\n]s", &beli);
+                        scanf(" %[^\n]s", &beli);
                         printf("Jumlah: ");
                         scanf("%d", &jumBar);
 
@@ -209,6 +210,7 @@ int main()
                 puts("(2) Tambah barang baru");
                 puts("(3) Tambah stok barang");
                 puts("(4) Tampilkan stok barang");
+                puts("(5) Tambah ke file");
                 puts("(0) Kembali");
 
                 printf("Pilih opsi: ");
@@ -372,6 +374,30 @@ int main()
                     tampilkanGudang(gudang.root, 0);
                     system("pause");
                     break;
+                case 5:
+                    
+                    for (;;)
+                    {
+                        printf("\t\tMenu : \n");
+                        printf("\t 1. Entry data \n");
+                        printf("\t 2. Sort data \n");
+                        printf("\t 3. Tampil isi file \n");
+                        printf("\t 4. S e l e s a i \n");
+                        printf("\n\t Pilihan : ");
+                        scanf("%d", &pil);
+                        switch (pil)
+                        {
+                            case 1:
+                                Entry_file();
+                                break;
+                            case 2:
+                                Tampil_file();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    break;
                 case 0:
                     puts("Kembali ke menu sebelumnya...");
                     break;
@@ -393,3 +419,12 @@ int main()
         }
     } while (opsi != 0);
 }
+
+// typedef struct data_barang {
+//     char nama[50];
+//     int harga;
+//     int jumlah;
+//     char fs[50];
+//     char nb[50];
+//     char pr[50];
+// } data_barang;

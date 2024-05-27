@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include <ctype.h>
+#include <conio.h>
 
 using namespace std;
 
@@ -76,6 +77,13 @@ typedef struct pembeli
     addrPem next;
 } pembeli;
 
+typedef struct
+{
+    char nama[50], fs[50], nb[50], pr[50];
+    char harga[100000000];
+    char jumlah[100000000];
+} data_barang;
+
 /* Membuat nama dari Toko */
 void createTree(Gudang *x);
 
@@ -122,5 +130,9 @@ void tampilBarBel(addrBel first, addrBel last);
 addrBel deleteBarBel(addrBel awal, addrBel akhir);
 
 string standarisasi(infotype nama);
+
+void Tampil_file();
+
+void Entry_file();
 
 #endif
