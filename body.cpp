@@ -268,14 +268,7 @@ string standarisasi(string nama)
         }
         else
         {
-            if (text[i] == ' ')
-            {
-                text[i] = '_';
-            }
-            else
-            {
-                hasil += tolower(text[i]);
-            }
+            hasil += tolower(text[i]);
         }
     }
 
@@ -319,13 +312,16 @@ addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
     if (p == NULL)
     {
         printf("Memori sudah penuh\n");
+        printf("Cek1\n");
     }
     else
     {
-        if (namBar(p) == NULL)
-        {
-            printf("Memori sudah penuh\n");
-        }
+        // bang ini untuk apa? program nya jadi aneh(tanya sulthan untuk spesifikasi aneh nya)
+        // if (namBar(p) == NULL)
+        // {
+        //     printf("Memori sudah penuh\n");
+        //     printf("Cek2\n");
+        // }
         namBar(p) = searchGudang(root.root, nama);
         jumlah(p) = jumlah;
         nextBar(p) = NULL;
