@@ -85,6 +85,8 @@ void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 
+void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
+
 string standarisasi(infotype nama);
 
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */

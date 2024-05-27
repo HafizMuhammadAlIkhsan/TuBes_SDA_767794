@@ -30,16 +30,20 @@ int main()
     /*Barang*/
     hasil = searchGudang(gudang.root, "Snack");
     insertBarang(&gudang, hasil, "Chitato", 11000);
+    tambahstock(gudang.root, "Chitato", 4);
     insertBarang(&gudang, hasil, "Taro", 8000);
     tambahstock(gudang.root, "Taro", 120);
     insertBarang(&gudang, hasil, "Lays", 11000);
     tambahstock(gudang.root, "Lays", 120);
     insertBarang(&gudang, hasil, "Pota Bee", 10000);
+    tambahstock(gudang.root, "Pota Bee", 120);
 
     /*barang*/
     hasil = searchGudang(gudang.root, "Makanan Beku");
     insertBarang(&gudang, hasil, "So Good", 21000);
+    tambahstock(gudang.root, "So Good", 120);
     insertBarang(&gudang, hasil, "Fiesta", 19000);
+    tambahstock(gudang.root, "Fiesta", 120);
 
     /*Sub kategori*/
     hasil = searchGudang(gudang.root, "Minuman");
@@ -49,13 +53,18 @@ int main()
     /*Barang*/
     hasil = searchGudang(gudang.root, "Minuman bersoda");
     insertBarang(&gudang, hasil, "Coca Cola", 7000);
+    tambahstock(gudang.root, "Coca Cola", 120);
     insertBarang(&gudang, hasil, "Sprite", 7000);
+    tambahstock(gudang.root, "Sprite", 120);
     insertBarang(&gudang, hasil, "Fanta", 7000);
+    tambahstock(gudang.root, "Fanta", 120);
     insertBarang(&gudang, hasil, "Pepsi", 8000);
+    tambahstock(gudang.root, "Pepsi", 120);
 
     /*Barang*/
     hasil = searchGudang(gudang.root, "Minuman berakohol");
     insertBarang(&gudang, hasil, "HAARAAMM", 1000000000);
+    tambahstock(gudang.root, "HAARAAMM", 120);
 
     /*Sub Kategori*/
     hasil = searchGudang(gudang.root, "Kosmetik");
@@ -65,7 +74,9 @@ int main()
     /*Barang*/
     hasil = searchGudang(gudang.root, "Sabun Cuci Muka");
     insertBarang(&gudang, hasil, "Mens Biore", 21000);
+     tambahstock(gudang.root, "Mens Biore", 120);
     insertBarang(&gudang, hasil, "Garnier Men", 19000);
+    tambahstock(gudang.root, "Garnier Men", 120);
     system("cls");
 
     puts("masuk insert etalase");
@@ -120,7 +131,13 @@ int main()
     insertBarang(&etalase, hasil, "Garnier Men", 19000);
     system("cls");
 
-    
+    puts("Barang yang ditambahkan pada etalase");
+    tambahStockEtalase(etalase.root, gudang.root, 3);
+    system("pause");
+
+    puts("");
+    tampilkanGudang(etalase.root, 0);
+    system("pause");
 
     do
     {

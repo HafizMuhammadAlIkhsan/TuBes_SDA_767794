@@ -121,6 +121,53 @@ void tambahstock(addrBar root, char cariGudang[], int jumlahbarang)
     }
 }
 
+void tambahStockEtalase(addrBar etalase, addrBar gudang, int level)
+{
+    int jumlahStok;
+    addrBar barangEtalase, barangGudang;
+    barangEtalase = etalase->fs;
+    if (etalase == NULL)
+    {
+        puts("Tree etalase belum dibuat");
+    }
+
+    while (barangEtalase != NULL)
+    {
+        if (level == 1)
+        {
+            if (barangEtalase->jumlah < MAX_JUMLAH)
+            {
+                // ? Mencari barang tersebut di gudang
+                barangGudang = searchGudang(gudang, barangEtalase->nama);
+
+                if (barangGudang->jumlah < MAX_JUMLAH - barangEtalase->jumlah)
+                {
+                    jumlahStok = barangGudang->jumlah;
+                } else {
+                    jumlahStok = MAX_JUMLAH - barangEtalase->jumlah;
+                }
+
+                // ? Mengurangi stok barang dan juga parentnya (etalase)
+                barangGudang->jumlah = barangGudang->jumlah - jumlahStok;
+                barangGudang->pr->jumlah = barangGudang->pr->jumlah - jumlahStok;
+                barangGudang->pr->pr->jumlah = barangGudang->pr->pr->jumlah - jumlahStok;
+
+                // ? Mengurangi stok barang dan juga parentnya (etalase)
+                barangEtalase->jumlah = barangEtalase->jumlah + jumlahStok;
+                barangEtalase->pr->jumlah = barangEtalase->pr->jumlah + jumlahStok;
+                barangEtalase->pr->pr->jumlah = barangEtalase->pr->pr->jumlah + jumlahStok;
+
+                printf("-%s ditambahkan %s%d%s, sisa %s%d%s di gudang\n", barangEtalase->nama, blue, jumlahStok, normal, blue, barangGudang->jumlah, normal);
+            }
+        }
+        else
+        {
+            tambahStockEtalase(barangEtalase, gudang, level - 1);
+        }
+        barangEtalase = barangEtalase->nb;
+    }
+}
+
 bool cekKategori(addrBar node, int level, infotype search)
 {
     addrBar current;
