@@ -1,5 +1,5 @@
-#ifndef header
-#define header
+#ifndef HEADER_H
+#define HEADER_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -86,5 +86,31 @@ void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 
 string standarisasi(infotype nama);
+
+/* Menampilkan list dari subkatergori barang yang ada di gudang toko */
+void tampilSubKategori(addrBar nama, int level, int i);
+
+/* Modul untuk alokasi barang yang dibeli pembeli */
+addrBel alokBarBel(Gudang root, infotype nama, int harga);
+
+/* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
+void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
+
+/* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
+addrBar searchGudang(addrBar root, char cariGudang[]);
+
+/*Mengurangi stock yang ada di gudang*/
+void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
+
+void tampilBarBel(addrBel first, addrBel last);
+
+/*Mengurangi stock yang ada di gudang*/
+void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
+
+void tampilBarBel(addrBel first, addrBel last);
+
+addrBel deleteBarBel(addrBel awal, addrBel akhir);
+
+void Cek_Stock_Etalase(addrBar node, int level, int i);
 
 #endif
