@@ -108,6 +108,8 @@ void tambahstock(addrBar root, char cariGudang[], int jumlahbarang)
     if (current != NULL)
     {
         current->jumlah = current->jumlah + jumlah;
+        current->pr->jumlah = current->pr->jumlah + jumlah;
+        current->pr->pr->jumlah = current->pr->pr->jumlah + jumlah;
         puts("output");
 
         return;
@@ -275,24 +277,26 @@ string standarisasi(string nama)
     return hasil;
 }
 
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang)
+void kurangistock(Gudang root, addrBel awal)
 {
     addrBar current;
-    addrBel temp, temp2;
-    temp = *awal;
+    addrBel temp;
+    temp = awal;
     while (temp != NULL)
     {
         current = searchGudang(root.root, temp->namBar->nama);
 
         if (current != NULL)
         {
-            if (current->jumlah > jumlahbarang)
+            if (current->jumlah > temp->jumlah)
             {
                 current->jumlah = current->jumlah - temp->jumlah;
+                current->pr->jumlah = current->pr->jumlah - temp->jumlah;
+                current->pr->pr->jumlah = current->pr->pr->jumlah - temp->jumlah;
             }
             else
             {
-                printf("Stok barang tidak mencukupi");
+                puts("Stok barang tidak mencukupi");
                 break;
             }
         }
@@ -300,12 +304,11 @@ void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang)
         {
             printf("Tidak ada barang nya");
         }
-        temp2 = temp;
         temp = temp->nextBar;
     }
 }
 
-addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
+addrBel alokBarBel(Gudang root, addrBar beli, int jumlah)
 {
     addrBel p;
     p = (addrBel)malloc(sizeof(dibeli));
@@ -316,23 +319,17 @@ addrBel alokBarBel(Gudang root, infotype nama, int jumlah)
     }
     else
     {
-        // bang ini untuk apa? program nya jadi aneh(tanya sulthan untuk spesifikasi aneh nya)
-        // if (namBar(p) == NULL)
-        // {
-        //     printf("Memori sudah penuh\n");
-        //     printf("Cek2\n");
-        // }
-        namBar(p) = searchGudang(root.root, nama);
+        namBar(p) = beli;
         jumlah(p) = jumlah;
         nextBar(p) = NULL;
     }
     return p;
 }
 
-void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah)
+void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
-    p = alokBarBel(root, nama, jumlah);
+    p = alokBarBel(root, beli, jumlah);
 
     if (*awal == NULL && *akhir == NULL)
     {
@@ -345,23 +342,23 @@ void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int
     *akhir = p;
 }
 
-addrBel deleteBarBel(addrBel awal, addrBel akhir)
+addrBel deleteBarBel(addrBel *awal, addrBel akhir)
 {
-    addrBel p = awal, temp;
+    addrBel p = (*awal), temp;
     int nilai;
 
-    if (awal == NULL && akhir == NULL)
+    if ((*awal) == NULL && akhir == NULL)
     {
         printf("Linked list kosong\n");
     }
-    else if (awal == akhir)
+    else if ((*awal) == akhir)
     {
-        awal = NULL;
+        (*awal) = NULL;
         akhir = NULL;
     }
     else
     {
-        awal = p->nextBar;
+        (*awal) = p->nextBar;
     }
 
     p->nextBar = NULL;

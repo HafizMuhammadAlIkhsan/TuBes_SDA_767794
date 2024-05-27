@@ -31,7 +31,9 @@ int main()
     hasil = searchGudang(gudang.root, "Snack");
     insertBarang(&gudang, hasil, "Chitato", 11000);
     insertBarang(&gudang, hasil, "Taro", 8000);
+    tambahstock(gudang.root, "Taro", 120);
     insertBarang(&gudang, hasil, "Lays", 11000);
+    tambahstock(gudang.root, "Lays", 120);
     insertBarang(&gudang, hasil, "Pota Bee", 10000);
 
     /*barang*/
@@ -175,8 +177,7 @@ int main()
                         beliBar = searchGudang(gudang.root, beli);
                         if (beliBar != NULL)
                         {
-                            insertBarBel(gudang, beli, &awal, &akhir, jumBar);
-                            kurangistock(gudang, beli, &awal, jumBar);
+                            insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
                         }
                         else
                         {
@@ -187,12 +188,13 @@ int main()
                         scanf(" %c", &lanjut);
 
                     } while (lanjut == 'y' || lanjut == 'Y');
+                    kurangistock(gudang, awal);
                     tampilBarBel(awal, akhir);
                     curr = awal;
                     while (curr->nextBar != NULL)
                     {
-                        deleteBarBel(awal, akhir);
                         curr = curr->nextBar;
+                        deleteBarBel(&awal, akhir);
                     }
                     system("pause");
                     break;
@@ -233,11 +235,13 @@ int main()
                         {
                         case 1:
                             system("cls");
+                            puts("Tambah Kategori");
                             printf("Nama kategori baru: ");
                             scanf(" %[^\n]s", &nama);
                             while (cekKategori(gudang.root, 1, nama))
                             {
                                 system("cls");
+                                puts("Tambah Kategori");
                                 printf("%sKategori %s sudah terdaftar!%s\n", red, nama, normal);
                                 printf("Nama kategori baru: ");
                                 scanf(" %[^\n]s", &nama);
@@ -279,6 +283,7 @@ int main()
                                 scanf(" %[^\n]s", &nama);
                             }
                             hasil = insertBarang(&gudang, hasil, nama, 0);
+                            system("cls");
                             if (hasil != NULL)
                             {
                                 printf("%sSub-kategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
@@ -306,7 +311,7 @@ int main()
                 case 2:
                     system("cls");
                     printf("Kategori: ");
-                    scanf("% [^\n]s", &nama);
+                    scanf(" %[^\n]s", &nama);
                     while (!cekKategori(gudang.root, 1, nama))
                     {
                         system("cls");
@@ -322,7 +327,7 @@ int main()
                     {
                         system("cls");
                         printf("%sSub-kategori %s belum terdaftar!%s\n", red, nama, normal);
-                        printf("Nama Sub-kategori: ");
+                        printf("Sub-kategori: ");
                         scanf(" %[^\n]s", &nama);
                     }
                     hasil = searchGudang(gudang.root, nama);
@@ -354,16 +359,16 @@ int main()
                 case 3:
                     system("cls");
                     printf("Tambah Stock\n");
-                    printf("Masukan Nama Barang = ");
+                    printf("Masukan Nama Barang: ");
                     scanf(" %[^\n]s", &beli);
                     while (!cekKategori(gudang.root, 3, beli))
                     {
                         system("cls");
                         printf(" %sBarang %s belum terdaftar! %s\n", red, beli, normal);
-                        printf("Masukan Nama Barang = ");
+                        printf("Masukan Nama Barang: ");
                         scanf(" %[^\n]s", &beli);
                     }
-                    printf("Masukan Jumlah Barang = ");
+                    printf("Masukan Jumlah Barang: ");
                     scanf(" %d", &jumBar);
                     tambahstock(gudang.root, beli, jumBar);
                     system("cls");

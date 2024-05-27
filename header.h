@@ -91,16 +91,16 @@ string standarisasi(infotype nama);
 void tampilSubKategori(addrBar nama, int level, int i);
 
 /* Modul untuk alokasi barang yang dibeli pembeli */
-addrBel alokBarBel(Gudang root, infotype nama, int harga);
+addrBel alokBarBel(Gudang root, addrBar beli, int harga);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
-void insertBarBel(Gudang root, infotype nama, addrBel *awal, addrBel *akhir, int jumlah);
+void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
 addrBar searchGudang(addrBar root, char cariGudang[]);
 
 /*Mengurangi stock yang ada di gudang*/
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
+void kurangistock(Gudang root, addrBel awal);
 
 void tampilBarBel(addrBel first, addrBel last);
 
@@ -109,7 +109,7 @@ void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 
 void tampilBarBel(addrBel first, addrBel last);
 
-addrBel deleteBarBel(addrBel awal, addrBel akhir);
+addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 
 void Cek_Stock_Etalase(addrBar node, int level, int i);
 
