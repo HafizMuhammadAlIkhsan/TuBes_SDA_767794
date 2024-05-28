@@ -131,13 +131,13 @@ int main()
     insertBarang(&etalase, hasil, "Garnier Men", 19000);
     system("cls");
 
-    puts("Barang yang ditambahkan pada etalase");
-    tambahStockEtalase(etalase.root, gudang.root, 3);
-    system("pause");
+    // puts("Barang yang ditambahkan pada etalase");
+    // tambahStockEtalase(etalase.root, gudang.root, 3);
+    // system("pause");
 
-    puts("");
-    tampilkanGudang(etalase.root, 0);
-    system("pause");
+    // puts("");
+    // tampilkanGudang(etalase.root, 0);
+    // system("pause");
 
     do
     {
