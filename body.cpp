@@ -340,15 +340,14 @@ void kurangistock(Gudang root, addrBel awal)
     temp = awal;
     while (temp != NULL)
     {
-        current = searchGudang(root.root, temp->namBar->nama);
 
-        if (current != NULL)
+        if (temp->namBar != NULL)
         {
-            if (current->jumlah > temp->jumlah)
+            if (temp->namBar->jumlah > temp->jumlah)
             {
-                current->jumlah = current->jumlah - temp->jumlah;
-                current->pr->jumlah = current->pr->jumlah - temp->jumlah;
-                current->pr->pr->jumlah = current->pr->pr->jumlah - temp->jumlah;
+                temp->namBar->jumlah = temp->namBar->jumlah - temp->jumlah;
+                temp->namBar->pr->jumlah = temp->namBar->pr->jumlah - temp->jumlah;
+                temp->namBar->pr->pr->jumlah = temp->namBar->pr->pr->jumlah - temp->jumlah;
             }
             else
             {
