@@ -107,4 +107,6 @@ addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 
 void Cek_Stock_Etalase(addrBar node, int level, int i);
 
+void bacaFile(Gudang gudang, char namaFile[]);
+
 #endif
