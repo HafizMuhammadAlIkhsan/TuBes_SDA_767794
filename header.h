@@ -70,10 +70,8 @@ void createTree(Gudang *x);
 
 /* Modul untuk alokasi */
 addrBar alokBarang(infotype nama, int harga, int jumlah);
-addrBar alokBarang(infotype nama, int harga, int jumlah);
 
 /* Modul untuk menyisipkan node pada struktur tree */
-addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah);
 addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah);
 
 /* Modul untuk menampilkan keseluruhan list yang ada pada struktur tree */
