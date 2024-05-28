@@ -458,7 +458,7 @@ addrBar searchGudang(addrBar root, char cariGudang[])
     return NULL;
 }
 
-void tampilBarBel(addrBel first, addrBel last)
+int tampilBarBel(addrBel first, addrBel last)
 {
     int totalHarga = 0;
     addrBel p = first;
@@ -471,6 +471,7 @@ void tampilBarBel(addrBel first, addrBel last)
         i++;
     }
     printf("Total harga: %d\n", totalHarga);
+    return totalHarga;
 }
 
 void bacaFile(Gudang gudang, char namaFile[])

@@ -92,17 +92,25 @@ int main()
                         scanf(" %c", &lanjut);
 
                     } while (lanjut == 'y' || lanjut == 'Y');
-                    kurangistock(gudang, awal);
                     system("cls");
                     puts("Struk Hafiz Market");
-                    tampilBarBel(awal, akhir);
+                    returnValue = tampilBarBel(awal, akhir);
+                    system("pause");
+                    system("cls");
+                    puts("Pembayaran");
+                    printf("Total harga          : Rp.%d\n", returnValue);
+                    printf("Masukkan jumlah uang : Rp.");
+                    scanf(" %d", &harga);
+                    printf("Kembalian            : Rp.%d\n", harga-returnValue);
+                    puts("Terima kasih sudah belanja!");
+                    kurangistock(gudang, awal);
+                    system("pause");
                     curr = awal;
                     while (curr->nextBar != NULL)
                     {
                         curr = curr->nextBar;
                         deleteBarBel(&awal, akhir);
                     }
-                    system("pause");
                     break;
                 default:
                     break;

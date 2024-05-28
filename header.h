@@ -105,7 +105,7 @@ addrBar searchGudang(addrBar root, char cariGudang[]);
 /*Mengurangi stock yang ada di gudang*/
 void kurangistock(Gudang root, addrBel awal);
 
-void tampilBarBel(addrBel first, addrBel last);
+int tampilBarBel(addrBel first, addrBel last);
 
 addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 
