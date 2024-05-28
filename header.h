@@ -79,9 +79,6 @@ bool cekKategori(addrBar node,int level, infotype search);
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 
-/*Menmabahkan stock yang ada di gudang*/
-void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
-
 void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
 
 string standarisasi(infotype nama);
@@ -100,8 +97,6 @@ addrBar searchGudang(addrBar root, char cariGudang[]);
 
 /*Mengurangi stock yang ada di gudang*/
 void kurangistock(Gudang root, addrBel awal);
-
-void tampilBarBel(addrBel first, addrBel last);
 
 void tampilBarBel(addrBel first, addrBel last);
 

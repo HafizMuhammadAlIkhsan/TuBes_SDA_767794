@@ -232,7 +232,6 @@ int main()
                 puts("(2) Tambah barang baru");
                 puts("(3) Tambah stok barang");
                 puts("(4) Tampilkan stok barang");
-                puts("(5) Tampilkan etalase");
                 puts("(0) Kembali");
 
                 printf("Pilih opsi: ");
@@ -265,7 +264,6 @@ int main()
                                 printf("Nama kategori baru: ");
                                 scanf(" %[^\n]s", &nama);
                             }
-                            puts("masuk insert");
                             hasil = insertBarang(&gudang, gudang.root, nama, 0, 0);
                             system("cls");
                             if (hasil != NULL)
@@ -399,12 +397,12 @@ int main()
                     tampilkanGudang(gudang.root, 0);
                     system("pause");
                     break;
-                case 5:
-                    system("cls");
-                    puts("List barang yang stock nya kosong");
-                    Cek_Stock_Etalase(gudang.root, 3, 1);       // KARENA Insert ETALASE BELUM ADA CEK NYA DI GUDANG
-                    system("pause");
-                    break;
+                // case 5:
+                //     system("cls");
+                //     puts("List barang yang stock nya kosong");
+                //     Cek_Stock_Etalase(gudang.root, 3, 1);       // KARENA Insert ETALASE BELUM ADA CEK NYA DI GUDANG
+                //     system("pause");
+                //     break;
                 case 0:
                     puts("Kembali ke menu sebelumnya...");
                     break;
