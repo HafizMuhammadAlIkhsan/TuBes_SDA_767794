@@ -5,7 +5,7 @@ void createTree(Gudang *x)
     (*x).root = NULL;
 }
 
-addrBar alokBarang(infotype nama, int harga)
+addrBar alokBarang(infotype nama, int harga, int jumlah)
 {
     addrBar p;
     // Alokasi memori untuk struct barang
@@ -26,7 +26,7 @@ addrBar alokBarang(infotype nama, int harga)
         strcpy(nama(p), nama);
 
         harga(p) = harga;
-        jumlah(p) = 0;
+        jumlah(p) = jumlah;
         fs(p) = NULL;
         nb(p) = NULL;
         pr(p) = NULL;
@@ -34,11 +34,11 @@ addrBar alokBarang(infotype nama, int harga)
     return p;
 }
 
-addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga)
+addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah)
 {
     addrBar p, q;
 
-    p = alokBarang(nama, harga);
+    p = alokBarang(nama, harga, jumlah);
     if (p != NULL)
     {
         if (pr == NULL)
@@ -452,12 +452,15 @@ addrBar searchGudang(addrBar root, char cariGudang[])
 
 void tampilBarBel(addrBel first, addrBel last)
 {
+    int totalHarga = 0;
     addrBel p = first;
     int i = 1;
     while (p != NULL)
     {
-        printf("%d. %s jumlah %d\n", i, p->namBar->nama, p->jumlah);
+        printf("%d. %s jumlah %d x %d: %d\n", i, p->namBar->nama, p->jumlah, p->namBar->harga, p->jumlah*p->namBar->harga);
+        totalHarga = totalHarga + (p->jumlah*p->namBar->harga);
         p = nextBar(p);
         i++;
     }
+    printf("Total harga: %d\n", totalHarga);
 }

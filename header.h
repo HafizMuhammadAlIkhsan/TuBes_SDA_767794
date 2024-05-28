@@ -62,10 +62,10 @@ typedef struct dibeli
 void createTree(Gudang *x);
 
 /* Modul untuk alokasi */
-addrBar alokBarang(infotype nama, int harga);
+addrBar alokBarang(infotype nama, int harga, int jumlah);
 
 /* Modul untuk menyisipkan node pada struktur tree */
-addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga);
+addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah);
 
 /* Modul untuk menampilkan keseluruhan list yang ada pada struktur tree */
 void tampilkanGudang(addrBar node, int i);
@@ -78,9 +78,6 @@ bool cekKategori(addrBar node,int level, infotype search);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
-
-/*Mengurangi stock yang ada di gudang*/
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
@@ -105,9 +102,6 @@ addrBar searchGudang(addrBar root, char cariGudang[]);
 void kurangistock(Gudang root, addrBel awal);
 
 void tampilBarBel(addrBel first, addrBel last);
-
-/*Mengurangi stock yang ada di gudang*/
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
 
 void tampilBarBel(addrBel first, addrBel last);
 
