@@ -399,13 +399,14 @@ void Entry_file()
     data_barang dt;
     char lagi;
     FILE *f_mhs;
-    if ((f_mhs = fopen("Mhs_jtk.dat", "ab+")) == NULL)
+    if ((f_mhs = fopen("gudang.txt", "a")) == NULL)
     {
         printf("File tidak dapat dibuka\n");
         exit(1);
     }
     for (;;)
     {
+        puts("masuk input");
         fflush(stdin);
         printf("Nama Barang : ");
         scanf("%s", &dt.nama);
@@ -467,4 +468,45 @@ void Tampil_file()
         printf("%s\n", dt.pr);
     }
     fclose(f_mhs);
+}
+
+void bacaFile(Gudang gudang, char namaFile[])
+{
+    FILE *file;
+    file = fopen(namaFile, "r");
+    if (file == NULL)
+    {
+        printf("File tidak dapat dibuka.\n");
+        exit(1);
+    }
+
+    char wadah[256];
+    while (fgets(wadah, sizeof(wadah), file) != NULL)
+    {
+        char *jumlah, *fs, *nb, *pr;
+        char *token = strtok(wadah, ",");
+        infotype nama = token;
+        token = strtok(NULL, ",");
+        int harga = atoi(token);
+        token = strtok(NULL, ",");
+        jumlah = token;
+        token = strtok(NULL, ",");
+        fs = token;
+        token = strtok(NULL, ",");
+        nb = token;
+        token = strtok(NULL, ",");
+        pr = token;
+        printf("cek: %s,%d,%s,%s,%s,%s\n", nama, harga, jumlah, fs, nb, pr);
+        addrBar hasil = searchGudang(gudang.root, pr);
+        if (hasil != NULL)
+        {
+            insertBarang(&gudang, hasil, nama, harga);
+        }
+        else
+        {
+            printf("Kategori %s tidak ditemukan. Data tidak dimasukkan.\n", nama);
+        }
+    }
+
+    fclose(file);
 }

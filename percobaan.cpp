@@ -97,25 +97,17 @@ void createTree(Gudang *x)
 
 addrBar searchGudang(addrBar root, char* cariGudang)
 {
-    puts("1");
     addrBar p = root;
     bool resmi = true;
-    if (p != NULL) {
-        printf("Nama node saat ini: %s\n", nama(p));
-    }
-    puts("2");
     if (strcasecmp(nama(p), cariGudang) == 0)
     {
-        puts("2.1");
         return p;
     }
-    puts("3");
     do
     {
         if (fs(p) != NULL && resmi)
         {
             p = fs(p);
-            printf("Nama anak pertama: %s\n", nama(p));
             if (strcasecmp(nama(p), cariGudang) == 0)
             {
                 return p;
@@ -124,7 +116,6 @@ addrBar searchGudang(addrBar root, char* cariGudang)
         else if (nb(p) != NULL)
         {
             p = nb(p);
-            printf("Nama saudara berikutnya: %s\n", nama(p));
             if (strcasecmp(nama(p), cariGudang) == 0)
             {
                 return p;
@@ -134,7 +125,6 @@ addrBar searchGudang(addrBar root, char* cariGudang)
         else
         {
             p = pr(p);
-            printf("Nama parent: %s\n", nama(p));
             resmi = false;
         }
     } while (pr(p) != NULL);
@@ -200,17 +190,16 @@ void bacaFile(Gudang gudang, char namaFile[])
         exit(1);
     }
 
-    char wadah[256];
-    puts("sebelum while");
+    char wadah[500];
     while (fgets(wadah, sizeof(wadah), file) != NULL)
     {
         char *jumlah, *fs, *nb, *pr;
-        puts("masuk while");
         char *token = strtok(wadah, ",");
         infotype nama = token;
         token = strtok(NULL, ",");
         int harga = atoi(token);
         token = strtok(NULL, ",");
+        int jumlah = atoi(token);
         jumlah = token;
         token = strtok(NULL, ",");
         fs = token;
@@ -219,24 +208,19 @@ void bacaFile(Gudang gudang, char namaFile[])
         token = strtok(NULL, ",");
         pr = token;
         printf("cek: %s,%d,%s,%s,%s,%s\n", nama, harga, jumlah, fs, nb, pr);
-        puts("sebelum cari");
         addrBar hasil = searchGudang(gudang.root, pr);
-        puts("setelah cari");
         if (hasil != NULL)
         {
-            puts("sebelum insert");
             insertBarang(&gudang, hasil, nama, harga);
         }
         else
         {
             printf("Kategori %s tidak ditemukan. Data tidak dimasukkan.\n", nama);
         }
-        puts("akhir while");
     }
 
     fclose(file);
 }
-
 
 int main()
 {
@@ -249,7 +233,6 @@ int main()
 
     printf("Isi Gudang:\n");
     tampilkanGudang(gudang.root, 0);
-    //cetakGudang(root(&gudang));
 
     return 0;
 }

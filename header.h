@@ -135,4 +135,6 @@ void Tampil_file();
 
 void Entry_file();
 
+void bacaFile(Gudang gudang, char namaFile[]);
+
 #endif
