@@ -7,6 +7,7 @@ int main()
     addrBel awal = NULL, akhir = NULL, curr;
     int opsi, i = 1, returnValue, jumBar, harga;
     char lanjut, beli[100], nama[100];
+    int pil = 0;
 
     createTree(&gudang);
     createTree(&etalase);
@@ -14,121 +15,7 @@ int main()
     /*Paling atas*/
     insertBarang(&gudang, NULL, "Gudang", 0, 0);
     insertBarang(&etalase, NULL, "Etalase", 0, 0);
-
-    hasil = searchGudang(gudang.root, "Gudang");
-
-    /*Kategori*/
-    insertBarang(&gudang, hasil, "Makanan", 0, 0);
-    insertBarang(&gudang, hasil, "Minuman", 0, 0);
-    insertBarang(&gudang, hasil, "Kosmetik", 0, 0);
-
-    /*Sub Kategori*/
-    hasil = searchGudang(gudang.root, "Makanan");
-    insertBarang(&gudang, hasil, "Snack", 0, 0);
-    insertBarang(&gudang, hasil, "Makanan beku", 0, 0);
-
-    /*Barang*/
-    hasil = searchGudang(gudang.root, "Snack");
-    insertBarang(&gudang, hasil, "Chitato", 11000, 0);
-    tambahstock(gudang.root, "Chitato", 4);
-    insertBarang(&gudang, hasil, "Taro", 8000, 0);
-    tambahstock(gudang.root, "Taro", 120);
-    insertBarang(&gudang, hasil, "Lays", 11000, 0);
-    tambahstock(gudang.root, "Lays", 120);
-    insertBarang(&gudang, hasil, "Pota Bee", 10000, 0);
-    tambahstock(gudang.root, "Pota Bee", 120);
-
-    /*barang*/
-    hasil = searchGudang(gudang.root, "Makanan Beku");
-    insertBarang(&gudang, hasil, "So Good", 21000, 0);
-    tambahstock(gudang.root, "So Good", 120);
-    insertBarang(&gudang, hasil, "Fiesta", 19000, 0);
-    tambahstock(gudang.root, "Fiesta", 120);
-
-    /*Sub kategori*/
-    hasil = searchGudang(gudang.root, "Minuman");
-    insertBarang(&gudang, hasil, "Minuman bersoda", 0, 0);
-    insertBarang(&gudang, hasil, "Minuman berakohol", 0, 0);
-
-    /*Barang*/
-    hasil = searchGudang(gudang.root, "Minuman bersoda");
-    insertBarang(&gudang, hasil, "Coca Cola", 7000, 0);
-    tambahstock(gudang.root, "Coca Cola", 120);
-    insertBarang(&gudang, hasil, "Sprite", 7000, 0);
-    tambahstock(gudang.root, "Sprite", 120);
-    insertBarang(&gudang, hasil, "Fanta", 7000, 0);
-    tambahstock(gudang.root, "Fanta", 120);
-    insertBarang(&gudang, hasil, "Pepsi", 8000, 0);
-    tambahstock(gudang.root, "Pepsi", 120);
-
-    /*Barang*/
-    hasil = searchGudang(gudang.root, "Minuman berakohol");
-    insertBarang(&gudang, hasil, "HAARAAMM", 1000000000, 0);
-    tambahstock(gudang.root, "HAARAAMM", 120);
-
-    /*Sub Kategori*/
-    hasil = searchGudang(gudang.root, "Kosmetik");
-    insertBarang(&gudang, hasil, "Sabun Cuci Muka", 0, 0);
-    insertBarang(&gudang, hasil, "Pemutih", 0, 0);
-
-    /*Barang*/
-    hasil = searchGudang(gudang.root, "Sabun Cuci Muka");
-    insertBarang(&gudang, hasil, "Mens Biore", 21000, 0);
-     tambahstock(gudang.root, "Mens Biore", 120);
-    insertBarang(&gudang, hasil, "Garnier Men", 19000, 0);
-    tambahstock(gudang.root, "Garnier Men", 120);
-    system("cls");
-
-    puts("masuk insert etalase");
-    hasil = searchGudang(etalase.root, "Etalase");
-
-    /*Kategori*/
-    insertBarang(&etalase, hasil, "Makanan", 0, 0);
-    insertBarang(&etalase, hasil, "Minuman", 0, 0);
-    insertBarang(&etalase, hasil, "Kosmetik", 0, 0);
-
-    /*Sub Kategori*/
-    hasil = searchGudang(etalase.root, "Makanan");
-    insertBarang(&etalase, hasil, "Snack", 0, 0);
-    insertBarang(&etalase, hasil, "Makanan beku", 0, 0);
-
-    /*Barang*/
-    hasil = searchGudang(etalase.root, "Snack");
-    insertBarang(&etalase, hasil, "Chitato", 11000, 0);
-    insertBarang(&etalase, hasil, "Taro", 8000, 0);
-    insertBarang(&etalase, hasil, "Lays", 11000, 0);
-    insertBarang(&etalase, hasil, "Pota Bee", 10000, 0);
-
-    /*barang*/
-    hasil = searchGudang(etalase.root, "Makanan Beku");
-    insertBarang(&etalase, hasil, "So Good", 21000, 0);
-    insertBarang(&etalase, hasil, "Fiesta", 19000, 0);
-
-    /*Sub kategori*/
-    hasil = searchGudang(etalase.root, "Minuman");
-    insertBarang(&etalase, hasil, "Minuman bersoda", 0, 0);
-    insertBarang(&etalase, hasil, "Minuman berakohol", 0, 0);
-
-    /*Barang*/
-    hasil = searchGudang(etalase.root, "Minuman bersoda");
-    insertBarang(&etalase, hasil, "Coca Cola", 7000, 0);
-    insertBarang(&etalase, hasil, "Sprite", 7000, 0);
-    insertBarang(&etalase, hasil, "Fanta", 7000, 0);
-    insertBarang(&etalase, hasil, "Pepsi", 8000, 0);
-
-    /*Barang*/
-    hasil = searchGudang(etalase.root, "Minuman berakohol");
-    insertBarang(&etalase, hasil, "HAARAAMM", 1000000000, 0);
-
-    /*Sub Kategori*/
-    hasil = searchGudang(etalase.root, "Kosmetik");
-    insertBarang(&etalase, hasil, "Sabun Cuci Muka", 0, 0);
-    insertBarang(&etalase, hasil, "Pemutih", 0, 0);
-
-    /*Barang*/
-    hasil = searchGudang(etalase.root, "Sabun Cuci Muka");
-    insertBarang(&etalase, hasil, "Mens Biore", 21000, 0);
-    insertBarang(&etalase, hasil, "Garnier Men", 19000, 0);
+    bacaFile(gudang, "gudang.txt");
     system("cls");
 
     // puts("Barang yang ditambahkan pada etalase");
