@@ -204,14 +204,23 @@ void bacaFile(Gudang gudang, char namaFile[])
     puts("sebelum while");
     while (fgets(wadah, sizeof(wadah), file) != NULL)
     {
+        char *jumlah, *fs, *nb, *pr;
         puts("masuk while");
         char *token = strtok(wadah, ",");
         infotype nama = token;
-        char temp[100];
         token = strtok(NULL, ",");
         int harga = atoi(token);
+        token = strtok(NULL, ",");
+        jumlah = token;
+        token = strtok(NULL, ",");
+        fs = token;
+        token = strtok(NULL, ",");
+        nb = token;
+        token = strtok(NULL, ",");
+        pr = token;
+        printf("cek: %s,%d,%s,%s,%s,%s\n", nama, harga, jumlah, fs, nb, pr);
         puts("sebelum cari");
-        addrBar hasil = searchGudang(gudang.root, nama);
+        addrBar hasil = searchGudang(gudang.root, pr);
         puts("setelah cari");
         if (hasil != NULL)
         {
@@ -234,11 +243,13 @@ int main()
     struct Gudang gudang;
 
     createTree(&gudang);
+    insertBarang(&gudang, NULL, "Gudang", 0);
 
     bacaFile(gudang, "gudang.txt");
 
     printf("Isi Gudang:\n");
-    cetakGudang(root(&gudang));
+    tampilkanGudang(gudang.root, 0);
+    //cetakGudang(root(&gudang));
 
     return 0;
 }

@@ -1,5 +1,3 @@
-nama,harga,jumlah,namaFS,namaNB,namaPR,
-Gudang,0,0,Makanan,NULL,NULL,
 Makanan,0,0,Snack,Minuman,Gudang,
 Minuman,0,0,Minuman bersoda,Bumbu Masakan,Gudang,
 Bumbu Masakan,0,0,NULL,Kosmetik,Gudang,
