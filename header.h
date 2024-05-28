@@ -88,10 +88,10 @@ typedef struct
 void createTree(Gudang *x);
 
 /* Modul untuk alokasi */
-addrBar alokBarang(infotype nama, int harga);
+addrBar alokBarang(infotype nama, int harga, int jumlah);
 
 /* Modul untuk menyisipkan node pada struktur tree */
-addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga);
+addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah);
 
 /* Modul untuk menampilkan keseluruhan list yang ada pada struktur tree */
 void tampilkanGudang(addrBar node, int i);
@@ -110,14 +110,6 @@ addrBar searchGudang(addrBar root, char cariGudang[]);
 // variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
 
 bool cekKategori(addrBar node,int level, infotype search);
-
-/*Mengurangi stock yang ada di gudang*/
-void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);
-
-/*Menmabahkan stock yang ada di gudang*/
-void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
-
-void tampilBarBel(addrBel first, addrBel last);
 
 /*Mengurangi stock yang ada di gudang*/
 void kurangistock(Gudang root, infotype nama, addrBel *awal, int jumlahbarang);

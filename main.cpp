@@ -13,8 +13,8 @@ int main()
     createTree(&etalase);
 
     /*Paling atas*/
-    insertBarang(&gudang, NULL, "Gudang", 0);
-    insertBarang(&etalase, NULL, "Etalase", 0);
+    insertBarang(&gudang, NULL, "Gudang", 0, 0);
+    insertBarang(&etalase, NULL, "Etalase", 0, 0);
     bacaFile(gudang, "gudang.txt");
     system("cls");
 
@@ -109,7 +109,6 @@ int main()
                 puts("(2) Tambah barang baru");
                 puts("(3) Tambah stok barang");
                 puts("(4) Tampilkan stok barang");
-                puts("(5) Tambah ke file");
                 puts("(0) Kembali");
 
                 printf("Pilih opsi: ");
@@ -141,7 +140,7 @@ int main()
                                 scanf("%[^\n]s", &nama);
                             }
                             puts("masuk insert");
-                            hasil = insertBarang(&gudang, gudang.root, nama, 0);
+                            hasil = insertBarang(&gudang, gudang.root, nama, 0, 0);
                             system("cls");
                             if (hasil != NULL)
                             {
@@ -176,7 +175,7 @@ int main()
                                 printf("Nama Sub-kategori baru: ");
                                 scanf("%[^\n]s", &nama);
                             }
-                            hasil = insertBarang(&gudang, hasil, nama, 0);
+                            hasil = insertBarang(&gudang, hasil, nama, 0, 0);
                             if (hasil != NULL)
                             {
                                 printf("%sSub-kategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
@@ -236,7 +235,7 @@ int main()
                     }
                     printf("Harga barang: ");
                     scanf("%d", &harga);
-                    hasil = insertBarang(&gudang, hasil, nama, harga);
+                    hasil = insertBarang(&gudang, hasil, nama, harga, 0);
 
                     system("cls");
                     if (hasil != NULL)
@@ -274,28 +273,28 @@ int main()
                     system("pause");
                     break;
                 case 5:
-                    
-                    for (;;)
-                    {
-                        printf("\t\tMenu : \n");
-                        printf("\t 1. Entry data \n");
-                        printf("\t 2. Sort data \n");
-                        printf("\t 3. Tampil isi file \n");
-                        printf("\t 4. S e l e s a i \n");
-                        printf("\n\t Pilihan : ");
-                        scanf("%d", &pil);
-                        switch (pil)
-                        {
-                            case 1:
-                                Entry_file();
-                                break;
-                            case 2:
-                                Tampil_file();
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                
+                    // for (;;)
+                    // {
+                    //     printf("\t\tMenu : \n");
+                    //     printf("\t 1. Entry data \n");
+                    //     printf("\t 2. Sort data \n");
+                    //     printf("\t 3. Tampil isi file \n");
+                    //     printf("\t 4. S e l e s a i \n");
+                    //     printf("\n\t Pilihan : ");
+                    //     scanf("%d", &pil);
+                    //     switch (pil)
+                    //     {
+                    //         case 1:
+                    //             Entry_file();
+                    //             break;
+                    //         case 2:
+                    //             Tampil_file();
+                    //             break;
+                    //         default:
+                    //             break;
+                    //     }
+                    // }
                     break;
                 case 0:
                     puts("Kembali ke menu sebelumnya...");
