@@ -34,6 +34,12 @@ using namespace std;
 #define cyan "\033[36m"
 #define barBel(P) (P)->barBel
 
+typedef struct data_barang
+{
+    char nama[50], fs[50], nb[50], pr[50];
+    int harga, jumlah;
+} data_barang;
+
 typedef char* infotype;
 
 /* untuk barang dan kategori (struktur data tree) */
@@ -77,7 +83,7 @@ void tampilkanGudang(addrBar node, int i);
 addrBar searchGudang(addrBar root, char cariGudang[]);
 // variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
 
-bool cekKategori(addrBar node,int level, infotype search);
+bool cekKategori(addrBar node, infotype search);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
@@ -108,5 +114,7 @@ addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 void Cek_Stock_Etalase(addrBar node, int level, int i);
 
 void bacaFile(Gudang gudang, char namaFile[]);
+
+void updateData(addrBar root);
 
 #endif

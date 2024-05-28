@@ -26,35 +26,6 @@ addrBar alokBarang(infotype nama, int harga, int jumlah)
         strcpy(p->nama, nama);
 
         p->harga = harga;
-        p->jumlah = 0;
-        p->fs = NULL;
-        p->nb = NULL;
-        p->pr = NULL;
-    }
-    return p;
-}
-
-addrBar alokBarang(infotype nama, int harga, int jumlah)
-{
-    addrBar p;
-    // Alokasi memori untuk struct barang
-    p = (addrBar)malloc(sizeof(barang));
-    if (p == NULL)
-    {
-        printf("Memori sudah penuh\n");
-    }
-    else
-    {
-        p->nama = (infotype)malloc(strlen(nama) + 1);
-        if (p->nama == NULL)
-        {
-            printf("Memori sudah penuh\n");
-        }
-
-        // Salin nama barang
-        strcpy(p->nama, nama);
-
-        p->harga = harga;
         p->jumlah = jumlah;
         p->fs = NULL;
         p->nb = NULL;
@@ -196,29 +167,39 @@ void tambahStockEtalase(addrBar etalase, addrBar gudang, int level)
     }
 }
 
-bool cekKategori(addrBar node, int level, infotype search)
+bool cekKategori(addrBar node, infotype search)
 {
-    addrBar current;
-    current = node->fs;
-    if (node == NULL)
+    addrBar p = node;
+    bool resmi = true;
+    if (strcasecmp(p->nama, search) == 0)
     {
-        return false;
+        return true;
     }
-    while (current != NULL)
+    do
     {
-        if (level == 1)
+        if (p->fs != NULL && resmi)
         {
-            if (strcmp(current->nama, search) == 0)
+            p = p->fs;
+            if (strcasecmp(p->nama, search) == 0)
             {
                 return true;
             }
         }
+        else if (p->nb != NULL)
+        {
+            p = p->nb;
+            if (strcasecmp(p->nama, search) == 0)
+            {
+                return true;
+            }
+            resmi = true;
+        }
         else
         {
-            return cekKategori(current, level - 1, search);
+            p = p->pr;
+            resmi = false;
         }
-        current = current->nb;
-    }
+    } while (p->pr != NULL);
     return false;
 }
 
@@ -503,7 +484,7 @@ void bacaFile(Gudang gudang, char namaFile[])
         exit(1);
     }
 
-    char wadah[256];
+    char wadah[500];
     while (fgets(wadah, sizeof(wadah), file) != NULL)
     {
         char *fs, *nb, *pr;
@@ -534,12 +515,124 @@ void bacaFile(Gudang gudang, char namaFile[])
     fclose(file);
 }
 
+void updateData(addrBar root)
+{
+    data_barang data;
+    char lagi;
+    FILE *f_gudang;
+    if ((f_gudang = fopen("gudang.txt", "wt+")) == NULL)
+    {
+        printf("File tidak dapat dibuka\n");
+        exit(1);
+    }
+
+    infotype temp = "NULL";
+    infotype fs, nb, pr;
+    addrBar Pcur = root; // Posisi node aktif
+    bool resmi = true;       // Kunjungan resmi
+    do
+    {
+        if (fs(Pcur) != NULL && resmi)
+        {
+            Pcur = fs(Pcur);
+            // fflush(stdin);
+            if (Pcur->fs == NULL)
+            {
+                fs = "NULL";
+            } else {
+                fs = Pcur->fs->nama;
+            }
+
+            if (Pcur->nb == NULL)
+            {
+                nb = "NULL";
+            } else {
+                nb = Pcur->nb->nama;
+            }
+
+            if (Pcur->pr == NULL)
+            {
+                pr = "NULL";
+            } else {
+                pr = Pcur->pr->nama;
+            }
+
+            fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, fs, nb, pr);
+        }
+        else if (nb(Pcur) != NULL)
+        {
+            Pcur = nb(Pcur);
+            // fflush(stdin);
+            if (Pcur->fs == NULL)
+            {
+                fs = "NULL";
+            } else {
+                fs = Pcur->fs->nama;
+            }
+
+            if (Pcur->nb == NULL)
+            {
+                nb = "NULL";
+            } else {
+                nb = Pcur->nb->nama;
+            }
+
+            if (Pcur->pr == NULL)
+            {
+                pr = "NULL";
+            } else {
+                pr = Pcur->pr->nama;
+            }
+            fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, fs, nb, pr);
+            resmi = true;
+        }
+        else
+        {
+            Pcur = pr(Pcur);
+            resmi = false; // Numpang lewat
+        }
+    } while (pr(Pcur) != NULL);
+    fclose(f_gudang);
+
+    // for (;;)
+    // {
+    //     fflush(stdin);
+    //     printf("Nama : ");
+    //     scanf("%s", &data.nama);
+    //     fflush(stdin);
+    //     printf("Harga : ");
+    //     scanf("%d", &data.harga);
+    //     fflush(stdin);
+    //     printf("Jumlah : ");
+    //     scanf("%d", &data.jumlah);
+    //     fflush(stdin);
+    //     printf("fs : ");
+    //     scanf("%s", &data.fs);
+    //     fflush(stdin);
+    //     printf("nb : ");
+    //     scanf("%s", &data.nb);
+    //     fflush(stdin);
+    //     printf("pr : ");
+    //     scanf("%s", &data.pr);
+    //     // Sebelum nyimpan ke file, Hapus dulu isi penampung keyboard
+    //     fflush(stdin);
+    //     // Save to file
+    //     fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,", data.nama, data.harga, data.jumlah, data.fs, data.nb, data.pr);
+    //     printf("Entry data lagi ? (Y/T) ");
+    //     lagi = getche();
+    //     printf("\n");
+    //     if (lagi == 't' || lagi == 'T')
+    //         break;
+    // }
+    // fclose(f_gudang);
+}
+
 // void Entry_file()
 // // Procedure untuk mengentrykan data ke file Mhs_jtk.dat
 // {
 //     data_barang dt;
 //     char lagi;
-//     FILE *f_mhs;
+//     FILE *f_gudang;
 //     if ((f_mhs = fopen("gudang.txt", "a")) == NULL)
 //     {
 //         printf("File tidak dapat dibuka\n");

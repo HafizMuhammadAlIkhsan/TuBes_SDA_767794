@@ -16,7 +16,7 @@ int main()
     insertBarang(&gudang, NULL, "Gudang", 0, 0);
     insertBarang(&etalase, NULL, "Etalase", 0, 0);
     bacaFile(gudang, "gudang.txt");
-    system("cls");
+    // system("cls");
 
     // puts("Barang yang ditambahkan pada etalase");
     // tambahStockEtalase(etalase.root, gudang.root, 3);
@@ -143,7 +143,7 @@ int main()
                             puts("Tambah Kategori");
                             printf("Nama kategori baru: ");
                             scanf(" %[^\n]s", &nama);
-                            while (cekKategori(gudang.root, 1, nama))
+                            while (cekKategori(gudang.root, nama))
                             {
                                 system("cls");
                                 puts("Tambah Kategori");
@@ -168,7 +168,7 @@ int main()
                             system("cls");
                             printf("Kategori: ");
                             scanf(" %[^\n]s", &nama);
-                            while (!cekKategori(gudang.root, 1, nama))
+                            while (!cekKategori(gudang.root, nama))
                             {
                                 system("cls");
                                 printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
@@ -179,7 +179,7 @@ int main()
                             printf("Nama Sub-kategori baru: ");
                             scanf(" %[^\n]s", &nama);
 
-                            while (cekKategori(gudang.root, 2, nama))
+                            while (cekKategori(gudang.root, nama))
                             {
                                 system("cls");
                                 printf("%sSub-kategori %s sudah terdaftar!%s\n", red, nama, normal);
@@ -216,7 +216,7 @@ int main()
                     system("cls");
                     printf("Kategori: ");
                     scanf(" %[^\n]s", &nama);
-                    while (!cekKategori(gudang.root, 1, nama))
+                    while (!cekKategori(gudang.root, nama))
                     {
                         system("cls");
                         printf("%sKategori %s belum terdaftar!%s\n", red, nama, normal);
@@ -227,7 +227,7 @@ int main()
                     printf("Sub-kategori: ");
                     scanf(" %[^\n]s", &nama);
 
-                    while (!cekKategori(gudang.root, 2, nama))
+                    while (!cekKategori(gudang.root, nama))
                     {
                         system("cls");
                         printf("%sSub-kategori %s belum terdaftar!%s\n", red, nama, normal);
@@ -238,7 +238,7 @@ int main()
 
                     printf("Nama barang baru: ");
                     scanf(" %[^\n]s", &nama);
-                    while (cekKategori(gudang.root, 3, nama))
+                    while (cekKategori(gudang.root, nama))
                     {
                         system("cls");
                         printf("%sBarang %ssudah terdaftar!%s\n", red, nama, normal);
@@ -265,7 +265,7 @@ int main()
                     printf("Tambah Stock\n");
                     printf("Masukan Nama Barang: ");
                     scanf(" %[^\n]s", &beli);
-                    while (!cekKategori(gudang.root, 3, beli))
+                    while (!cekKategori(gudang.root, beli))
                     {
                         system("cls");
                         printf(" %sBarang %s belum terdaftar! %s\n", red, beli, normal);
@@ -310,4 +310,5 @@ int main()
             break;
         }
     } while (opsi != 0);
+    updateData(gudang.root);
 }
