@@ -623,7 +623,7 @@ void updateData(addrBar root)
     data_barang data;
     char lagi;
     FILE *f_gudang;
-    if ((f_gudang = fopen("gudang.txt", "wt+")) == NULL)
+    if ((f_gudang = fopen("DATA/gudang.txt", "wt+")) == NULL)
     {
         printf("File tidak dapat dibuka\n");
         exit(1);

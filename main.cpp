@@ -15,7 +15,7 @@ int main()
     /*Paling atas*/
     insertBarang(&gudang, NULL, "Gudang", 0, 0);
     insertBarang(&etalase, NULL, "Etalase", 0, 0);
-    bacaFile(gudang, "gudang.txt");
+    bacaFile(gudang, "DATA/gudang.txt");
     // system("cls");
 
     // puts("Barang yang ditambahkan pada etalase");
