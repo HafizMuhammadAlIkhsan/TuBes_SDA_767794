@@ -73,11 +73,14 @@ int main()
                 case 4:
                     do
                     {
-                        printf("Beli: ");
-                        scanf(" %[^\n]s", &beli);
-                        printf("Jumlah: ");
-                        scanf("%d", &jumBar);
-
+                       do{
+                            printf("%s tidak ada\n", beli);
+                            printf("Beli: ");
+                            scanf(" %[^\n]s", &beli);
+                            printf("Jumlah: ");
+                            scanf("%d", &jumBar);
+                       } while(!cekKategori(gudang.root, beli));
+                        
                         beliBar = searchGudang(gudang.root, beli);
                         if (beliBar != NULL)
                         {
@@ -98,10 +101,10 @@ int main()
                     system("pause");
                     system("cls");
                     puts("Pembayaran");
-                    printf("Total harga          : Rp.%d\n", returnValue);
-                    printf("Masukkan jumlah uang : Rp.");
+                    printf("Total harga          : Rp %d\n", returnValue);
+                    printf("Masukkan jumlah uang : Rp ");
                     scanf(" %d", &harga);
-                    printf("Kembalian            : Rp.%d\n", harga-returnValue);
+                    printf("Kembalian            : Rp %d\n", harga-returnValue);
                     puts("Terima kasih sudah belanja!");
                     kurangistock(gudang, awal);
                     system("pause");
@@ -249,7 +252,7 @@ int main()
                     while (cekKategori(gudang.root, nama))
                     {
                         system("cls");
-                        printf("%sBarang %ssudah terdaftar!%s\n", red, nama, normal);
+                        printf("%sBarang %s sudah terdaftar!%s\n", red, nama, normal);
                         printf("Nama barang baru: ");
                         scanf(" %[^\n]s", &nama);
                     }
@@ -276,7 +279,7 @@ int main()
                     while (!cekKategori(gudang.root, beli))
                     {
                         system("cls");
-                        printf(" %sBarang %s belum terdaftar! %s\n", red, beli, normal);
+                        printf("%sBarang %s belum terdaftar! %s\n", red, beli, normal);
                         printf("Masukan Nama Barang: ");
                         scanf(" %[^\n]s", &beli);
                     }
@@ -284,7 +287,7 @@ int main()
                     scanf(" %d", &jumBar);
                     tambahstock(gudang.root, beli, jumBar);
                     system("cls");
-                    printf(" %sBerhasil menambahkan stock %s sejumlah %d %s\n", green, beli, jumBar, normal);
+                    printf(" %sBerhasil menambahkan stok %s sejumlah %d. %s\n", green, beli, jumBar, normal);
                     system("pause");
                     break;
                 case 4:

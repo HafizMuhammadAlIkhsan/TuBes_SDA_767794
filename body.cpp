@@ -91,7 +91,7 @@ void tampilkanGudang(addrBar node, int i)
         else
         {
 
-            printf("  -%s : Rp.%d [Jumlah: %d]\n", node->nama, node->harga, node->jumlah);
+            printf("  -%s : Rp %d [Jumlah: %d]\n", node->nama, node->harga, node->jumlah);
         }
         tampilkanGudang(node->fs, j);
         tampilkanGudang(node->nb, i);
