@@ -73,13 +73,19 @@ int main()
                 case 4:
                     do
                     {
-                       do{
+                        printf("Beli: ");
+                        scanf(" %[^\n]s", &beli);
+                        printf("Jumlah: ");
+                        scanf("%d", &jumBar);
+                           
+                       while(!cekKategori(gudang.root, beli))
+                       {
                             printf("%s tidak ada\n", beli);
                             printf("Beli: ");
                             scanf(" %[^\n]s", &beli);
                             printf("Jumlah: ");
                             scanf("%d", &jumBar);
-                       } while(!cekKategori(gudang.root, beli));
+                       }
                         
                         beliBar = searchGudang(gudang.root, beli);
                         if (beliBar != NULL)
