@@ -384,6 +384,16 @@ addrBel alokBarBel(Gudang root, addrBar beli, int jumlah)
 void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
+    addrBel current = *awal;
+    while (current != NULL)
+    {
+        if (strcasecmp(current->namBar->nama, beli->nama) == 0)
+        {
+            current->jumlah += jumlah;
+            return;
+        }
+        current = current->nextBar;
+    }
     p = alokBarBel(root, beli, jumlah);
 
     if (*awal == NULL && *akhir == NULL)

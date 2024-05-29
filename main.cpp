@@ -91,6 +91,7 @@ int main()
                         if (beliBar != NULL)
                         {
                             insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
+                            updateData(gudang.root);
                         }
                         else
                         {
@@ -327,5 +328,4 @@ int main()
             break;
         }
     } while (opsi != 0);
-    updateData(gudang.root);
 }
