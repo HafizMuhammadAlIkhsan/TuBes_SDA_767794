@@ -65,6 +65,7 @@ typedef struct dibeli
     addrBel nextBar;
 } dibeli;
 
+/*==========================================================In use==========================================================*/
 /* Membuat nama dari Toko */
 void createTree(Gudang *x);
 
@@ -86,21 +87,14 @@ bool cekKategori(addrBar node, infotype search);
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 
-void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
-
-string standarisasi(infotype nama);
-
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilSubKategori(addrBar nama, int level, int i);
-
-/* Modul untuk alokasi barang yang dibeli pembeli */
-addrBel alokBarBel(Gudang root, addrBar beli, int harga);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
 void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
 
-/* Mencari semua barang yang ada di gudang toko, sudah termasuk kategori dan subkategori */
-addrBar searchGudang(addrBar root, char cariGudang[]);
+/* Modul untuk alokasi barang yang dibeli pembeli */
+addrBel alokBarBel(Gudang root, addrBar beli, int harga);
 
 /*Mengurangi stock yang ada di gudang*/
 void kurangistock(Gudang root, addrBel awal);
@@ -109,8 +103,6 @@ int tampilBarBel(addrBel first, addrBel last);
 
 addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 
-void Cek_Stock_Etalase(addrBar node, int level, int i);
-
 void bacaFile(Gudang gudang, char namaFile[]);
 
 void updateData(addrBar root);
@@ -118,4 +110,14 @@ void updateData(addrBar root);
 void katalog(addrBar root, int page);
 
 void tampilkan_katalog(addrBar root, int arah);
+
+/*==========================================================Currently not In use==========================================================*/
+
+void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
+
+string standarisasi(infotype nama);
+
+void Cek_Stock_Etalase(addrBar node, int level, int i);
+
+
 #endif

@@ -267,30 +267,6 @@ void Cek_Stock_Etalase(addrBar node, int level, int i)
     }
 }
 
-void tampilkanKategori(addrBar node, int level, int i)
-{
-    addrBar current;
-    current = node->fs;
-    if (node == NULL)
-    {
-        return;
-    }
-    while (current != NULL)
-    {
-        if (level == 1)
-        {
-            printf("%d. %s\n", i, current->nama);
-        }
-        else
-        {
-            tampilkanKategori(current, level - 1, i);
-            i++;
-        }
-        current = current->nb;
-        i++;
-    }
-}
-
 void tampilSubKategori(addrBar node, int level, int i)
 {
     addrBar current = node->fs;
