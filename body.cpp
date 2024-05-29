@@ -525,6 +525,123 @@ void bacaFile(Gudang gudang, char namaFile[])
     fclose(file);
 }
 
+void tampilkan_katalog(addrBar root, int arah)
+{
+    addrBar temp = root->fs;
+    int id;
+    id = 1;
+    if (arah != 0)
+    {
+        for (int i = 0; i < arah; i++)
+        {
+            temp = temp->nb;
+        }
+    }
+
+    system("cls");
+    puts("========================================");
+    printf("%s \n", temp->nama); // Kategori
+    puts("----------------------------------------");
+    if (temp->fs != NULL)
+    {
+        printf("%s \n", temp->fs->nama);
+    }
+    else
+    {
+        printf("None\n");
+    }
+    puts("========================================");
+
+    temp = temp->fs;
+    if (temp != NULL)
+    {
+        temp = temp->fs;
+        if (temp != NULL)
+        {
+            while (temp != NULL)
+            {
+                if (strlen(temp->nama) < 5)
+                {
+                    printf("%d.%s \t\t[stock %d]\n", id, temp->nama, temp->jumlah);
+                }
+                else
+                {
+                    printf("%d.%s \t[stock %d]\n", id, temp->nama, temp->jumlah);
+                }
+                
+                id += 1;
+                temp = temp->nb;
+            }
+        }
+        else
+        {
+            printf("Tidak ada Barang\n");
+        }
+    }
+    else
+    {
+        printf("Tidak ada Sub kategori\n");
+    }
+
+    puts("========================================");
+    puts("press left and right arrow key to flip the page");
+    puts("Press Q to open buy menu");
+    puts("========================================");
+}
+
+void katalog(addrBar root, int page)
+{
+    int current_page = 0;
+    int ch;
+    int max = 0;
+    addrBar temp = root->fs;
+
+    while (temp != NULL)
+    {
+        temp = temp->nb;
+        max += 1;
+    }
+
+    bool quit = false;
+
+    tampilkan_katalog(root, current_page);
+
+    while (!quit)
+    {
+        ch = _getch();
+        if (ch == 0 || ch == 224)
+        {
+            switch (_getch())
+            {
+            case 77: // right
+                if (current_page < max - 1)
+                {
+                    current_page++;
+                    tampilkan_katalog(root, current_page);
+                }
+                break;
+
+            case 75: // left
+                if (current_page > 0)
+                {
+                    current_page--;
+                    tampilkan_katalog(root, current_page);
+                }
+
+                break;
+
+            default:
+                break;
+            }
+        }
+        else if (ch == 'q' || ch == 'Q')
+        {
+            quit = true;
+            break;
+        }
+    }
+}
+
 void updateData(addrBar root)
 {
     data_barang data;

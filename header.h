@@ -115,4 +115,7 @@ void bacaFile(Gudang gudang, char namaFile[]);
 
 void updateData(addrBar root);
 
+void katalog(addrBar root, int page);
+
+void tampilkan_katalog(addrBar root, int arah);
 #endif

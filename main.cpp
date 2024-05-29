@@ -71,6 +71,7 @@ int main()
                     system("pause");
                     break;
                 case 4:
+                    katalog(gudang.root,0);
                     do
                     {
                         printf("Beli: ");
