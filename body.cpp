@@ -142,7 +142,9 @@ void tambahStockEtalase(addrBar etalase, addrBar gudang, int level)
                 if (barangGudang->jumlah < MAX_JUMLAH - barangEtalase->jumlah)
                 {
                     jumlahStok = barangGudang->jumlah;
-                } else {
+                }
+                else
+                {
                     jumlahStok = MAX_JUMLAH - barangEtalase->jumlah;
                 }
 
@@ -247,7 +249,7 @@ void Cek_Stock_Etalase(addrBar node, int level, int i)
     {
         return;
     }
-    
+
     while (current != NULL)
     {
         if (level == 1)
@@ -451,8 +453,8 @@ int tampilBarBel(addrBel first, addrBel last)
     int i = 1;
     while (p != NULL)
     {
-        printf("%d. %s jumlah %d x %d: %d\n", i, p->namBar->nama, p->jumlah, p->namBar->harga, p->jumlah*p->namBar->harga);
-        totalHarga = totalHarga + (p->jumlah*p->namBar->harga);
+        printf("%d. %s jumlah %d x %d: %d\n", i, p->namBar->nama, p->jumlah, p->namBar->harga, p->jumlah * p->namBar->harga);
+        totalHarga = totalHarga + (p->jumlah * p->namBar->harga);
         p = nextBar(p);
         i++;
     }
@@ -503,14 +505,14 @@ void bacaFile(Gudang gudang, char namaFile[])
 
 void tampilkan_katalog(addrBar root, int arah, int arahsub)
 {
-    
+
     addrBar temp = root->fs; // ke kategori
     addrBar barang;
     int id;
     id = 1;
     system("cls");
     for (int i = 0; i < arah && temp != NULL; i++)
-    {        
+    {
         temp = temp->nb;
     }
 
@@ -518,12 +520,10 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
 
     for (int i = 0; i < arahsub && temp != NULL; i++)
     {
-        temp =temp->nb;
+        temp = temp->nb;
     }
-    
-    printf("arah dan arah sub %d | %d\n", arah , arahsub);
+
     puts("========================================");
-    printf("%s\n", temp->nama);
     if (temp->pr != NULL)
     {
         printf("%s \n", temp->pr->nama); // Kategori
@@ -548,7 +548,7 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
 
     if (temp != NULL)
     {
-        barang = temp->fs; //ke barang
+        barang = temp->fs; // ke barang
         if (barang != NULL)
         {
             while (barang != NULL)
@@ -565,7 +565,7 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
                 {
                     printf("%d.%s \t[stock %d]\n", id, barang->nama, barang->jumlah);
                 }
-                
+
                 id += 1;
                 barang = barang->nb;
             }
@@ -581,9 +581,33 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
     }
 
     puts("========================================");
-    puts("press left and right arrow key to flip the page");
+    puts("press left or right arrow key to flip the page");
     puts("Press Q to open buy menu");
     puts("========================================");
+}
+
+int previous(addrBar current, int current_page)
+{
+    int hasil;
+    int i;
+    i = 0;
+    addrBar temp = current; // root
+    temp = temp->fs;        // kategori
+    for (int i = 0; i < current_page - 1; i++)
+    {
+        temp = temp->nb;
+    }
+
+    temp = temp->fs;
+
+    while (temp != NULL)
+    {
+        hasil += 1;
+        temp = temp->nb;
+        cout << i++;
+    }
+
+    return hasil - 1;
 }
 
 void katalog(addrBar root, int page)
@@ -593,9 +617,10 @@ void katalog(addrBar root, int page)
     int ch;
     int max = 0;
     int max_sub = 0;
-    addrBar current; 
-    addrBar temp ;
-    addrBar test;
+    int previous_max_sub;
+    addrBar current;
+    addrBar temp;
+    addrBar temp2;
 
     bool quit = false;
     bool cek = false;
@@ -605,16 +630,14 @@ void katalog(addrBar root, int page)
 
     if (current != NULL)
     {
-        while (temp != NULL) //kategori max kategori
+        while (temp != NULL) // kategori max kategori
         {
             max += 1;
             temp = temp->nb;
         }
     }
-    
 
     tampilkan_katalog(root, current_page, current_page_sub);
-    cout << "\n kate:" << max << "| sub:" << max_sub;
 
     while (!quit)
     {
@@ -634,18 +657,16 @@ void katalog(addrBar root, int page)
             }
             cek = true;
         }
-        
+
         ch = _getch();
         if (ch == 0 || ch == 224)
         {
             switch (_getch())
             {
-            case 77: // right
-                if (current_page_sub < max_sub -1 ) // pindah page sub
+            case 77:                                // right
+                if (current_page_sub < max_sub - 1) // pindah page sub
                 {
                     current_page_sub++;
-                    tampilkan_katalog(root, current_page, current_page_sub);
-                    cout << " change sub+";
                 }
                 else if (current_page < max - 1) // pindah page kategori
                 {
@@ -653,8 +674,6 @@ void katalog(addrBar root, int page)
                     current_page_sub = 0;
                     max_sub = 0;
                     cek = false;
-                    tampilkan_katalog(root, current_page, current_page_sub);
-                    cout << " change page +";
                 }
 
                 break;
@@ -662,24 +681,21 @@ void katalog(addrBar root, int page)
                 if (current_page_sub > 0)
                 {
                     current_page_sub--;
-                    tampilkan_katalog(root, current_page, current_page_sub);
-                    cout << " change sub-";
                 }
                 else if (current_page > 0)
                 {
-                    tampilkan_katalog(root, current_page, current_page_sub);
+
+                    current_page_sub = previous(root, current_page);
                     current_page--;
-                    current_page_sub = max_sub - 1;
                     max_sub = 0;
                     cek = false;
-                    cout << " change page -";
                 }
                 break;
 
             default:
                 break;
             }
-            cout << "\n kate:" << current_page << "| sub:" << current_page_sub;
+            tampilkan_katalog(root, current_page, current_page_sub);
         }
         else if (ch == 'q' || ch == 'Q')
         {
@@ -703,7 +719,7 @@ void updateData(addrBar root)
     infotype temp = "NULL";
     infotype fs, nb, pr;
     addrBar Pcur = root; // Posisi node aktif
-    bool resmi = true;       // Kunjungan resmi
+    bool resmi = true;   // Kunjungan resmi
     do
     {
         if (fs(Pcur) != NULL && resmi)
@@ -713,21 +729,27 @@ void updateData(addrBar root)
             if (Pcur->fs == NULL)
             {
                 fs = "NULL";
-            } else {
+            }
+            else
+            {
                 fs = Pcur->fs->nama;
             }
 
             if (Pcur->nb == NULL)
             {
                 nb = "NULL";
-            } else {
+            }
+            else
+            {
                 nb = Pcur->nb->nama;
             }
 
             if (Pcur->pr == NULL)
             {
                 pr = "NULL";
-            } else {
+            }
+            else
+            {
                 pr = Pcur->pr->nama;
             }
 
@@ -740,21 +762,27 @@ void updateData(addrBar root)
             if (Pcur->fs == NULL)
             {
                 fs = "NULL";
-            } else {
+            }
+            else
+            {
                 fs = Pcur->fs->nama;
             }
 
             if (Pcur->nb == NULL)
             {
                 nb = "NULL";
-            } else {
+            }
+            else
+            {
                 nb = Pcur->nb->nama;
             }
 
             if (Pcur->pr == NULL)
             {
                 pr = "NULL";
-            } else {
+            }
+            else
+            {
                 pr = Pcur->pr->nama;
             }
             fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, fs, nb, pr);
@@ -767,5 +795,4 @@ void updateData(addrBar root)
         }
     } while (pr(Pcur) != NULL);
     fclose(f_gudang);
-
 }
