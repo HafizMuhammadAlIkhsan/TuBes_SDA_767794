@@ -71,7 +71,6 @@ void createTree(Gudang *x);
 
 /* Modul untuk alokasi */
 addrBar alokBarang(infotype nama, int harga, int jumlah);
-
 /* Modul untuk menyisipkan node pada struktur tree */
 addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah);
 
@@ -86,6 +85,8 @@ bool cekKategori(addrBar node, infotype search);
 
 /*Menmabahkan stock yang ada di gudang*/
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
+/*Mengurangi stock yang ada di gudang*/
+void kurangistock(Gudang root, addrBel awal);
 
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilSubKategori(addrBar nama, int level, int i);
@@ -96,20 +97,15 @@ void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int 
 /* Modul untuk alokasi barang yang dibeli pembeli */
 addrBel alokBarBel(Gudang root, addrBar beli, int harga);
 
-/*Mengurangi stock yang ada di gudang*/
-void kurangistock(Gudang root, addrBel awal);
-
 int tampilBarBel(addrBel first, addrBel last);
-
 addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 
 void bacaFile(Gudang gudang, char namaFile[]);
-
 void updateData(addrBar root);
 
 void katalog(addrBar root, int page);
-
-void tampilkan_katalog(addrBar root, int arah);
+void tampilkan_katalog(addrBar root, int arah, int arahsub);
+int previous(addrBar current, int current_page);
 
 /*==========================================================Currently not In use==========================================================*/
 
