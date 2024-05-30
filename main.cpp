@@ -180,6 +180,7 @@ int main()
                             {
                                 puts("Gagal mendaftarkan kategori");
                             }
+                            updateData(gudang.root);
                             system("pause");
                             opsi = 0;
                             break;
@@ -215,6 +216,7 @@ int main()
                             {
                                 puts("Gagal mendaftarkan sub-kategori");
                             }
+                            updateData(gudang.root);
                             system("pause");
                             opsi = 0;
                             break;
@@ -277,6 +279,7 @@ int main()
                     {
                         puts("Gagal mendaftarkan barang");
                     }
+                    updateData(gudang.root);
                     system("pause");
                     break;
                 case 3:
@@ -296,6 +299,7 @@ int main()
                     tambahstock(gudang.root, beli, jumBar);
                     system("cls");
                     printf(" %sBerhasil menambahkan stok %s sejumlah %d. %s\n", green, beli, jumBar, normal);
+                    updateData(gudang.root);
                     system("pause");
                     break;
                 case 4:

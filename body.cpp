@@ -501,52 +501,73 @@ void bacaFile(Gudang gudang, char namaFile[])
     fclose(file);
 }
 
-void tampilkan_katalog(addrBar root, int arah)
+void tampilkan_katalog(addrBar root, int arah, int arahsub)
 {
-    addrBar temp = root->fs;
+    
+    addrBar temp = root->fs; // ke kategori
+    addrBar barang;
     int id;
     id = 1;
-    if (arah != 0)
-    {
-        for (int i = 0; i < arah; i++)
-        {
-            temp = temp->nb;
-        }
+    system("cls");
+    cout << temp->nama << "\n";
+    for (int i = 0; i < arah && temp != NULL; i++)
+    {        
+        temp = temp->nb;
+        cout << temp->nama << "\n";
     }
 
-    system("cls");
-    puts("========================================");
-    printf("%s \n", temp->nama); // Kategori
-    puts("----------------------------------------");
-    if (temp->fs != NULL)
+    temp = temp->fs; // ke sub-kategori
+
+    for (int i = 0; i < arahsub && temp != NULL; i++)
     {
-        printf("%s \n", temp->fs->nama);
+        temp =temp->nb;
+    }
+
+    
+    printf("arah dan arah sub %d | %d\n", arah , arahsub);
+    puts("========================================");
+    puts("test");
+    printf("%s\n", temp->nama);
+    if (temp->pr != NULL)
+    {
+        printf("%s \n", temp->pr->nama); // Kategori
     }
     else
     {
-        printf("None\n");
+        printf("tidak ada kategori\n");
+    }
+
+    puts("----------------------------------------");
+    if (temp != NULL)
+    {
+        printf("%s \n", temp->nama);
+    }
+    else
+    {
+        printf("tidak ada sub kategori\n");
     }
     puts("========================================");
 
-    temp = temp->fs;
+    /*disini temp ada di subkategori*/
+
     if (temp != NULL)
     {
-        temp = temp->fs;
-        if (temp != NULL)
+        barang = temp->fs; //ke barang
+        if (barang != NULL)
         {
-            while (temp != NULL)
+            while (barang != NULL)
             {
-                if (strlen(temp->nama) < 5)
+                if (strlen(barang->nama) < 5)
                 {
-                    printf("%d.%s \t\t[stock %d]\n", id, temp->nama, temp->jumlah);
+                    printf("%d.%s \t\t[stock %d]\n", id, barang->nama, temp->jumlah);
                 }
                 else
                 {
-                    printf("%d.%s \t[stock %d]\n", id, temp->nama, temp->jumlah);
+                    printf("%d.%s \t[stock %d]\n", id, barang->nama, temp->jumlah);
                 }
                 
                 id += 1;
-                temp = temp->nb;
+                barang = barang->nb;
             }
         }
         else
@@ -568,47 +589,98 @@ void tampilkan_katalog(addrBar root, int arah)
 void katalog(addrBar root, int page)
 {
     int current_page = 0;
+    int current_page_sub = 0;
     int ch;
     int max = 0;
-    addrBar temp = root->fs;
-
-    while (temp != NULL)
-    {
-        temp = temp->nb;
-        max += 1;
-    }
+    int max_sub = 0;
+    addrBar current; 
+    addrBar temp ;
+    addrBar test;
 
     bool quit = false;
+    bool cek = false;
 
-    tampilkan_katalog(root, current_page);
+    current = root->fs; // di kategori
+    temp = current;
+
+    if (current != NULL)
+    {
+        while (temp != NULL) //kategori max kategori
+        {
+            max += 1;
+            temp = temp->nb;
+        }
+    }
+    
+
+    tampilkan_katalog(root, current_page, current_page_sub);
+    cout << "\n kate:" << max << "| sub:" << max_sub;
 
     while (!quit)
     {
+        current = root->fs; // di kategori
+        for (int i = 0; i < current_page; i++)
+        {
+            current = current->nb;
+        }
+
+        if (current->fs != NULL && !cek)
+        {
+            temp = current->fs; // di awal sub kategori
+            while (temp != NULL)
+            {
+                max_sub += 1;
+                temp = temp->nb;
+            }
+            cek = true;
+        }
+        
         ch = _getch();
         if (ch == 0 || ch == 224)
         {
             switch (_getch())
             {
             case 77: // right
-                if (current_page < max - 1)
+                if (current_page_sub < max_sub -1 ) // pindah page sub
+                {
+                    current_page_sub++;
+                    tampilkan_katalog(root, current_page, current_page_sub);
+                    cout << " change sub+";
+                }
+                else if (current_page < max - 1) // pindah page kategori
                 {
                     current_page++;
-                    tampilkan_katalog(root, current_page);
+                    current_page_sub = 0;
+                    max_sub = 0;
+                    cek = false;
+                    tampilkan_katalog(root, current_page, current_page_sub);
+                    cout << " change page +";
                 }
+
                 break;
-
             case 75: // left
-                if (current_page > 0)
+                if (current_page_sub > 0)
                 {
-                    current_page--;
-                    tampilkan_katalog(root, current_page);
+                    current_page_sub--;
+                    tampilkan_katalog(root, current_page, current_page_sub);
+                    cout << " change sub-";
                 }
-
+                else if (current_page > 0)
+                {
+                    tampilkan_katalog(root, current_page, current_page_sub);
+                    current_page--;
+                    current_page_sub = max_sub - 1;
+                    max_sub = 0;
+                    cek = false;
+                    cout << " change page -";
+                }
                 break;
 
             default:
                 break;
             }
+            
+            cout << "\n kate:" << max << "| sub:" << max_sub;
         }
         else if (ch == 'q' || ch == 'Q')
         {
