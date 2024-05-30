@@ -71,58 +71,66 @@ int main()
                     system("pause");
                     break;
                 case 4:
-                    katalog(gudang.root,0);
-                    do
+
+                    if (katalog(gudang.root, 0))
                     {
-                        printf("Beli: ");
-                        scanf(" %[^\n]s", &beli);
-                        printf("Jumlah: ");
-                        scanf("%d", &jumBar);
-                           
-                       while(!cekKategori(gudang.root, beli))
-                       {
-                            printf("%s tidak ada\n", beli);
+                        do
+                        {
                             printf("Beli: ");
                             scanf(" %[^\n]s", &beli);
                             printf("Jumlah: ");
                             scanf("%d", &jumBar);
-                       }
-                        
-                        beliBar = searchGudang(gudang.root, beli);
-                        if (beliBar != NULL)
-                        {
-                            insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
-                            updateData(gudang.root);
-                        }
-                        else
-                        {
-                            puts("Barang tidak ada");
-                            break;
-                        }
-                        printf("Ada lagi yang dibeli? (y/n): ");
-                        scanf(" %c", &lanjut);
 
-                    } while (lanjut == 'y' || lanjut == 'Y');
-                    system("cls");
-                    puts("Struk Hafiz Market");
-                    returnValue = tampilBarBel(awal, akhir);
-                    system("pause");
-                    system("cls");
-                    puts("Pembayaran");
-                    printf("Total harga          : Rp %d\n", returnValue);
-                    printf("Masukkan jumlah uang : Rp ");
-                    scanf(" %d", &harga);
-                    printf("Kembalian            : Rp %d\n", harga-returnValue);
-                    puts("Terima kasih sudah belanja!");
-                    kurangistock(gudang, awal);
-                    system("pause");
-                    curr = awal;
-                    while (curr->nextBar != NULL)
-                    {
-                        curr = curr->nextBar;
-                        deleteBarBel(&awal, akhir);
+                            while (!cekKategori(gudang.root, beli))
+                            {
+                                printf("%s tidak ada\n", beli);
+                                printf("Beli: ");
+                                scanf(" %[^\n]s", &beli);
+                                printf("Jumlah: ");
+                                scanf("%d", &jumBar);
+                            }
+
+                            beliBar = searchGudang(gudang.root, beli);
+                            if (beliBar != NULL)
+                            {
+                                insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
+                                updateData(gudang.root);
+                            }
+                            else
+                            {
+                                puts("Barang tidak ada");
+                                break;
+                            }
+                            printf("Ada lagi yang dibeli? (y/n): ");
+                            scanf(" %c", &lanjut);
+
+                        } while (lanjut == 'y' || lanjut == 'Y');
+                        system("cls");
+                        puts("Struk Hafiz Market");
+                        returnValue = tampilBarBel(awal, akhir);
+                        system("pause");
+                        system("cls");
+                        puts("Pembayaran");
+                        printf("Total harga          : Rp %d\n", returnValue);
+                        printf("Masukkan jumlah uang : Rp ");
+                        scanf(" %d", &harga);
+                        printf("Kembalian            : Rp %d\n", harga - returnValue);
+                        puts("Terima kasih sudah belanja!");
+                        kurangistock(gudang, awal);
+                        system("pause");
+                        curr = awal;
+                        while (curr->nextBar != NULL)
+                        {
+                            curr = curr->nextBar;
+                            deleteBarBel(&awal, akhir);
+                        }
+                        break;
                     }
-                    break;
+                    else
+                    {
+                        break;
+                    }
+
                 default:
                     break;
                 }

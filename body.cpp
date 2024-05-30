@@ -582,7 +582,8 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
 
     puts("========================================");
     puts("press left or right arrow key to flip the page");
-    puts("Press Q to open buy menu");
+    puts("Press B to open buy menu");
+    puts("Press Q to go back");
     puts("========================================");
 }
 
@@ -610,17 +611,16 @@ int previous(addrBar current, int current_page)
     return hasil - 1;
 }
 
-void katalog(addrBar root, int page)
+bool katalog(addrBar root, int page)
 {
+    /**/
     int current_page = 0;
     int current_page_sub = 0;
     int ch;
     int max = 0;
     int max_sub = 0;
-    int previous_max_sub;
     addrBar current;
     addrBar temp;
-    addrBar temp2;
 
     bool quit = false;
     bool cek = false;
@@ -659,7 +659,7 @@ void katalog(addrBar root, int page)
         }
 
         ch = _getch();
-        if (ch == 0 || ch == 224)
+        if (ch == 0 || ch == 224) //default is variabel ch
         {
             switch (_getch())
             {
@@ -700,7 +700,12 @@ void katalog(addrBar root, int page)
         else if (ch == 'q' || ch == 'Q')
         {
             quit = true;
-            break;
+            return false;
+        }
+        else if (ch == 'B' || ch == 'b')
+        {
+            quit = true;
+            return true;
         }
     }
 }
