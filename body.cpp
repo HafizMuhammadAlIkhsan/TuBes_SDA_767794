@@ -506,37 +506,46 @@ void bacaFile(Gudang gudang, char namaFile[])
 void tampilkan_katalog(addrBar root, int arah, int arahsub)
 {
 
-    addrBar temp = root->fs; // ke kategori
+    addrBar current = root->fs; // ke kategori
+    addrBar temp; 
     addrBar barang;
     int id;
     id = 1;
     system("cls");
-    for (int i = 0; i < arah && temp != NULL; i++)
+    for (int i = 0; i < arah && current != NULL; i++) // pindah kategori
     {
-        temp = temp->nb;
+        current = current->nb;
     }
 
-    temp = temp->fs; // ke sub-kategori
-
-    for (int i = 0; i < arahsub && temp != NULL; i++)
+    if (current->fs != NULL)
     {
-        temp = temp->nb;
+        temp = current->fs;
+        for (int i = 0; i < arahsub && temp != NULL; i++)
+        {
+            temp = temp->nb;
+        }
+    }
+    else
+    {
+        temp = NULL;
     }
 
     puts("========================================");
-    if (temp->pr != NULL)
+    if (current != NULL)
     {
-        printf("%s \n", temp->pr->nama); // Kategori
+        printf("%s \n", current->nama); // Kategori 
+        
     }
     else
     {
         printf("tidak ada kategori\n");
     }
-
+    
     puts("----------------------------------------");
     if (temp != NULL)
     {
-        printf("%s \n", temp->nama);
+        current = temp;
+        printf("%s \n", current->nama);
     }
     else
     {
@@ -545,10 +554,9 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
     puts("========================================");
 
     /*disini temp ada di subkategori*/
-
-    if (temp != NULL)
+    if (current != NULL)
     {
-        barang = temp->fs; // ke barang
+        barang = current->fs; // ke barang
         if (barang != NULL)
         {
             while (barang != NULL)
