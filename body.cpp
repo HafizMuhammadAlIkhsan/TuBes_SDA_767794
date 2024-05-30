@@ -509,11 +509,9 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
     int id;
     id = 1;
     system("cls");
-    cout << temp->nama << "\n";
     for (int i = 0; i < arah && temp != NULL; i++)
     {        
         temp = temp->nb;
-        cout << temp->nama << "\n";
     }
 
     temp = temp->fs; // ke sub-kategori
@@ -522,11 +520,9 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
     {
         temp =temp->nb;
     }
-
     
     printf("arah dan arah sub %d | %d\n", arah , arahsub);
     puts("========================================");
-    puts("test");
     printf("%s\n", temp->nama);
     if (temp->pr != NULL)
     {
@@ -559,11 +555,15 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
             {
                 if (strlen(barang->nama) < 5)
                 {
-                    printf("%d.%s \t\t[stock %d]\n", id, barang->nama, temp->jumlah);
+                    printf("%d.%s \t\t\t[stock %d]\n", id, barang->nama, barang->jumlah);
+                }
+                else if (strlen(barang->nama) < 13)
+                {
+                    printf("%d.%s \t\t[stock %d]\n", id, barang->nama, barang->jumlah);
                 }
                 else
                 {
-                    printf("%d.%s \t[stock %d]\n", id, barang->nama, temp->jumlah);
+                    printf("%d.%s \t[stock %d]\n", id, barang->nama, barang->jumlah);
                 }
                 
                 id += 1;
@@ -679,8 +679,7 @@ void katalog(addrBar root, int page)
             default:
                 break;
             }
-            
-            cout << "\n kate:" << max << "| sub:" << max_sub;
+            cout << "\n kate:" << current_page << "| sub:" << current_page_sub;
         }
         else if (ch == 'q' || ch == 'Q')
         {
