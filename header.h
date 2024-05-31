@@ -100,7 +100,7 @@ addrBel deleteBarBel(addrBel *awal, addrBel akhir);
 void bacaFile(Gudang gudang, char namaFile[]);
 void updateData(addrBar root);
 
-bool katalog(addrBar root, int page);
+bool katalog(addrBar root);
 void tampilkan_katalog(addrBar root, int arah, int arahsub);
 int previous(addrBar current, int current_page);
 

@@ -619,7 +619,7 @@ int previous(addrBar current, int current_page)
     return hasil - 1;
 }
 
-bool katalog(addrBar root, int page)
+bool katalog(addrBar root)
 {
     /**/
     int current_page = 0;

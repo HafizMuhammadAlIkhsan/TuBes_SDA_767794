@@ -72,7 +72,7 @@ int main()
                     break;
                 case 4:
 
-                    if (katalog(gudang.root, 0))
+                    if (katalog(gudang.root))
                     {
                         do
                         {
