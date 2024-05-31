@@ -809,3 +809,22 @@ void updateData(addrBar root)
     } while (pr(Pcur) != NULL);
     fclose(f_gudang);
 }
+void transaksi(int Total, Gudang root, addrBel awal)
+{
+    int temp;
+    system("cls");
+    printf("Total harga          : Rp %d\n", Total);
+    printf("Masukkan jumlah uang : Rp ");
+    scanf(" %d", &temp);
+    if (Total <= temp)
+    {
+        printf("Kembalian            : Rp %d\n",temp - Total);
+        puts("Terima kasih sudah belanja!");
+        kurangistock(root, awal);
+        updateData(root.root);
+    }
+    else
+    {
+        printf("Uang Tidak cukup\n");
+    }
+}

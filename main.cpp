@@ -109,14 +109,7 @@ int main()
                         puts("Struk Hafiz Market");
                         returnValue = tampilBarBel(awal, akhir);
                         system("pause");
-                        system("cls");
-                        puts("Pembayaran");
-                        printf("Total harga          : Rp %d\n", returnValue);
-                        printf("Masukkan jumlah uang : Rp ");
-                        scanf(" %d", &harga);
-                        printf("Kembalian            : Rp %d\n", harga - returnValue);
-                        puts("Terima kasih sudah belanja!");
-                        kurangistock(gudang, awal);
+                        transaksi(returnValue,gudang, awal);
                         system("pause");
                         curr = awal;
                         while (curr->nextBar != NULL)

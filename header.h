@@ -104,6 +104,7 @@ bool katalog(addrBar root);
 void tampilkan_katalog(addrBar root, int arah, int arahsub);
 int previous(addrBar current, int current_page);
 
+void transaksi(int Total, Gudang root, addrBel awal);
 /*==========================================================Currently not In use==========================================================*/
 
 void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
