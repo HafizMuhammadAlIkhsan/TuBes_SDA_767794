@@ -331,7 +331,14 @@ void tampilBarang(addrBar node, int level)
     resetTempNumber++;
     if (level == 0)
     {
-        printf("%d. %s \n", tempNumber, node->nama);
+        if (tempNumber >= 10)
+        {
+            printf("%-2d. %-20s Jumlah stok: %d\n", tempNumber, node->nama, node->jumlah);
+        }
+        else
+        {
+            printf("%d. %-21s Jumlah stok: %d\n", tempNumber, node->nama, node->jumlah);
+        }
         tempNumber++;
     }
     else
@@ -424,7 +431,7 @@ void belanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumla
     {
         if (strcasecmp(current->namaBarang->nama, beli->nama) == 0)
         {
-            current->jumlah += jumlah;
+            current->jumlah = current->jumlah + jumlah;
             return;
         }
         current = current->nextBarang;
@@ -521,6 +528,10 @@ int tampilkanBelanja(addrBel first, addrBel last)
 
 void bacaFile(Gudang gudang, char namaFile[])
 {
+    addrBar hasil;
+    infotype nama;
+    int harga, jumlah;
+
     FILE *file;
     file = fopen(namaFile, "r");
     if (file == NULL)
@@ -534,15 +545,15 @@ void bacaFile(Gudang gudang, char namaFile[])
     {
         char *fs, *nb, *pr;
         char *token = strtok(wadah, ",");
-        infotype nama = token;
+        nama = token;
         token = strtok(NULL, ",");
-        int harga = atoi(token);
+        harga = atoi(token);
         token = strtok(NULL, ",");
-        int jumlah = atoi(token);
+        jumlah = atoi(token);
         token = strtok(NULL, ",");
         pr = token;
-        printf("cek: %s,%d,%d,%s\n", nama, harga, jumlah, pr);
-        addrBar hasil = searchGudang(gudang.root, pr);
+
+        hasil = searchGudang(gudang.root, pr);
         if (hasil != NULL)
         {
             insertBarang(&gudang, hasil, nama, harga, jumlah);
@@ -558,9 +569,8 @@ void bacaFile(Gudang gudang, char namaFile[])
 
 void tampilkan_katalog(addrBar root, int arah, int arahsub)
 {
-
     addrBar current = root->fs; // ke kategori
-    addrBar temp; 
+    addrBar temp;
     addrBar barang;
     int id;
     id = 1;
@@ -586,14 +596,13 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub)
     puts("========================================");
     if (current != NULL)
     {
-        printf("%s \n", current->nama); // Kategori 
-        
+        printf("%s \n", current->nama); // Kategori
     }
     else
     {
         printf("tidak ada kategori\n");
     }
-    
+
     puts("----------------------------------------");
     if (temp != NULL)
     {
@@ -720,7 +729,7 @@ bool katalog(addrBar root)
         }
 
         ch = _getch();
-        if (ch == 0 || ch == 224) //default is variabel ch
+        if (ch == 0 || ch == 224) // default is variabel ch
         {
             switch (_getch())
             {
@@ -813,7 +822,7 @@ void updateData(addrBar root)
             {
                 pr = Pcur->pr->nama;
             }
-            fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, pr);
+            fprintf(f_gudang, "%s,%d,%d,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, pr);
             resmi = true;
         }
         else
@@ -824,6 +833,7 @@ void updateData(addrBar root)
     } while (Pcur->pr != NULL);
     fclose(f_gudang);
 }
+
 void transaksi(int Total, Gudang root, addrBel awal)
 {
     int temp;
@@ -833,7 +843,7 @@ void transaksi(int Total, Gudang root, addrBel awal)
     scanf(" %d", &temp);
     if (Total <= temp)
     {
-        printf("Kembalian            : Rp %d\n",temp - Total);
+        printf("Kembalian            : Rp %d\n", temp - Total);
         puts("Terima kasih sudah belanja!");
         kurangistock(root, awal);
         updateData(root.root);
@@ -842,4 +852,274 @@ void transaksi(int Total, Gudang root, addrBel awal)
     {
         printf("Uang Tidak cukup\n");
     }
+}
+
+// ? =================================================== Modul untuk menu kasir ==============================================================
+
+void lihatKategori(Gudang gudang)
+{
+    puts("List kategori");
+    tampilKategori(gudang.root, 1, 1);
+    system("pause");
+}
+
+void lihatSubKategori(Gudang gudang)
+{
+    puts("List Sub Kategori");
+    tampilSubKategori(gudang.root, 2, 1);
+    system("pause");
+}
+
+void lihatBarang(Gudang gudang)
+{
+    puts("List Barang");
+    tampilBarang(gudang.root, 3);
+    system("pause");
+}
+
+void belanja(Gudang gudang)
+{
+    char beli[256], lanjut;
+    int jumBar, returnValue, harga;
+    addrBar beliBar;
+    addrBel awal = NULL, akhir = NULL, curr;
+
+    do
+    {
+        printf("Beli: ");
+        scanf(" %[^\n]s", &beli);
+        printf("Jumlah: ");
+        scanf("%d", &jumBar);
+
+        while (!cekKategori(gudang.root, beli))
+        {
+            printf("%s tidak ada\n", beli);
+            printf("Beli: ");
+            scanf(" %[^\n]s", &beli);
+            printf("Jumlah: ");
+            scanf("%d", &jumBar);
+        }
+
+        beliBar = searchGudang(gudang.root, beli);
+        if (beliBar != NULL)
+        {
+            belanja(gudang, beliBar, &awal, &akhir, jumBar);
+        }
+        else
+        {
+            puts("Barang tidak ada");
+            break;
+        }
+        printf("Ada lagi yang dibeli? (y/n): ");
+        scanf(" %c", &lanjut);
+
+    } while (lanjut == 'y' || lanjut == 'Y');
+    system("cls");
+    puts("Struk Hafiz Market");
+    returnValue = tampilkanBelanja(awal, akhir);
+    system("pause");
+    system("cls");
+    puts("Pembayaran");
+    printf("Total harga          : Rp %d\n", returnValue);
+    printf("Masukkan jumlah uang : Rp ");
+    scanf(" %d", &harga);
+    printf("Kembalian            : Rp %d\n", harga - returnValue);
+    puts("Terima kasih sudah belanja!");
+    kurangistock(gudang, awal);
+    system("pause");
+
+    // ? Proses delete pembelian
+    curr = awal;
+    while (curr->nextBarang != NULL)
+    {
+        curr = curr->nextBarang;
+        deleteBelanja(&awal, akhir);
+    }
+}
+
+// ? ================================================== Modul untuk menu gudang ==============================================================
+
+void tambahKategori(Gudang gudang)
+{
+    char kategori[256], subkategori[256];
+    addrBar hasil;
+    int opsi;
+    do
+    {
+        system("cls");
+        puts("(1) Tambah Kategori");
+        puts("(2) Tambah Sub Kategori");
+        puts("(0) Kembali");
+
+        printf("Pilih opsi: ");
+        scanf("%d", &opsi);
+        switch (opsi)
+        {
+        case 1:
+            system("cls");
+            puts("Tambah Kategori");
+            printf("Nama kategori baru: ");
+            scanf(" %[^\n]s", &kategori);
+            while (cekKategori(gudang.root, kategori))
+            {
+                system("cls");
+                printf("%sKategori %s sudah terdaftar!%s\n", red, kategori, normal);
+                puts("Tambah Kategori");
+                printf("Nama kategori baru: ");
+                scanf(" %[^\n]s", &kategori);
+            }
+            hasil = insertBarang(&gudang, gudang.root, kategori, 0, 0);
+            system("cls");
+            if (hasil != NULL)
+            {
+                printf("%sKategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
+            }
+            else
+            {
+                puts("Gagal mendaftarkan kategori");
+            }
+            system("pause");
+            opsi = 0;
+            break;
+        case 2:
+            system("cls");
+            puts("Tambah Sub-Kategori");
+            printf("Kategori              : ");
+            scanf(" %[^\n]s", &kategori);
+            while (!cekKategori(gudang.root, kategori))
+            {
+                system("cls");
+                printf("%sKategori %s belum terdaftar!%s\n", red, kategori, normal);
+                puts("Tambah Sub-Kategori");
+                printf("Kategori              : ");
+                scanf(" %[^\n]s", &kategori);
+            }
+            hasil = searchGudang(gudang.root, kategori);
+            printf("Nama Sub-kategori baru: ");
+            scanf(" %[^\n]s", &subkategori);
+
+            while (cekKategori(gudang.root, subkategori))
+            {
+                system("cls");
+                printf("%sSub-kategori %s sudah terdaftar!%s\n", red, subkategori, normal);
+                puts("Tambah Sub-Kategori");
+                printf("Kategori              : %s\n", kategori);
+                printf("Nama Sub-kategori baru: ");
+                scanf(" %[^\n]s", &subkategori);
+            }
+            hasil = insertBarang(&gudang, hasil, subkategori, 0, 0);
+            system("cls");
+            if (hasil != NULL)
+            {
+                printf("%sSub-kategori %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
+            }
+            else
+            {
+                puts("Gagal mendaftarkan sub-kategori");
+            }
+            system("pause");
+            opsi = 0;
+            break;
+        case 0:
+            puts("Kembali ke menu sebelumnya...");
+            break;
+        default:
+            printf("Inputkan salah satu opsi di atas!\n");
+            puts("===============================================================");
+            system("pause");
+            break;
+        }
+    } while (opsi != 0);
+}
+
+void tambahBarangBaru(Gudang gudang)
+{
+    char kategori[256], subkategori[256], barang[256];
+    addrBar hasil;
+    int harga;
+
+    system("cls");
+    puts("Tambah Barang Baru");
+    printf("Kategori        : ");
+    scanf(" %[^\n]s", &kategori);
+    while (!cekKategori(gudang.root, kategori))
+    {
+        system("cls");
+        printf("%sKategori %s belum terdaftar!%s\n", red, kategori, normal);
+        puts("Tambah Barang Baru");
+        printf("Kategori        : ");
+        scanf(" %[^\n]s", &kategori);
+    }
+    hasil = searchGudang(gudang.root, kategori);
+    printf("Sub-kategori    : ");
+    scanf(" %[^\n]s", &subkategori);
+
+    while (!cekKategori(gudang.root, subkategori))
+    {
+        system("cls");
+        printf("%sSub-kategori %s belum terdaftar!%s\n", red, subkategori, normal);
+        puts("Tambah Barang Baru");
+        printf("Kategori        : %s\n", kategori);
+        printf("Sub-kategori    : ");
+        scanf(" %[^\n]s", &subkategori);
+    }
+    hasil = searchGudang(gudang.root, subkategori);
+
+    printf("Nama barang baru: ");
+    scanf(" %[^\n]s", &barang);
+    while (cekKategori(gudang.root, barang))
+    {
+        system("cls");
+        printf("%sBarang %s sudah terdaftar!%s\n", red, barang, normal);
+        puts("Tambah Barang Baru");
+        printf("Kategori        : %s\n", kategori);
+        printf("Sub-kategori    : %s\n", subkategori);
+        printf("Nama barang baru: ");
+        scanf(" %[^\n]s", &barang);
+    }
+    printf("Harga barang    : ");
+    scanf("%d", &harga);
+    hasil = insertBarang(&gudang, hasil, barang, harga, 0);
+
+    system("cls");
+    if (hasil != NULL)
+    {
+        printf("%sBarang %s berhasil didaftarkan!%s\n", green, hasil->nama, normal);
+    }
+    else
+    {
+        puts("Gagal mendaftarkan barang");
+    }
+    system("pause");
+}
+
+void tambahStokBarang(Gudang gudang)
+{
+    char beli[256];
+    int jumlah;
+    system("cls");
+    printf("Tambah Stok\n");
+    printf("Masukan Nama Barang  : ");
+    scanf(" %[^\n]s", &beli);
+    while (!cekKategori(gudang.root, beli))
+    {
+        system("cls");
+        printf("%sBarang %s belum terdaftar! %s\n", red, beli, normal);
+        printf("Tambah Stok\n");
+        printf("Masukan Nama Barang  : ");
+        scanf(" %[^\n]s", &beli);
+    }
+    printf("Masukan Jumlah Barang: ");
+    scanf(" %d", &jumlah);
+    tambahstock(gudang.root, beli, jumlah);
+    system("cls");
+    printf(" %sBerhasil menambahkan stok %s sejumlah %d. %s\n", green, beli, jumlah, normal);
+    system("pause");
+}
+
+void tampilkanStokBarang(Gudang gudang)
+{
+    system("cls");
+    tampilkanGudang(gudang.root, 0);
+    system("pause");
 }

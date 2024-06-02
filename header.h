@@ -61,6 +61,7 @@ void createTree(Gudang *x);
 
 /* Modul untuk alokasi */
 addrBar alokBarang(infotype nama, int harga, int jumlah);
+
 /* Modul untuk menyisipkan node pada struktur tree */
 addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jumlah);
 
@@ -71,9 +72,10 @@ void tampilkanGudang(addrBar node, int i);
 addrBar searchGudang(addrBar root, char cariGudang[]);
 // variabel cariGudang ini maksudnya untuk mencari kategori, subkategori, dan barang
 
+/* Mengecek apakah Kategori sudah terdaftar pada gudang atau belum */
 bool cekKategori(addrBar node, infotype search);
 
-/*Mengurangi\Menmabahkan stock yang ada di gudang*/
+/* Mengurangi\Menmabahkan stock yang ada di gudang */
 void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 void kurangistock(Gudang root, addrBel awal);
 
@@ -86,19 +88,45 @@ void tampilBarang(addrBar node, int level);
 addrBel alokBelanja(Gudang root, addrBar beli, int harga);
 void belanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
 
+/* Menampilkan barang yang dibeli */
 int tampilkanBelanja(addrBel first, addrBel last);
+
+/* Menghapus list barang yang sudah dibeli */
 addrBel deleteBelanja(addrBel *awal, addrBel akhir);
 
+/* Baca dan update file pada data gudang */
 void bacaFile(Gudang gudang, char namaFile[]);
 void updateData(addrBar root);
 
+/* Modul Katalog */
 bool katalog(addrBar root);
 void tampilkan_katalog(addrBar root, int arah, int arahsub);
 int previous(addrBar current, int current_page);
 
+/* Modul untuk memasukkan jumlah yang harus dibayarkan saat ingin membeli barang */
 void transaksi(int Total, Gudang root, addrBel awal);
 
-/*==========================================================Currently not In use==========================================================*/
+// ? ======================================================= Menu pada kasir =========================================================
+
+void lihatKategori(Gudang gudang);
+
+void lihatSubKategori(Gudang gudang);
+
+void lihatBarang(Gudang gudang);
+
+void belanja(Gudang gudang);
+
+// ? ====================================================== Menu pada gudang =========================================================
+
+void tambahKategori(Gudang gudang);
+
+void tambahBarangBaru(Gudang gudang);
+
+void tambahStokBarang(Gudang gudang);
+
+void tampilkanStokBarang(Gudang gudang);
+
+// !========================================================== Currently not In use ==========================================================
 
 void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
 
