@@ -293,7 +293,7 @@ void tampilKategori(addrBar node, int level, int i)
     }
 }
 
-void tampilSubKategori(addrBar node, int level, int i)
+void tampilSubKategori(addrBar node, int level, int *i)
 {
     addrBar current = node->fs;
     if (node == NULL)
@@ -305,15 +305,13 @@ void tampilSubKategori(addrBar node, int level, int i)
     {
         if (level == 1)
         {
-            printf("%d. %s \n", i, current->nama);
+            printf("%d. %s \n", (*i)++, current->nama);
         }
         else
         {
             tampilSubKategori(current, level - 1, i);
-            i++;
         }
         current = current->nb;
-        i++;
     }
 }
 
@@ -452,11 +450,10 @@ void insertbelanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int
 addrBel deleteBelanja(addrBel *awal, addrBel akhir)
 {
     addrBel p = (*awal), temp;
-    int nilai;
 
     if ((*awal) == NULL && akhir == NULL)
     {
-        printf("Linked list kosong\n");
+        printf("List kosong\n");
     }
     else if ((*awal) == akhir)
     {
@@ -510,7 +507,7 @@ addrBar searchGudang(addrBar root, char cariGudang[])
     return NULL;
 }
 
-int tampilkanBelanja(addrBel first, addrBel last)
+int tampilkanBelanja(addrBel first)
 {
     int totalHarga = 0;
     addrBel p = first;
@@ -543,7 +540,7 @@ void bacaFile(Gudang gudang, char namaFile[])
     char wadah[500];
     while (fgets(wadah, sizeof(wadah), file) != NULL)
     {
-        char *fs, *nb, *pr;
+        char *pr;
         char *token = strtok(wadah, ",");
         nama = token;
         token = strtok(NULL, ",");
@@ -782,8 +779,6 @@ bool katalog(addrBar root)
 
 void updateData(addrBar root)
 {
-    data_barang data;
-    char lagi;
     FILE *f_gudang;
     if ((f_gudang = fopen("DATA/gudang.txt", "wt+")) == NULL)
     {
@@ -791,8 +786,7 @@ void updateData(addrBar root)
         exit(1);
     }
 
-    infotype temp = "NULL";
-    infotype fs, nb, pr;
+    infotype pr;
     addrBar Pcur = root; // Posisi node aktif
     bool resmi = true;   // Kunjungan resmi
     do
@@ -865,8 +859,9 @@ void lihatKategori(Gudang gudang)
 
 void lihatSubKategori(Gudang gudang)
 {
+    int i = 1;
     puts("List Sub Kategori");
-    tampilSubKategori(gudang.root, 2, 1);
+    tampilSubKategori(gudang.root, 2, &i);
     system("pause");
 }
 
@@ -917,7 +912,7 @@ void belanja(Gudang gudang)
         } while (lanjut == 'y' || lanjut == 'Y');
         system("cls");
         puts("Struk Hafiz Market");
-        returnValue = tampilkanBelanja(awal, akhir);
+        returnValue = tampilkanBelanja(awal);
         system("pause");
         system("cls");
         transaksi(returnValue, gudang, awal);

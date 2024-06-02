@@ -81,7 +81,7 @@ void kurangistock(Gudang root, addrBel awal);
 
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
 void tampilKategori(addrBar node, int level, int i);
-void tampilSubKategori(addrBar nama, int level, int i);
+void tampilSubKategori(addrBar nama, int level, int *i);
 void tampilBarang(addrBar node, int level);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
@@ -89,7 +89,7 @@ addrBel alokBelanja(Gudang root, addrBar beli, int harga);
 void insertbelanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Menampilkan barang yang dibeli */
-int tampilkanBelanja(addrBel first, addrBel last);
+int tampilkanBelanja(addrBel first);
 
 /* Menghapus list barang yang sudah dibeli */
 addrBel deleteBelanja(addrBel *awal, addrBel akhir);
