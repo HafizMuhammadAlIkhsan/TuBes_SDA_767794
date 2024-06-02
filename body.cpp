@@ -42,7 +42,7 @@ addrBar insertBarang(Gudang *root, addrBar pr, infotype nama, int harga, int jum
     {
         if (pr == NULL)
         {
-            root(root) = p;
+            root->root = p;
         }
         else
         {
@@ -216,27 +216,27 @@ addrBar alokEtalase(infotype nama, int harga)
     }
     else
     {
-        nama(p) = (infotype)malloc(strlen(nama) + 1);
-        if (nama(p) == NULL)
+        p->nama = (infotype)malloc(strlen(nama) + 1);
+        if (p->nama == NULL)
         {
             printf("Memori sudah penuh\n");
         }
 
         // Salin nama barang
-        strcpy(nama(p), nama);
+        strcpy(p->nama, nama);
 
-        harga(p) = harga;
-        if (jumlah(p) < MAX_JUMLAH)
+        p->harga = harga;
+        if (p->jumlah < MAX_JUMLAH)
         {
-            jumlah(p) = 0;
+            p->jumlah = 0;
         }
         else
         {
             return NULL;
         }
-        fs(p) = NULL;
-        nb(p) = NULL;
-        pr(p) = NULL;
+        p->fs = NULL;
+        p->nb = NULL;
+        p->pr = NULL;
     }
     return p;
 }
@@ -262,6 +262,29 @@ void Cek_Stock_Etalase(addrBar node, int level, int i)
         else
         {
             Cek_Stock_Etalase(current, level - 1, i);
+            i++;
+        }
+        current = current->nb;
+        i++;
+    }
+}
+
+void tampilKategori(addrBar node, int level, int i)
+{
+    addrBar current = node->fs;
+    if (node == NULL)
+    {
+        return;
+    }
+    while (current != NULL)
+    {
+        if (level == 1)
+        {
+            printf("%d. %s \n", i, current->nama);
+        }
+        else
+        {
+            tampilSubKategori(current, level - 1, i);
             i++;
         }
         current = current->nb;
@@ -319,13 +342,13 @@ void kurangistock(Gudang root, addrBel awal)
     while (temp != NULL)
     {
 
-        if (temp->namBar != NULL)
+        if (temp->namaBarang != NULL)
         {
-            if (temp->namBar->jumlah > temp->jumlah)
+            if (temp->namaBarang->jumlah > temp->jumlah)
             {
-                temp->namBar->jumlah = temp->namBar->jumlah - temp->jumlah;
-                temp->namBar->pr->jumlah = temp->namBar->pr->jumlah - temp->jumlah;
-                temp->namBar->pr->pr->jumlah = temp->namBar->pr->pr->jumlah - temp->jumlah;
+                temp->namaBarang->jumlah = temp->namaBarang->jumlah - temp->jumlah;
+                temp->namaBarang->pr->jumlah = temp->namaBarang->pr->jumlah - temp->jumlah;
+                temp->namaBarang->pr->pr->jumlah = temp->namaBarang->pr->pr->jumlah - temp->jumlah;
             }
             else
             {
@@ -337,14 +360,14 @@ void kurangistock(Gudang root, addrBel awal)
         {
             printf("Tidak ada barang nya");
         }
-        temp = temp->nextBar;
+        temp = temp->nextBarang;
     }
 }
 
-addrBel alokBarBel(Gudang root, addrBar beli, int jumlah)
+addrBel alokBelanja(Gudang root, addrBar beli, int jumlah)
 {
     addrBel p;
-    p = (addrBel)malloc(sizeof(dibeli));
+    p = (addrBel)malloc(sizeof(belanjaan));
     if (p == NULL)
     {
         printf("Memori sudah penuh\n");
@@ -352,27 +375,27 @@ addrBel alokBarBel(Gudang root, addrBar beli, int jumlah)
     }
     else
     {
-        p->namBar = beli;
+        p->namaBarang = beli;
         p->jumlah = jumlah;
-        p->nextBar = NULL;
+        p->nextBarang = NULL;
     }
     return p;
 }
 
-void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah)
+void belanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
     addrBel current = *awal;
     while (current != NULL)
     {
-        if (strcasecmp(current->namBar->nama, beli->nama) == 0)
+        if (strcasecmp(current->namaBarang->nama, beli->nama) == 0)
         {
             current->jumlah += jumlah;
             return;
         }
-        current = current->nextBar;
+        current = current->nextBarang;
     }
-    p = alokBarBel(root, beli, jumlah);
+    p = alokBelanja(root, beli, jumlah);
 
     if (*awal == NULL && *akhir == NULL)
     {
@@ -380,12 +403,12 @@ void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int 
     }
     else
     {
-        nextBar(*akhir) = p;
+        nextBarang(*akhir)= p;
     }
     *akhir = p;
 }
 
-addrBel deleteBarBel(addrBel *awal, addrBel akhir)
+addrBel deleteBelanja(addrBel *awal, addrBel akhir)
 {
     addrBel p = (*awal), temp;
     int nilai;
@@ -401,10 +424,10 @@ addrBel deleteBarBel(addrBel *awal, addrBel akhir)
     }
     else
     {
-        (*awal) = p->nextBar;
+        (*awal) = p->nextBarang;
     }
 
-    p->nextBar = NULL;
+    p->nextBarang = NULL;
     free(p);
 
     return p;
@@ -446,16 +469,16 @@ addrBar searchGudang(addrBar root, char cariGudang[])
     return NULL;
 }
 
-int tampilBarBel(addrBel first, addrBel last)
+int tampilkanBelanja(addrBel first, addrBel last)
 {
     int totalHarga = 0;
     addrBel p = first;
     int i = 1;
     while (p != NULL)
     {
-        printf("%d. %s jumlah %d x %d: %d\n", i, p->namBar->nama, p->jumlah, p->namBar->harga, p->jumlah * p->namBar->harga);
-        totalHarga = totalHarga + (p->jumlah * p->namBar->harga);
-        p = nextBar(p);
+        printf("%d. %s jumlah %d x %d: %d\n", i, p->namaBarang->nama, p->jumlah, p->namaBarang->harga, p->jumlah * p->namaBarang->harga);
+        totalHarga = totalHarga + (p->jumlah * p->namaBarang->harga);
+        p = p->nextBarang;
         i++;
     }
     printf("Total harga: %d\n", totalHarga);
@@ -483,12 +506,8 @@ void bacaFile(Gudang gudang, char namaFile[])
         token = strtok(NULL, ",");
         int jumlah = atoi(token);
         token = strtok(NULL, ",");
-        fs = token;
-        token = strtok(NULL, ",");
-        nb = token;
-        token = strtok(NULL, ",");
         pr = token;
-        printf("cek: %s,%d,%d,%s,%s,%s\n", nama, harga, jumlah, fs, nb, pr);
+        printf("cek: %s,%d,%d,%s\n", nama, harga, jumlah, pr);
         addrBar hasil = searchGudang(gudang.root, pr);
         if (hasil != NULL)
         {
@@ -735,28 +754,9 @@ void updateData(addrBar root)
     bool resmi = true;   // Kunjungan resmi
     do
     {
-        if (fs(Pcur) != NULL && resmi)
+        if (Pcur->fs != NULL && resmi)
         {
-            Pcur = fs(Pcur);
-            // fflush(stdin);
-            if (Pcur->fs == NULL)
-            {
-                fs = "NULL";
-            }
-            else
-            {
-                fs = Pcur->fs->nama;
-            }
-
-            if (Pcur->nb == NULL)
-            {
-                nb = "NULL";
-            }
-            else
-            {
-                nb = Pcur->nb->nama;
-            }
-
+            Pcur = Pcur->fs;
             if (Pcur->pr == NULL)
             {
                 pr = "NULL";
@@ -766,30 +766,11 @@ void updateData(addrBar root)
                 pr = Pcur->pr->nama;
             }
 
-            fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, fs, nb, pr);
+            fprintf(f_gudang, "%s,%d,%d,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, pr);
         }
-        else if (nb(Pcur) != NULL)
+        else if (Pcur->nb != NULL)
         {
-            Pcur = nb(Pcur);
-            // fflush(stdin);
-            if (Pcur->fs == NULL)
-            {
-                fs = "NULL";
-            }
-            else
-            {
-                fs = Pcur->fs->nama;
-            }
-
-            if (Pcur->nb == NULL)
-            {
-                nb = "NULL";
-            }
-            else
-            {
-                nb = Pcur->nb->nama;
-            }
-
+            Pcur = Pcur->nb;
             if (Pcur->pr == NULL)
             {
                 pr = "NULL";
@@ -798,15 +779,15 @@ void updateData(addrBar root)
             {
                 pr = Pcur->pr->nama;
             }
-            fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, fs, nb, pr);
+            fprintf(f_gudang, "%s,%d,%d,%s,%s,%s,\n", Pcur->nama, Pcur->harga, Pcur->jumlah, pr);
             resmi = true;
         }
         else
         {
-            Pcur = pr(Pcur);
+            Pcur = Pcur->pr;
             resmi = false; // Numpang lewat
         }
-    } while (pr(Pcur) != NULL);
+    } while (Pcur->pr != NULL);
     fclose(f_gudang);
 }
 void transaksi(int Total, Gudang root, addrBel awal)

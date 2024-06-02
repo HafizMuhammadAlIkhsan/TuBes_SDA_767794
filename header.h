@@ -11,16 +11,7 @@
 
 using namespace std;
 
-#define nama(P) (P)->nama
-#define harga(P) (P)->harga
-#define jumlah(P) (P)->jumlah
-#define pr(P) (P)->pr
-#define fs(P) (P)->fs
-#define nb(P) (P)->nb
-#define root(P) (P)->root
-#define namBar(P) (P)->namBar
-#define nextBar(P) (P)->nextBar
-#define barBel(P) (P)->barBel
+#define nextBarang(P) (P)->nextBarang
 
 #define MAX_JUMLAH 10
 
@@ -32,7 +23,6 @@ using namespace std;
 #define blue "\033[34m"
 #define magenta "\033[35m"
 #define cyan "\033[36m"
-#define barBel(P) (P)->barBel
 
 typedef struct data_barang
 {
@@ -57,13 +47,13 @@ struct Gudang {
 };
 
 /* barang yang dipesan oleh pembeli */
-typedef struct dibeli *addrBel;
-typedef struct dibeli
+typedef struct belanjaan *addrBel;
+typedef struct belanjaan
 {
-    addrBar namBar;
+    addrBar namaBarang;
     int jumlah;
-    addrBel nextBar;
-} dibeli;
+    addrBel nextBarang;
+} belanjaan;
 
 /*==========================================================In use==========================================================*/
 /* Membuat nama dari Toko */
@@ -88,14 +78,15 @@ void tambahstock(addrBar root, char carigudang[], int jumlahbarang);
 void kurangistock(Gudang root, addrBel awal);
 
 /* Menampilkan list dari subkatergori barang yang ada di gudang toko */
+void tampilKategori(addrBar node, int level, int i);
 void tampilSubKategori(addrBar nama, int level, int i);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
-void insertBarBel(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
-addrBel alokBarBel(Gudang root, addrBar beli, int harga);
+addrBel alokBelanja(Gudang root, addrBar beli, int harga);
+void belanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
 
-int tampilBarBel(addrBel first, addrBel last);
-addrBel deleteBarBel(addrBel *awal, addrBel akhir);
+int tampilkanBelanja(addrBel first, addrBel last);
+addrBel deleteBelanja(addrBel *awal, addrBel akhir);
 
 void bacaFile(Gudang gudang, char namaFile[]);
 void updateData(addrBar root);
@@ -105,6 +96,7 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub);
 int previous(addrBar current, int current_page);
 
 void transaksi(int Total, Gudang root, addrBel awal);
+
 /*==========================================================Currently not In use==========================================================*/
 
 void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
@@ -112,6 +104,5 @@ void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
 string standarisasi(infotype nama);
 
 void Cek_Stock_Etalase(addrBar node, int level, int i);
-
 
 #endif

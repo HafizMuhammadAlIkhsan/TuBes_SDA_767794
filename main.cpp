@@ -57,7 +57,7 @@ int main()
                 {
                 case 1:
                     puts("List kategori");
-                    tampilSubKategori(gudang.root, 1, 1);
+                    tampilKategori(gudang.root, 1, 1);
                     system("pause");
                     break;
                 case 2:
@@ -93,7 +93,7 @@ int main()
                             beliBar = searchGudang(gudang.root, beli);
                             if (beliBar != NULL)
                             {
-                                insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
+                                belanja(gudang, beliBar, &awal, &akhir, jumBar);
                                 updateData(gudang.root);
                             }
                             else
@@ -107,15 +107,15 @@ int main()
                         } while (lanjut == 'y' || lanjut == 'Y');
                         system("cls");
                         puts("Struk Hafiz Market");
-                        returnValue = tampilBarBel(awal, akhir);
+                        returnValue = tampilkanBelanja(awal, akhir);
                         system("pause");
                         transaksi(returnValue,gudang, awal);
                         system("pause");
                         curr = awal;
-                        while (curr->nextBar != NULL)
+                        while (curr->nextBarang != NULL)
                         {
-                            curr = curr->nextBar;
-                            deleteBarBel(&awal, akhir);
+                            curr = curr->nextBarang;
+                            deleteBelanja(&awal, akhir);
                         }
                         break;
                     }
