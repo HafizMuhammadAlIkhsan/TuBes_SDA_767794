@@ -895,6 +895,7 @@ void belanja(Gudang gudang)
         system("pause");
         system("cls");
         transaksi(returnValue, gudang, awal);
+        system("pause");
         // ? Proses delete pembelian
         curr = awal;
         while (curr->nextBar != NULL)
