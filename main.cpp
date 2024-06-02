@@ -4,7 +4,6 @@ int main()
 {
     Gudang gudang, etalase;
     addrBar hasil, beliBar;
-    addrBel awal = NULL, akhir = NULL, curr;
     int opsi, i = 1, returnValue, jumBar, harga;
     char lanjut, beli[100], nama[100];
     int pil = 0;
@@ -31,8 +30,6 @@ int main()
         case 1:
             do
             {
-                awal = NULL;
-                akhir = NULL;
                 system("cls");
                 puts("Menu Kasir");
                 puts("1. Lihat Kategori");
@@ -47,72 +44,20 @@ int main()
                 switch (opsi)
                 {
                 case 1:
-                    puts("List kategori");
-                    tampilSubKategori(gudang.root, 1, 1);
-                    system("pause");
+                    lihatKategori(gudang);
                     break;
                 case 2:
-                    puts("List Sub Kategori");
-                    tampilSubKategori(gudang.root, 2, 1);
-                    system("pause");
+                    lihatSubKategori(gudang);
                     break;
                 case 3:
-                    puts("List Barang");
-                    tampilSubKategori(gudang.root, 3, 1);
-                    system("pause");
+                    lihatBarang(gudang);
                     break;
                 case 4:
-                    do
-                    {
-                        printf("Beli: ");
-                        scanf(" %[^\n]s", &beli);
-                        printf("Jumlah: ");
-                        scanf("%d", &jumBar);
-                           
-                       while(!cekKategori(gudang.root, beli))
-                       {
-                            printf("%s tidak ada\n", beli);
-                            printf("Beli: ");
-                            scanf(" %[^\n]s", &beli);
-                            printf("Jumlah: ");
-                            scanf("%d", &jumBar);
-                       }
-                        
-                        beliBar = searchGudang(gudang.root, beli);
-                        if (beliBar != NULL)
-                        {
-                            insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
-                        }
-                        else
-                        {
-                            puts("Barang tidak ada");
-                            break;
-                        }
-                        printf("Ada lagi yang dibeli? (y/n): ");
-                        scanf(" %c", &lanjut);
-
-                    } while (lanjut == 'y' || lanjut == 'Y');
-                    system("cls");
-                    puts("Struk Hafiz Market");
-                    returnValue = tampilBarBel(awal, akhir);
-                    system("pause");
-                    system("cls");
-                    puts("Pembayaran");
-                    printf("Total harga          : Rp %d\n", returnValue);
-                    printf("Masukkan jumlah uang : Rp ");
-                    scanf(" %d", &harga);
-                    printf("Kembalian            : Rp %d\n", harga-returnValue);
-                    puts("Terima kasih sudah belanja!");
-                    kurangistock(gudang, awal);
-                    system("pause");
-                    curr = awal;
-                    while (curr->nextBar != NULL)
-                    {
-                        curr = curr->nextBar;
-                        deleteBarBel(&awal, akhir);
-                    }
+                    belanja(gudang);
                     break;
                 default:
+                    printf("Inputkan salah satu opsi di atas!\n");
+                    puts("===============================================================");
                     break;
                 }
             } while (opsi != 0);

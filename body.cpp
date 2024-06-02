@@ -828,6 +828,89 @@ void transaksi(int Total, Gudang root, addrBel awal)
     }
 }
 
+// ? =================================================== Modul untuk menu kasir ==============================================================
+
+void lihatKategori(Gudang gudang)
+{
+    puts("List kategori");
+    tampilSubKategori(gudang.root, 1, 1);
+    system("pause");
+}
+
+void lihatSubKategori(Gudang gudang)
+{
+    puts("List Sub Kategori");
+    tampilSubKategori(gudang.root, 2, 1);
+    system("pause");
+}
+
+void lihatBarang(Gudang gudang)
+{
+    puts("List Barang");
+    tampilSubKategori(gudang.root, 3, 1);
+    system("pause");
+}
+
+void belanja(Gudang gudang)
+{
+    char beli[256], lanjut;
+    int jumBar, returnValue, harga;
+    addrBar beliBar;
+    addrBel awal = NULL, akhir = NULL, curr;
+
+    do
+    {
+        printf("Beli: ");
+        scanf(" %[^\n]s", &beli);
+        printf("Jumlah: ");
+        scanf("%d", &jumBar);
+
+        while (!cekKategori(gudang.root, beli))
+        {
+            printf("%s tidak ada\n", beli);
+            printf("Beli: ");
+            scanf(" %[^\n]s", &beli);
+            printf("Jumlah: ");
+            scanf("%d", &jumBar);
+        }
+
+        beliBar = searchGudang(gudang.root, beli);
+        if (beliBar != NULL)
+        {
+            insertBarBel(gudang, beliBar, &awal, &akhir, jumBar);
+        }
+        else
+        {
+            puts("Barang tidak ada");
+            break;
+        }
+        printf("Ada lagi yang dibeli? (y/n): ");
+        scanf(" %c", &lanjut);
+
+    } while (lanjut == 'y' || lanjut == 'Y');
+    system("cls");
+    puts("Struk Hafiz Market");
+    returnValue = tampilBarBel(awal, akhir);
+    system("pause");
+    system("cls");
+    puts("Pembayaran");
+    printf("Total harga          : Rp %d\n", returnValue);
+    printf("Masukkan jumlah uang : Rp ");
+    scanf(" %d", &harga);
+    printf("Kembalian            : Rp %d\n", harga - returnValue);
+    puts("Terima kasih sudah belanja!");
+    kurangistock(gudang, awal);
+    system("pause");
+
+    // ? Proses delete pembelian
+    curr = awal;
+    while (curr->nextBar != NULL)
+    {
+        curr = curr->nextBar;
+        deleteBarBel(&awal, akhir);
+    }
+}
+
 // ? ================================================== Modul untuk menu gudang ==============================================================
 
 void tambahKategori(Gudang gudang)
