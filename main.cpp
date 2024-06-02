@@ -111,5 +111,4 @@ int main()
             break;
         }
     } while (opsi != 0);
-    updateData(gudang.root);
 }
