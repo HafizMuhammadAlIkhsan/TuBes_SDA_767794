@@ -423,7 +423,7 @@ addrBel alokBelanja(Gudang root, addrBar beli, int jumlah)
     return p;
 }
 
-void belanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah)
+void insertbelanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah)
 {
     addrBel p;
     addrBel current = *awal;
@@ -883,27 +883,28 @@ void belanja(Gudang gudang)
     int jumBar, returnValue, harga;
     addrBar beliBar;
     addrBel awal = NULL, akhir = NULL, curr;
-
-    do
+    if(katalog(gudang.root))
     {
-        printf("Beli: ");
-        scanf(" %[^\n]s", &beli);
-        printf("Jumlah: ");
-        scanf("%d", &jumBar);
-
-        while (!cekKategori(gudang.root, beli))
+        do
         {
-            printf("%s tidak ada\n", beli);
             printf("Beli: ");
             scanf(" %[^\n]s", &beli);
             printf("Jumlah: ");
             scanf("%d", &jumBar);
-        }
+
+            while (!cekKategori(gudang.root, beli))
+            {
+                printf("%s tidak ada\n", beli);
+                printf("Beli: ");
+                scanf(" %[^\n]s", &beli);
+                printf("Jumlah: ");
+                scanf("%d", &jumBar);
+            }
 
         beliBar = searchGudang(gudang.root, beli);
         if (beliBar != NULL)
         {
-            belanja(gudang, beliBar, &awal, &akhir, jumBar);
+            insertbelanja(gudang, beliBar, &awal, &akhir, jumBar);
         }
         else
         {
@@ -913,28 +914,23 @@ void belanja(Gudang gudang)
         printf("Ada lagi yang dibeli? (y/n): ");
         scanf(" %c", &lanjut);
 
-    } while (lanjut == 'y' || lanjut == 'Y');
-    system("cls");
-    puts("Struk Hafiz Market");
-    returnValue = tampilkanBelanja(awal, akhir);
-    system("pause");
-    system("cls");
-    puts("Pembayaran");
-    printf("Total harga          : Rp %d\n", returnValue);
-    printf("Masukkan jumlah uang : Rp ");
-    scanf(" %d", &harga);
-    printf("Kembalian            : Rp %d\n", harga - returnValue);
-    puts("Terima kasih sudah belanja!");
-    kurangistock(gudang, awal);
-    system("pause");
-
-    // ? Proses delete pembelian
-    curr = awal;
-    while (curr->nextBarang != NULL)
-    {
-        curr = curr->nextBarang;
-        deleteBelanja(&awal, akhir);
+        } while (lanjut == 'y' || lanjut == 'Y');
+        system("cls");
+        puts("Struk Hafiz Market");
+        returnValue = tampilkanBelanja(awal, akhir);
+        system("pause");
+        system("cls");
+        transaksi(returnValue, gudang, awal);
+        system("pause");
+        // ? Proses delete pembelian
+        curr = awal;
+        while (curr->nextBarang != NULL)
+        {
+            curr = curr->nextBarang;
+            deleteBelanja(&awal, akhir);
+        }
     }
+    
 }
 
 // ? ================================================== Modul untuk menu gudang ==============================================================

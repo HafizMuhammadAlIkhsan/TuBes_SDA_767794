@@ -86,7 +86,7 @@ void tampilBarang(addrBar node, int level);
 
 /* Modul untuk menyisipkan barang yang dibeli pembeli pada sebuah node linked list */
 addrBel alokBelanja(Gudang root, addrBar beli, int harga);
-void belanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
+void insertbelanja(Gudang root, addrBar beli, addrBel *awal, addrBel *akhir, int jumlah);
 
 /* Menampilkan barang yang dibeli */
 int tampilkanBelanja(addrBel first, addrBel last);
