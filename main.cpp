@@ -5,7 +5,7 @@ int main()
     Gudang gudang, etalase;
     addrBar hasil, beliBar;
     addrBel awal = NULL, akhir = NULL, curr;
-    int opsi, i = 1, returnValue, jumBar, harga;
+    int opsi, i, returnValue, jumBar, harga;
     char lanjut, beli[100], nama[100];
     int pil = 0;
 
@@ -66,8 +66,9 @@ int main()
                     system("pause");
                     break;
                 case 3:
+                    i = 0;
                     puts("List Barang");
-                    tampilSubKategori(gudang.root, 3, 1);
+                    tampilBarang(gudang.root, 3);
                     system("pause");
                     break;
                 case 4:

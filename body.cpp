@@ -274,7 +274,32 @@ void tampilKategori(addrBar node, int level, int i)
     addrBar current = node->fs;
     if (node == NULL)
     {
-        return;
+        printf("Tidak ada Ketegori yang bisa ditampilkan.");
+        exit(1);
+    }
+    while (current != NULL)
+    {
+        if (level == 1)
+        {
+            printf("%d. %s \n", i, current->nama);
+        }
+        else
+        {
+            tampilKategori(current, level - 1, i);
+            i++;
+        }
+        current = current->nb;
+        i++;
+    }
+}
+
+void tampilSubKategori(addrBar node, int level, int i)
+{
+    addrBar current = node->fs;
+    if (node == NULL)
+    {
+        printf("Tidak ada Sub Ketegori yang bisa ditampilkan.");
+        exit(1);
     }
     while (current != NULL)
     {
@@ -292,26 +317,35 @@ void tampilKategori(addrBar node, int level, int i)
     }
 }
 
-void tampilSubKategori(addrBar node, int level, int i)
+void tampilBarang(addrBar node, int level)
 {
     addrBar current = node->fs;
+    static int tempNumber = 1;
+    static int resetTempNumber = 0;     //digunakan untuk mereset tempNumber kembali menjadi 1 saat dipanggil kembali pada main
+
     if (node == NULL)
     {
-        return;
+        printf("Tidak ada Barang yang bisa ditampilkan.");
+        exit(1);
     }
-    while (current != NULL)
+    resetTempNumber++;
+    if (level == 0)
     {
-        if (level == 1)
+        printf("%d. %s \n", tempNumber, node->nama);
+        tempNumber++;
+    }
+    else
+    {
+        while (current != NULL)
         {
-            printf("%d. %s \n", i, current->nama);
+            tampilBarang(current, level - 1);
+            current = current->nb;
         }
-        else
-        {
-            tampilSubKategori(current, level - 1, i);
-            i++;
-        }
-        current = current->nb;
-        i++;
+    }
+    resetTempNumber--;
+    if (resetTempNumber == 0)
+    {
+        tempNumber = 1;
     }
 }
 
