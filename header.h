@@ -105,6 +105,17 @@ void tampilkan_katalog(addrBar root, int arah, int arahsub);
 int previous(addrBar current, int current_page);
 
 void transaksi(int Total, Gudang root, addrBel awal);
+
+// ? ====================================================== Menu pada gudang =========================================================
+
+void tambahKategori(Gudang gudang);
+
+void tambahBarangBaru(Gudang gudang);
+
+void tambahStokBarang(Gudang gudang);
+
+void tampilkanStokBarang(Gudang gudang);
+
 /*==========================================================Currently not In use==========================================================*/
 
 void tambahStockEtalase(addrBar etalase, addrBar gudang, int level);
