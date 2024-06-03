@@ -889,7 +889,7 @@ void lihatBarang(Gudang gudang)
 void belanja(Gudang gudang)
 {
     char beli[256], lanjut;
-    int jumBar, returnValue, harga;
+    int jumlahBarang, returnValue, harga;
     addrBar beliBar;
     addrBel awal = NULL, akhir = NULL, curr;
     if(katalog(gudang.root))
@@ -899,7 +899,7 @@ void belanja(Gudang gudang)
             printf("Beli: ");
             scanf(" %[^\n]s", &beli);
             printf("Jumlah: ");
-            scanf("%d", &jumBar);
+            scanf("%d", &jumlahBarang);
 
             while (!cekKategori(gudang.root, beli))
             {
@@ -907,13 +907,13 @@ void belanja(Gudang gudang)
                 printf("Beli: ");
                 scanf(" %[^\n]s", &beli);
                 printf("Jumlah: ");
-                scanf("%d", &jumBar);
+                scanf("%d", &jumlahBarang);
             }
         
         beliBar = searchGudang(gudang.root, beli);
         if (beliBar != NULL)
         {
-            insertbelanja(gudang, beliBar, &awal, &akhir, jumBar);
+            insertbelanja(gudang, beliBar, &awal, &akhir, jumlahBarang);
         }
         else
         {
