@@ -331,11 +331,25 @@ void tampilBarang(addrBar node, int level)
     {
         if (tempNumber >= 10)
         {
-            printf("%-2d. %-20s Jumlah stok: %d\n", tempNumber, node->nama, node->jumlah);
+            if (node->jumlah == 0)
+            {
+                printf("%-2d. %-20s Jumlah stok: %s%d%s\n", tempNumber, node->nama, red, node->jumlah, normal);
+            }
+            else  
+            {
+                printf("%-2d. %-20s Jumlah stok: %s%d%s\n", tempNumber, node->nama, green, node->jumlah, normal);
+            }
         }
         else
         {
-            printf("%d. %-21s Jumlah stok: %d\n", tempNumber, node->nama, node->jumlah);
+            if (node->jumlah == 0)
+            {
+                printf("%d. %-21s Jumlah stok: %s%d%s\n", tempNumber, node->nama, red, node->jumlah, normal);
+            }
+            else  
+            {
+                printf("%d. %-21s Jumlah stok: %s%d%s\n", tempNumber, node->nama, green, node->jumlah, normal);
+            }
         }
         tempNumber++;
     }
@@ -476,7 +490,7 @@ addrBar searchGudang(addrBar root, char cariGudang[])
     addrBar p = root;
     bool resmi = true;
     if (strcasecmp(p->nama, cariGudang) == 0)
-    {
+    {        
         return p;
     }
     do
@@ -895,7 +909,7 @@ void belanja(Gudang gudang)
                 printf("Jumlah: ");
                 scanf("%d", &jumBar);
             }
-
+        
         beliBar = searchGudang(gudang.root, beli);
         if (beliBar != NULL)
         {
