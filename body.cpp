@@ -911,6 +911,11 @@ void belanja(Gudang gudang)
             }
         
         beliBar = searchGudang(gudang.root, beli);
+        if (beliBar->jumlah == 0)
+        {
+           puts("Stok barang habis");
+        }
+        
         if (beliBar != NULL)
         {
             insertbelanja(gudang, beliBar, &awal, &akhir, jumlahBarang);
