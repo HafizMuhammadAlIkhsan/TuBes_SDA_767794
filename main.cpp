@@ -35,6 +35,7 @@ int main()
         puts("(2) Menu Gudang");
         puts("(0) Keluar program");
 
+        printf("\nInputan berupa angka!\n");
         printf("Pilih opsi: ");
         scanf("%d", &opsi);
         switch (opsi)
@@ -63,6 +64,7 @@ int main()
                 puts("4. Belanja");
                 puts("0. Pergi");
 
+                printf("\nInputan berupa angka!\n");
                 printf("Pilih opsi: ");
                 scanf("%d", &opsi);
                 puts("");
@@ -110,6 +112,7 @@ int main()
                 puts("(4) Tampilkan stok barang");
                 puts("(0) Kembali");
 
+                printf("\nInputan berupa angka!\n");
                 printf("Pilih opsi: ");
                 scanf("%d", &opsi);
 
@@ -147,4 +150,5 @@ int main()
             break;
         }
     } while (opsi != 0);
+    updateData(gudang.root);
 }

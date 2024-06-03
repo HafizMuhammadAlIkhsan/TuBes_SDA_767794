@@ -915,7 +915,7 @@ void belanja(Gudang gudang)
         {
            puts("Stok barang habis");
         }
-        
+
         if (beliBar != NULL)
         {
             insertbelanja(gudang, beliBar, &awal, &akhir, jumlahBarang);
@@ -960,7 +960,7 @@ void tambahKategori(Gudang gudang)
         puts("(1) Tambah Kategori");
         puts("(2) Tambah Sub Kategori");
         puts("(0) Kembali");
-
+        printf("\nInputan berupa angka!\n");
         printf("Pilih opsi: ");
         scanf("%d", &opsi);
         switch (opsi)
