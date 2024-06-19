@@ -914,6 +914,8 @@ void belanja(Gudang gudang)
         if (beliBar->jumlah == 0)
         {
            puts("Stok barang habis");
+           system("pause");
+           belanja(gudang);
         }
 
         if (beliBar != NULL)
