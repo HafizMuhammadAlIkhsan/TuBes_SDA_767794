@@ -886,7 +886,7 @@ void lihatBarang(Gudang gudang)
     system("pause");
 }
 
-void belanja(Gudang gudang)
+bool belanja(Gudang gudang)
 {
     char beli[256], lanjut;
     int jumlahBarang, returnValue, harga;
@@ -915,7 +915,7 @@ void belanja(Gudang gudang)
         {
            puts("Stok barang habis");
            system("pause");
-           belanja(gudang);
+           return false;
         }
 
         if (beliBar != NULL)
@@ -946,7 +946,7 @@ void belanja(Gudang gudang)
             deleteBelanja(&awal, akhir);
         }
     }
-    
+    return true;
 }
 
 // ? ================================================== Modul untuk menu gudang ==============================================================

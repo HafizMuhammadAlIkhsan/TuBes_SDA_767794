@@ -114,7 +114,7 @@ void lihatSubKategori(Gudang gudang);
 
 void lihatBarang(Gudang gudang);
 
-void belanja(Gudang gudang);
+bool belanja(Gudang gudang);
 
 // ? ====================================================== Menu pada gudang =========================================================
 

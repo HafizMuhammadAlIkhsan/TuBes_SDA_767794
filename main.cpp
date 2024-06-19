@@ -4,6 +4,7 @@ int main()
 {
     Gudang gudang, etalase;
     addrBar hasil, beliBar;
+    bool kasir;
     int opsi, i, returnValue, jumBar, harga;
     char lanjut, beli[100], nama[100];
     int pil = 0;
@@ -80,7 +81,10 @@ int main()
                     lihatBarang(gudang);
                     break;
                 case 4:
-                    belanja(gudang);
+                    do
+                    {
+                        kasir = belanja(gudang);
+                    } while (kasir == false);
                     break;
                 default:
                     printf("Inputkan salah satu opsi di atas!\n");
